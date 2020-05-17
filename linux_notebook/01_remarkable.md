@@ -9,6 +9,7 @@ i'm getting to the point where i can work on ubuntu just as efficiently as i cou
 	- the default gnome desktop comes with an acceptable split screen (1+1) function, but i often like a 1+2 or 1+3 split where i have my text editor on one side and simulation+shell+file manager on the other.
 	
 		> yes i agree workspaces are amazing but sometimes i wanna visualize a lot of things at once yknow
+		
 	- found really cool tile managers like [i3](https://i3wm.org/) and [awesomewm](https://awesomewm.org/), but not really sure how much of a hassle those are to set up or how much trouble that might cost me in the future.
 	- from my naive review of other people's workflows, things like tmux are less intrusive on my system (and come with a lot of other functionality that carries across machines).
 	- i think for now im ok with just the 1+1 split that comes with gnome (that might also force me to get more comfortable with bash) and manually organizing windows for when i want multiple shells / simulations / other programs running on the same workspace.
