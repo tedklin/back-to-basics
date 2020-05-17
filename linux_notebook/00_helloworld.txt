@@ -1,0 +1,58 @@
+entry 00 - my transition to ubuntu!
+
+i apologize in advance for the use of plaintext but im not in the mood make this pretty...
+
+- getting swept up in the hype
+	- watched hours of people blazing through work in linux with just terminals (vim and tmux ftw)
+		- i aspire to be that someday but i only got 3 months to get as comfortable as i can in c++ and ros
+	- read hundreds of reddit posts about people's c++ dev setups in linux
+		- lots of cool plugins and tools but i gotta start from the ground up
+
+- learning linux and bash basics
+	- read the first third of the linux scripting bible
+		- finally learned what the 'r' and 'f' in rm -rf stand for!
+		- it was interesting to see all the parallels between bash commands and library utils from higher-level languages like java
+			- especially working with files
+			- makes sense for libraries to emulate what people are familiar with
+	- kinda paranoid about accidentally ruining my linux system but i got a whole 3 months to make mistakes and start over
+
+time to boot up ubuntu!
+
+- got familiar with gnome
+	- not too big of a change from mac
+	- spent hours in gnome-tweaks lol
+	- gnome extensions are so useful!
+		- nice weather displays, workspace indicators, appfolders
+	- workspace navigation is taking some getting used to but im getting there
+	- what i miss from mac (yay for short list)
+		- desktop organization (probably gonna figure out how to do this better in ubuntu at some point)
+		- trackpad gestures (for now ill see how fast ill get with replacement keyboard shortcuts)
+
+- software installation
+	- essentials (spotify, discord, sublime)
+		- matlab (all 36gb of available toolboxes from cal :0)
+	- jetbrains toolbox
+	- fun utilities (ulauncher, flameshot, neofetch, peek)
+		- learned about ppa
+		- storytime about flameshot
+			- tried to map the print key to flameshot, but had to free up print key from the default screenshot tool
+			- i thought 'let me just spam the keyboard to come up with a keystroke combo ill never touch'
+			- ended up shutting down system entirely
+				- i still dont really know what i did, but the screen just showed a single blinking cursor and i couldnt do anything
+			- the spoiled mac user in me went into full panic mode for a hot second
+			- i may not know much about IT, but i do know 'turn it off and on again'
+			- after a solid 5 minutes of fiddling with the power button, it finally rebooted
+			- went into a BIOS firmware update for some reason?
+			- still in semi panic mode
+			- sorry i really don't know how computers actually work (yay for 61c next semester)
+			- after a tense 10 minutes, i finally got back to my login screen and everything was unchanged
+			- this is gonna be a fun ride
+			- the end.
+
+- copied all stuff over from onedrive
+	- all the auto-sync systems i saw had bugs
+	- don't wanna lose my cloud files so just gonna manually upload :(
+
+
+felt like a productive day! 
+hopefully the next notebook entry will be formatted more nicely (hi markdown)
