@@ -28,12 +28,10 @@ i'm getting to the point where i can work on ubuntu just as efficiently as i cou
 	- the mouse has a solid 8 buttons (i never even imagined a scrollwheel could pack in 4 on its own)
 	- so another thing on my TODO is figuring out custom mouse bindings (and how much i want to rely on those for my workflow)
 	
-	> a big thing i'm keeping at the forefront of my mind with all this shortcut stuff is how much customization i'm making. 
+a big thing i'm keeping at the forefront of my mind with all this shortcut stuff is how much customization i'm making. 
 	
-	> - do i really need a bunch of bash aliases or will that make me unable to do simple stuff on a system that doesn't have my dotfiles? i know dotfiles are ultra portable but i feel like i need to have a solid grounding in low-level stuff before i go ham with customization. 
-	> - also a driving force behind why i want to get good at vim eventually: so i can work on pretty much any machine that i encounter (yay for headless machines).
-	
-	> btw i know these blockquotes are supposed to be for quotes (wait are they?) but they look so aesthetic that i can't *not* put them in. 
+- do i really need a bunch of bash aliases or will that make me unable to do simple stuff on a system that doesn't have my dotfiles? i know dotfiles are ultra portable but i feel like i need to have a solid grounding in low-level stuff before i go ham with customization. 
+- also a driving force behind why i want to get good at vim eventually: so i can work on pretty much any machine that i encounter (yay for headless machines).
 
 ## markdown
 
