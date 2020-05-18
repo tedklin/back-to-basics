@@ -35,11 +35,12 @@ a big thing i'm keeping at the forefront of my mind with all this shortcut stuff
 
 ## markdown
 
-- i downloaded a really cool sublime package for markdown! then i realized that i'm comfortable enough with markdown to edit it without a live preview.
+- i downloaded a really cool sublime package for markdown! then i realized that i'm not comfortable enough with markdown to edit it without a live preview.
 
 - enter [Remarkable](http://remarkableapp.github.io)! 
 
 - i didn't even know i can *do this*:
+
 $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
 
 > *mathjax* / *latex* / general formatting and editing stuff is also on my long list of things to learn. i think i'll get to practice these in upper div ee courses.
