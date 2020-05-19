@@ -23,7 +23,7 @@ i'm getting to the point where i can work on ubuntu just as efficiently as i cou
 
 3. mouse
 	- the laptop im working on right now (dell xps 13 9300 flex) has been pretty much perfect for me so far. the optimized form factor is both portable and aesthetically pleasing af.
-	- only thing is the **trackpad** is soooooo **tiny** (it's as big as it could be and horizontally it's more than enough. but vertically? nah fam i'm avoiding that pitfall) and my **hands** are **big**
+	- only thing is the **trackpad** is soooooo **tiny** (it's as big as it could be and horizontally it's more than enough. but vertically? nah fam i'm not using that) and my **hands** are **big**
 	- luckily i got a decent cheap wireless mouse that's working well, but i miss all of the shortcuts i could do with my mac's trackpad.
 	- the mouse has a solid 8 buttons (i never even imagined a scrollwheel could pack in 4 on its own)
 	- so another thing on my TODO is figuring out custom mouse bindings (and how much i want to rely on those for my workflow)
@@ -43,9 +43,9 @@ a big thing i'm keeping at the forefront of my mind with all this shortcut stuff
 
 $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
 
-> *mathjax* / *latex* / general formatting and editing stuff is also on my long list of things to learn. i think i'll get to practice these in upper div ee courses.
+> *mathjax* / *latex* / general formatting and editing stuff is also on my long list of things to learn. i think i'll get to practice these in cs70 and other upper-div ee courses. and yes i know it doesn't render on github :(
 
-- i also didn't know you could specify language for blocks of code (oops):
+- i also didn't know you could specify language for blocks of code (?):
 
 ~~~java
 public static void main (String[] args) {
