@@ -13,7 +13,7 @@
 - [const qualifier (2.4)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#const-qualifier-24)
   - constant expressions
 - [dealing with types (2.5)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
-  - auto, decltype
+  - type aliasing, auto, decltype
 - [introductory data structure creation (2.6)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
   - headers
 
