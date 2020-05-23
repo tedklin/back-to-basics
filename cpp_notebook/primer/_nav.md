@@ -27,3 +27,9 @@
 - [built-in arrays (3.5)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
   - pointers and arrays
 - [multi-dimensional arrays (3.6)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#multi-dimensional-arrays-36)
+
+## [chapter 4: expressions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md)
+
+- lvalues vs rvalues
+- implicit and explicit (casting) type conversions
+- various operators
