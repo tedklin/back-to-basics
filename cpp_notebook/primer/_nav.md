@@ -28,7 +28,7 @@ Most section names are self-explanatory. I included max one bullet point for eac
 - [library *vector* type (3.3)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-vector-type-33)
 - [intro to iterators (3.4)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#intro-to-iterators-34)
 - [built-in arrays (3.5)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
-  - pointers and arrays
+  - pointers and arrays, pointer arithmetic
 - [multi-dimensional arrays (3.6)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#multi-dimensional-arrays-36)
 
 ## [chapter 4: expressions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md)
