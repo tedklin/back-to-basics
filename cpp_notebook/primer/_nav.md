@@ -1,6 +1,6 @@
 # Navigation for my notes on Primer
 
-Most section names are self-explanatory. I included max one bullet point for each section that sums up critical and/or new concepts that may not be evident from the title (the goal is to just ctrl+F stuff that I'm not completely familiar with).
+Most section names are self-explanatory. I included max one bullet point for each section that sums up critical and/or new concepts that may not be evident from the section title (the goal is to just ctrl+F stuff that I'm not completely familiar with).
 
 ## [chapter 1: getting started](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-01.md)
 
@@ -8,28 +8,28 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 2: variables and basic types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md)
 
-- [primitive built-in types (2.1)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#primitive-built-in-types-21)
+- [primitive built-in types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#primitive-built-in-types-21)
   - conversion rules, literals
-- [variables (2.2)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#variables-22)
+- [variables](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#variables-22)
   - initialization, declaration, definition
-- [compound types (2.3)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#compound-types-23)
+- [compound types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#compound-types-23)
   - references, pointers
-- [const qualifier (2.4)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#const-qualifier-24)
+- [const qualifier](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#const-qualifier-24)
   - compound types with const, constant expressions
-- [dealing with types (2.5)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
+- [dealing with types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
   - type aliasing, auto, decltype
-- [introductory data structure creation (2.6)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
+- [introductory data structure creation)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
   - headers
 
 ## [chapter 3: strings, vectors, and arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md)
 
-- [namespace *using* declarations (3.1)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#namespace-using-declarations-31)
-- [library *string* type (3.2)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-string-type-32)
-- [library *vector* type (3.3)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-vector-type-33)
-- [intro to iterators (3.4)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#intro-to-iterators-34)
-- [built-in arrays (3.5)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
+- [namespace *using* declarations](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#namespace-using-declarations-31)
+- [library *string* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-string-type-32)
+- [library *vector* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-vector-type-33)
+- [intro to iterators](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#intro-to-iterators-34)
+- [built-in arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
   - pointers and arrays, pointer arithmetic
-- [multi-dimensional arrays (3.6)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#multi-dimensional-arrays-36)
+- [multi-dimensional arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#multi-dimensional-arrays-36)
 
 ## [chapter 4: expressions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md)
 
@@ -44,3 +44,15 @@ Most section names are self-explanatory. I included max one bullet point for eac
 - [control structures](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-05.md#control-structures)
   - range-based for loop
 - [intro exception handling](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-05.md#intro-to-exception-handling)
+
+## [chapter 6: functions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md)
+
+- [basics](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#basics-61)
+  - function call execution, scope and lifetime, local objects (automatic and static), function prototypes
+- [argument passing](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#argument-passing-62)
+- [return](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#return-63)
+- [overloading](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#overloaded-functions-64)
+- [other features](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#other-features-65)
+  - default arguments, inline and constexpr functions, assert and other debugging aids
+- [function matching](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#function-matching-66)
+- [pointers to functions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#pointers-to-functions-67)
