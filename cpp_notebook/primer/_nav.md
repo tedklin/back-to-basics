@@ -4,8 +4,6 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 1: getting started](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-01.md)
 
-- [iostream and misc starting info](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-01.md#chapter-1-getting-started)
-
 ## [chapter 2: variables and basic types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md)
 
 - [primitive built-in types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#primitive-built-in-types-21)
@@ -18,8 +16,8 @@ Most section names are self-explanatory. I included max one bullet point for eac
   - compound types with const, constant expressions
 - [dealing with types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
   - type aliasing, auto, decltype
-- [introductory data structure creation)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
-  - headers
+- [introductory data structure creation](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
+  - struct, header guards
 
 ## [chapter 3: strings, vectors, and arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md)
 
@@ -34,21 +32,21 @@ Most section names are self-explanatory. I included max one bullet point for eac
 ## [chapter 4: expressions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md)
 
 - lvalues vs rvalues
-- [implicit and explicit type conversions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md#type-conversions)
+- [type conversions (implicit and explicit)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md#type-conversions)
   - casting
 - [various operators](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md#specific-operators)
-  - *sizeof*, prefix/postfix increment/decrement
+  - prefix/postfix increment/decrement, *sizeof*
 
 ## [chapter 5: statements](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-05.md)
 
 - [control structures](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-05.md#control-structures)
-  - range-based for loop
+  - range for loop
 - [intro exception handling](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-05.md#intro-to-exception-handling)
 
 ## [chapter 6: functions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md)
 
 - [basics](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#basics-61)
-  - function call execution, scope and lifetime, local objects (automatic and static), function prototypes
+  - call execution, scope and lifetime, local objects (automatic and static), function prototypes
 - [argument passing](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#argument-passing-62)
 - [return](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#return-63)
 - [overloading](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#overloaded-functions-64)
