@@ -23,6 +23,7 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 - [namespace *using* declarations](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#namespace-using-declarations-31)
 - [library *string* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-string-type-32)
+  - initialization forms
 - [library *vector* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-vector-type-33)
 - [intro to iterators](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#intro-to-iterators-34)
 - [built-in arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
@@ -54,3 +55,17 @@ Most section names are self-explanatory. I included max one bullet point for eac
   - default arguments, inline and constexpr functions, assert and other debugging aids
 - [function matching](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#function-matching-66)
 - [pointers to functions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-06.md#pointers-to-functions-67)
+
+## [chapter 7: classes](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md)
+
+- [member functions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#member-functions)
+  - *this*
+- [constructors](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#constructors)
+- [access control and encapsulation](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#access-control-and-encapsulation)
+  - friends
+- [additional class features](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#additional-class-features)
+  - type members, mutable, forward declarations, implicit conversions
+- [class scope](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#class-scope)
+  - order of name lookup
+- [static class members](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#static-class-members)
+- [creating class objects](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#creating-class-objects)
