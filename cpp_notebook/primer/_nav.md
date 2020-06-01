@@ -17,7 +17,7 @@ Most section names are self-explanatory. I included max one bullet point for eac
 - [dealing with types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
   - type aliasing, auto, decltype
 - [introductory data structure creation](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#introductory-data-structure-creation-26)
-  - struct, header guards
+  - header guards
 
 ## [chapter 3: strings, vectors, and arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md)
 
@@ -69,3 +69,6 @@ Most section names are self-explanatory. I included max one bullet point for eac
   - order of name lookup
 - [static class members](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#static-class-members)
 - [creating class objects](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#creating-class-objects)
+
+## [chapter 9: sequential containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-09.md)
+
