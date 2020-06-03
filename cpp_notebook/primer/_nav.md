@@ -72,3 +72,5 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 9: sequential containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-09.md)
 
+## [chapter 11: associative containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-11.md)
+
