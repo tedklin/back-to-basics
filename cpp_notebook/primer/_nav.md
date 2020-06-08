@@ -23,7 +23,6 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 - [namespace *using* declarations](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#namespace-using-declarations-31)
 - [library *string* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-string-type-32)
-  - initialization forms
 - [library *vector* type](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#library-vector-type-33)
 - [intro to iterators](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#intro-to-iterators-34)
 - [built-in arrays](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-03.md#built-in-arrays-35)
