@@ -1,4 +1,4 @@
-# navigation for my notes on Primer
+# navigation for my notes on C++ Primer (Lippman)
 
 Most section names are self-explanatory. I included max one bullet point for each section that sums up critical and/or new concepts that may not be evident from the section title (the goal is to just ctrl+f stuff that I'm not completely familiar with).
 
