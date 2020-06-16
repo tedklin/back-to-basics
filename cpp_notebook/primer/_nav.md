@@ -73,3 +73,10 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 11: associative containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-11.md)
 
+## [chapter 12: dynamic memory](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-12.md)
+
+## [chapter 13: copy control](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-13.md)
+
+## [chapter 15: object-oriented programming](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-15.md)
+
+## [chapter 16: templates and generic programming](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-16.md)
