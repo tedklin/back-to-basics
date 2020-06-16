@@ -1,6 +1,8 @@
-# Navigation for my notes on Primer
+# navigation for my notes on Primer
 
-Most section names are self-explanatory. I included max one bullet point for each section that sums up critical and/or new concepts that may not be evident from the section title (the goal is to just ctrl+F stuff that I'm not completely familiar with).
+Most section names are self-explanatory. I included max one bullet point for each section that sums up critical and/or new concepts that may not be evident from the section title (the goal is to just ctrl+f stuff that I'm not completely familiar with).
+
+# c++ basics
 
 ## [chapter 1: getting started](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-01.md)
 
@@ -69,13 +71,23 @@ Most section names are self-explanatory. I included max one bullet point for eac
 - [static class members](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#static-class-members)
 - [creating class objects](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-07.md#creating-class-objects)
 
+# the c++ library
+
+## chapter 8: io
+
 ## [chapter 9: sequential containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-09.md)
+
+## chapter 10: generic algorithms
 
 ## [chapter 11: associative containers](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-11.md)
 
 ## [chapter 12: dynamic memory](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-12.md)
 
+# tools for class authors
+
 ## [chapter 13: copy control](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-13.md)
+
+## chapter 14: overloaded operations and conversions
 
 ## [chapter 15: object-oriented programming](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-15.md)
 
