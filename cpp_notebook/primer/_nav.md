@@ -13,7 +13,7 @@ Most section names are self-explanatory. I included max one bullet point for eac
 - [variables](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#variables-22)
   - initialization, declaration, definition
 - [compound types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#compound-types-23)
-  - references, pointers
+  - (lvalue) references, pointers
 - [const qualifier](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#const-qualifier-24)
   - compound types with const, constant expressions
 - [dealing with types](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-02.md#dealing-with-types-25)
@@ -33,7 +33,7 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 4: expressions](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md)
 
-- lvalues vs rvalues
+- lvalues vs rvalues (and value categories in general)
 - [type conversions (implicit and explicit)](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md#type-conversions)
   - casting
 - [various operators](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-04.md#specific-operators)
@@ -83,9 +83,13 @@ Most section names are self-explanatory. I included max one bullet point for eac
 
 ## [chapter 12: dynamic memory](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-12.md)
 
+- smart pointers
+
 # tools for class authors
 
-## [chapter 13: copy control](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-13.md)
+## [chapter 13: copy control and move semantics](https://github.com/tedklin/pseudoblog/blob/master/cpp_notebook/primer/ch-13.md)
+
+- rvalue references
 
 ## chapter 14: overloaded operations and conversions
 
