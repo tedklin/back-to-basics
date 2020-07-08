@@ -1,6 +1,6 @@
 # Back to basics
 
-This is an informal compilation of notes and exercises for fundamental skills I'm self-studying, divided into subjects and subdivided into sources.
+This is an informal compilation of notes and exercises for fundamental topics and skills I'm self-studying, divided into subjects and subdivided into sources.
 
 ## Content
 
@@ -15,7 +15,9 @@ This is an informal compilation of notes and exercises for fundamental skills I'
 
 ### "Write that down, write that down!"
 
-There are several places in my notes where I directly copy and paste content (I pinky promise this is not because I'm lazy or have plagiaristic tendencies). Proper wording is often important, and I don't want anything lost in translation. External sources are also sprinkled throughout my notes. They are credited / linked to for their information; otherwise, the information comes from the author(s) of the primary material I'm studying. 
+There are several places in my notes where I directly copy and paste content (I pinky promise this is not because I'm lazy or have plagiaristic tendencies). Proper wording is often important, and I don't want anything lost in translation.
+
+External sources are also sprinkled throughout my notes. They are credited / linked to for their information; otherwise, the information comes from the author(s) of the primary material I'm studying.
 
 ***I take no credit whatsoever for any information that appears in this repo.***
 
