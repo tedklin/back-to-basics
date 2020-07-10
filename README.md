@@ -6,6 +6,7 @@ This is an informal compilation of notes and exercises for fundamental topics an
 
 - Algorithms
     - Skiena - The Algorithm Design Manual, 2nd Ed.
+    - Selected Leetcode exercises
 - C++
     - Lippman, Lajoie, Moo - C++ Primer, 5th Ed.
 - ROS
@@ -26,6 +27,6 @@ External sources are also sprinkled throughout my notes. They are credited / lin
 
 ### "The risk I took was calculated, but man, am I bad at math"
 
-I always attempt exercises myself first, but I also always look for better solutions than what I came up with originally (because there are almost always better solutions). If I find better-performing or more elegant solutions in places other than my own noggin, I embed the appropriate credits in the exercise; otherwise, the work in the exercises is my own. 
+I always attempt exercises myself first. If I find better-performing or more elegant solutions from someone/somewhere else, I embed the appropriate credits in the exercise; otherwise, the work in the exercises is my own. 
 
 ***There is no guarantee that anything in this repo is optimal or even correct.*** but I try :)
