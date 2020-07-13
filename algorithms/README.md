@@ -10,6 +10,13 @@ Taking all of that into consideration, I plan to:
 
 For most exercises, I assume anything in the C++ STL is fair game for use.
 
-# Various notes / resources
+## Currently implemented
+
+- basics/
+    - Basic data structure manipulation / usage.
+- graphs/
+    - A custom self-contained graph library based on concepts in Skiena but with more intuitive data structures from STL.
+
+## Various notes / resources
 
 https://algs4.cs.princeton.edu/cheatsheet/
