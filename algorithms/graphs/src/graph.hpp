@@ -1,7 +1,7 @@
 /**
  * This is my attempt at defining a graph class type completely from scratch,
  * based on concepts in Skiena but using different underlying data structures.
- * The primary goal is to be as intuitive as possible, with the potential
+ * The primary goal is to be as intuitive as possible, at the potential
  * expense of space overhead.
  *
  * The concept of weights is supported but optional. Unweighted graphs simply
@@ -25,7 +25,7 @@
         B -> (none)
         C -> E
         D -> A, E
-        E -> A, D, C
+        E -> A, C, D
 
   =============================================================================
 
@@ -33,17 +33,16 @@
   floating point weight. Note that vertex weights are a separate concept from
   edge weights, which we will see below.
 
-  The "Graph" class defines an "AdjacencyList" typename (unordered_map<Vertex,
-  EdgeSet>), which maps each vertex of a graph to a corresponding "EdgeSet"
-  type. Note that the set of keys in the "AdjacencyList" represents the set of
-  all vertices in the graph.
+  The "Graph" class defines an "AdjacencyList" typename (map<Vertex, EdgeSet>),
+  which maps each vertex of a graph to a corresponding "EdgeSet" type. Note that
+  the set of keys in the "AdjacencyList" represents the set of all vertices in
+  the graph.
 
-  The "Graph" class also defines the "EdgeSet" typename (unordered_map<Vertex,
-  double>), which represents the set of neighboring vertices with edges to an
-  arbitrary "source" vertex (the "source" vertex is defined by the AdjacencyList
-  key to which an EdgeSet is bound). The underlying data structure for the
-  EdgeSet type is a map to support associating edges with floating point
-  weights.
+  The "Graph" class also defines the "EdgeSet" typename (map<Vertex, double>),
+  which represents the set of neighboring vertices with edges to an arbitrary
+  "source" vertex (the "source" vertex is defined by the AdjacencyList key to
+  which an EdgeSet is bound). The underlying data structure for the EdgeSet type
+  is a map to support associating edges with floating point weights.
 
   Thus, the adjacency list in the example above could be thought of abstractly
   as the following literal representation:
@@ -53,7 +52,7 @@
         {B, {}},
         {C, {E}},
         {D, {A, E}},
-        {E, {A, D, C}}
+        {E, {A, C, D}}
     }
 
   The actual underlying AdjacencyList structure stored by the class (includes
@@ -65,7 +64,7 @@
         {B, {}},
         {C, {{E, 1}}},
         {D, {{A, 1}, {E, 1}}},
-        {E, {{A, 1}, {D, 1}, {C, 1}}}
+        {E, {{A, 1}, {C, 1}, {D, 1}}}
     }
 
   Both can be passed in as a literal initializers for the "Graph" class, with
@@ -90,10 +89,9 @@
 
  */
 
-#include <iostream>  // TODO: remove
+#include <map>
+#include <set>
 #include <string>
-#include <unordered_map>
-#include <unordered_set>
 
 struct Vertex {
   enum State { UNDISCOVERED, DISCOVERED, PROCESSED };
@@ -118,7 +116,8 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
   return !operator==(lhs, rhs);
 }
 
-// Overload std::hash for our self-defined Vertex type.
+// To use unordered_map as our underlying data structure, we must overload
+// std::hash with our self-defined Vertex type.
 // https://en.cppreference.com/w/cpp/container/unordered_map/unordered_map
 namespace std {
 template <>
@@ -129,76 +128,36 @@ struct hash<Vertex> {
 };
 }  // namespace std
 
-// TODO: bfs, dfs
 class Graph {
  public:
-  using EdgeSet = std::unordered_map<Vertex, double>;
-  using AdjacencyList = std::unordered_map<Vertex, EdgeSet>;
+  // Underlying data structure can be swapped to unordered_map by changing the
+  // following four typenames.
+  using EdgeSet = std::map<Vertex, double>;
+  using AdjacencyList = std::map<Vertex, EdgeSet>;
 
-  // Convenience typename used for user input; not actual underlying type.
-  using InputUnweightedAL =
-      std::unordered_map<Vertex, std::unordered_set<Vertex>>;
+  // Convenience typenames used for user input; not actual underlying type.
+  using InputUnweightedAL = std::map<Vertex, std::set<Vertex>>;
+  using InputVertexSet = std::set<Vertex>;
 
-  Graph(bool is_directed) : is_directed_(is_directed) {}
+  Graph(bool is_directed);
 
   // Creates a graph given only a set of vertices, no edges.
-  Graph(const std::unordered_set<Vertex>& vertex_set, bool is_directed)
-      : is_directed_(is_directed) {
-    for (const Vertex& v : vertex_set) {
-      add_vertex(v);
-    }
-  }
+  Graph(const InputVertexSet& vertex_set, bool is_directed);
 
   // Creates a graph without specified edge weights.
-  Graph(InputUnweightedAL unweighted_al, bool is_directed)
-      : is_directed_(is_directed) {
-    for (const auto& p : unweighted_al) {
-      Vertex source = p.first;
-      add_vertex(source);
-      for (const Vertex& dest : p.second) {
-        add_edge(source, dest);
-      }
-    }
-  }
+  Graph(InputUnweightedAL unweighted_al, bool is_directed);
 
-  Graph(AdjacencyList adjacency_list, bool is_directed)
-      : adjacency_list_(adjacency_list), is_directed_(is_directed) {}
+  // Creates a fully specified weighted graph.
+  Graph(AdjacencyList adjacency_list, bool is_directed);
+
+  void add_vertex(const Vertex& v);
 
   void add_edge(const Vertex& source, const Vertex& dest,
-                double edge_weight = 1) {
-    add_vertex(source);
-    add_vertex(dest);
+                double edge_weight = 1);
 
-    adjacency_list_[source][dest] = edge_weight;
-    if (!is_directed_) {
-      adjacency_list_[dest][source] = edge_weight;
-    }
-  }
+  std::string vertex_set_str() const;
 
-  void add_vertex(const Vertex& v) { adjacency_list_[v]; }
-
-  std::string vertex_set_str() const {
-    std::string s("Vertex set:\n");
-    for (const auto& p : adjacency_list_) {
-      s += p.first.name_ + " | ";
-    }
-    s += '\n';
-    return s;
-  }
-
-  std::string adjacency_list_str() const {
-    std::string s("Adjacency list:\n");
-    for (const auto& p : adjacency_list_) {
-      s += p.first.name_ + " -> ";
-      for (const auto& e : p.second) {
-        // recall e.second is weight
-        s += e.first.name_ + "(" + std::to_string(e.second) + ") | ";
-      }
-      s += '\n';
-    }
-    s += '\n';
-    return s;
-  }
+  std::string adjacency_list_str() const;
 
  private:
   AdjacencyList adjacency_list_;
