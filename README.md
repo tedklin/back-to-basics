@@ -6,10 +6,9 @@ This is an informal compilation of notes and exercises for fundamental topics an
 
 - Algorithms
     - *Skiena - The Algorithm Design Manual, 2nd Ed.*
-    - Selected Leetcode exercises
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
-- ROS
+- ROS (Robot Operating System)
     - ETH Zurich - Programming for Robotics, ROS (online course)
 
 
