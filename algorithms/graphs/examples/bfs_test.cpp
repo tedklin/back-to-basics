@@ -31,13 +31,13 @@ void bfs_traverse_check() {
       {A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};
   Graph graph(input_al, false);
 
-  std::cout << "Untraversed graph " << graph.vertex_set_str() << "\n";
+  std::cout << "Untraversed graph\n" << graph.vertex_set_str() << "\n";
 
   graphlib::bfs(&graph, A, graphlib::print_vertex, nullptr, nullptr);
 
   // Here we're expecting all vertices in the same connected component as Vertex
   // A to be in state PROCESSED (2).
-  std::cout << "\nTraversed graph " << graph.vertex_set_str() << "\n\n";
+  std::cout << "\nTraversed graph\n" << graph.vertex_set_str() << "\n\n";
 }
 
 void print_shortest_path() {
@@ -74,6 +74,10 @@ void print_connected_components() {
     std::cout << "\n";
     ++i;
   }
+}
+
+void is_bipartite() {
+  // TODO: test this
 }
 
 int main() {

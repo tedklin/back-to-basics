@@ -78,11 +78,14 @@ std::stack<Vertex> shortest_path(Graph* graph, Vertex search_root,
   return s;
 }
 
-// Global component variable to circumvent inability to pass capturing lambdas
-// as function pointers. Remember to clear after each use.
+// Global component variables to circumvent inability to pass capturing lambdas
+// as function pointers. Remember to clear / reset value before and after each
+// use.
 std::set<Vertex> component;
+bool bipartite = true;
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph) {
+  component.clear();
   std::vector<std::set<Vertex>> components;
   for (auto x : graph->adjacency_list()) {
     if (x.first.state_ == Vertex::State::UNDISCOVERED) {
@@ -92,6 +95,23 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
     }
   }
   return components;
+}
+
+bool is_bipartite(Graph* graph) {
+  bipartite = true;
+  for (auto x : graph->adjacency_list()) {
+    if (x.first.state_ == Vertex::State::UNDISCOVERED) {
+      x.first.color_ = 1;
+      bfs(graph, x.first, nullptr,
+          [](const Vertex* v1, const Vertex* v2, double weight) {
+            if (v1->color_ == v2->color_) {
+              bipartite = false;
+            }
+            v2->color_ = -v1->color_;
+          });
+    }
+  }
+  return bipartite;
 }
 
 void print_vertex(const Vertex* v) {

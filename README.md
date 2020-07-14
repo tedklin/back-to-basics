@@ -22,6 +22,6 @@ That being said, there is a chance that things do end up getting lost in transla
 
 External sources are also sprinkled throughout my notes. They are credited / linked to for their information; otherwise, the information comes from the author(s) of the primary material I'm using for each topic.
 
-***2. There is no guarantee that anything in this repo is optimal or even correct.*** but I try :)
+***2. There is no guarantee that anything in this repo is optimal or even correct.***
 
-I always attempt things myself first. If I find better-performing or more elegant solutions from someone/somewhere else, I embed the appropriate credits in the exercise; otherwise, the work in the exercises is my own (with reference to my primary study material). 
+I always attempt things myself first. Any code in the exercises is my own work (with reference to my primary study material) unless otherwise specified. 

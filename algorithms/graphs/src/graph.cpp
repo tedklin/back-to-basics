@@ -1,4 +1,4 @@
-// Graph class member implementations
+// Vertex and Graph function implementations
 
 #include "graph.hpp"
 
@@ -6,6 +6,20 @@
 #include <string>
 
 namespace graphlib {
+
+inline std::string to_string(const Vertex::State& state) {
+  switch (state) {
+    case Vertex::State::UNDISCOVERED:
+      return "0";
+      break;
+    case Vertex::State::DISCOVERED:
+      return "1";
+      break;
+    case Vertex::State::PROCESSED:
+      return "2";
+      break;
+  }
+}
 
 Graph::Graph(bool is_directed) : is_directed_(is_directed) {}
 
@@ -72,8 +86,7 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
 std::string Graph::vertex_set_str() const {
   std::string s("Vertex set:\n");
   for (const auto& p : adjacency_list_) {
-    s += p.first.name_ + "(state=" + std::to_string(p.first.state_) + ")" +
-         " | ";
+    s += p.first.name_ + "(state=" + to_string(p.first.state_) + ")" + " | ";
   }
   s += '\n';
   return s;

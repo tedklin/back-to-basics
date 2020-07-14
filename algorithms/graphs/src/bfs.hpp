@@ -17,12 +17,13 @@ std::map<Vertex, Vertex> bfs(
                          double weight) = nullptr,
     void (*process_vertex_late)(const Vertex* v) = nullptr);
 
-// To obtain the shortest path, repeatedly pop the stack returned by this
-// function.
+// Repeatedly pop the stack returned by this function to obtain shortest path.
 std::stack<Vertex> shortest_path(Graph* graph, Vertex search_root,
                                  Vertex destination);
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph);
+
+bool is_bipartite(Graph* graph);
 
 // Misc common vertex and edge processing functions
 void print_vertex(const Vertex* v);

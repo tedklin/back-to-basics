@@ -101,7 +101,7 @@
 namespace graphlib {
 
 struct Vertex {
-  enum State { UNDISCOVERED, DISCOVERED, PROCESSED };
+  enum class State { UNDISCOVERED, DISCOVERED, PROCESSED };
 
   Vertex(const std::string& name, double weight = 1)
       : name_(name), weight_(weight) {}
@@ -116,6 +116,7 @@ struct Vertex {
   // because the overloaded comparison operators and hash functions we define
   // only use the name of the Vertex as the value.
   mutable State state_ = State::UNDISCOVERED;
+  mutable int color_ = 0;
 };
 
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
@@ -129,6 +130,10 @@ inline bool operator==(const Vertex& lhs, const Vertex& rhs) {
 inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
   return !operator==(lhs, rhs);
 }
+
+// There are no implicit conversions from scoped enum members, so we define our
+// own conversion methods.
+inline std::string to_string(const Vertex::State& state);
 
 }  // namespace graphlib
 
