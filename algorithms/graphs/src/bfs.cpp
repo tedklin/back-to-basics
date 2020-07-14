@@ -27,13 +27,18 @@ void bfs(Graph* graph, Vertex start,
     q.pop();
 
     v->state_ = Vertex::State::DISCOVERED;
-    process_vertex_early(v);
+    if (process_vertex_early) {
+      process_vertex_early(v);
+    }
 
     // Recall our representation of an edge is a map from a pointer to an
     // adjacent destination Vertex to a floating-point edge weight.
     // edge.first is the destination Vertex, edge.second is the weight.
     for (auto edge : graph->edge_set(*v)) {
-      process_edge(v, edge.first, edge.second);
+      if (process_edge) {
+        process_edge(v, edge.first, edge.second);
+      }
+
       if (edge.first->state_ == Vertex::State::UNDISCOVERED) {
         edge.first->state_ = Vertex::State::DISCOVERED;
         // parent of edge.first is v
@@ -41,7 +46,9 @@ void bfs(Graph* graph, Vertex start,
       }
     }
 
-    process_vertex_late(v);
+    if (process_vertex_late) {
+      process_vertex_late(v);
+    }
     v->state_ = Vertex::State::PROCESSED;
   }
 }
