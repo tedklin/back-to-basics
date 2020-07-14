@@ -2,6 +2,7 @@
 
 #include "graph.hpp"
 
+#include <stdexcept>
 #include <string>
 
 Graph::Graph(bool is_directed) : is_directed_(is_directed) {}
@@ -44,6 +45,16 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
 
   auto source_iter = adjacency_list_.find(source);
   auto dest_iter = adjacency_list_.find(dest);
+
+  // This should never happen, because we always add both the source and the
+  // dest vertices at the beginning of this function. Still, this could
+  // potentially be a particularly evasive bug to catch if it does happen, so we
+  // check just in case.
+  if (source_iter == adjacency_list_.end() ||
+      dest_iter == adjacency_list_.end()) {
+    std::runtime_error(
+        "Graph::add_edge error! Tried to add an edge to a nonexistent vertex");
+  }
 
   const Vertex* source_ptr = &(source_iter->first);
   const Vertex* dest_ptr = &(dest_iter->first);
