@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <string>
 
+namespace graphlib {
+
 Graph::Graph(bool is_directed) : is_directed_(is_directed) {}
 
 Graph::Graph(const InputVertexSet& vertex_set, bool is_directed)
@@ -95,3 +97,5 @@ void Graph::reset_state() {
     p.first.state_ = Vertex::State::UNDISCOVERED;
   }
 }
+
+}  // namespace graphlib

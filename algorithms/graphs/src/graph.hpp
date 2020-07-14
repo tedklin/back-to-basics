@@ -83,7 +83,6 @@
     rep3 = {
         {A, {D, E}},
         {B, {}},
-        {C, {}},
         {D, {E}},
         {E, {C}}
     }
@@ -98,6 +97,8 @@
 #include <memory>
 #include <set>
 #include <string>
+
+namespace graphlib {
 
 struct Vertex {
   enum State { UNDISCOVERED, DISCOVERED, PROCESSED };
@@ -129,27 +130,31 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
   return !operator==(lhs, rhs);
 }
 
+}  // namespace graphlib
+
 // To use std::unordered_map with our self-defined Vertex type, we must overload
 // std::hash.
 // https://en.cppreference.com/w/cpp/container/unordered_map/unordered_map
 namespace std {
 template <>
-struct hash<Vertex> {
-  std::size_t operator()(const Vertex& f) const {
+struct hash<graphlib::Vertex> {
+  std::size_t operator()(const graphlib::Vertex& f) const {
     return std::hash<std::string>{}(f.name_);
   }
 };
 }  // namespace std
+
+namespace graphlib {
 
 // TODO: should AdjacencyList's keys also be a pointer (all Vertices
 // represented by the Graph allocated on the heap)? in that case we'd be better
 // off with shared_ptrs?
 class Graph {
  private:
-  // Underlying data structure types. Keep in mind the ordering of the
+  // Underlying data structure types. Well-tuned unordered maps should also work
+  // here if we need a performance boost. Keep in mind the ordering of the
   // AdjacentSet depends on the pointer itself, not the pointed-to Vertex.
-  // Well-tuned unordered maps should also work here if we need a performance
-  // boost.
+  // If the same edge is added more than once performance loss may occur.
   using AdjacentSet = std::map<const Vertex*, double>;
   using AdjacencyList = std::map<Vertex, AdjacentSet>;
 
@@ -199,3 +204,5 @@ class Graph {
   AdjacencyList adjacency_list_;
   bool is_directed_;
 };
+
+}  // namespace graphlib

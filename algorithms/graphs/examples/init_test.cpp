@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+using graphlib::Graph;
+using graphlib::Vertex;
+
 void equality_op_overload() {
   Vertex v1("A"), v2("B"), v1_again("A");
 
@@ -77,8 +80,7 @@ void example_initializer() {
                                  {D, {{A, 1}, {E, 1}}},
                                  {E, {{A, 1}, {C, 1}, {D, 1}}}};
 
-  Graph::InputUnweightedAL rep3 = {
-      {A, {D, E}}, {B, {}}, {C, {}}, {D, {E}}, {E, {C}}};
+  Graph::InputUnweightedAL rep3 = {{A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};
 
   Graph graph1(rep1, false), graph2(rep2, false), graph3(rep3, false);
 
@@ -88,9 +90,23 @@ void example_initializer() {
 }
 
 int main() {
+  std::cout << "=============\n";
+  std::cout << "EQUALITY_OP_OVERLOAD\n\n";
   equality_op_overload();
+
+  std::cout << "=============\n";
+  std::cout << "HASH_OVERLOAD\n\n";
   hash_overload();
+
+  std::cout << "=============\n";
+  std::cout << "VERTEX_SET_INITIALIZER\n\n";
   vertex_set_initializer();
+
+  std::cout << "=============\n";
+  std::cout << "UNWEIGHTED_AL_INITIALIZER\n\n";
   unweighted_al_initializer();
+
+  std::cout << "=============\n";
+  std::cout << "EXAMPLE_INITIALIZER\n\n";
   example_initializer();
 }
