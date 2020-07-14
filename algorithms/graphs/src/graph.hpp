@@ -41,7 +41,7 @@
   set of keys in the "AdjacencyList" represents the set of all vertices in the
   graph.
 
-  The "AdjacentSet" typename (map<shared_ptr<Vertex>, double>) represents the
+  The "AdjacentSet" typename (map<const Vertex*, double>) represents the
   set of neighboring vertices to an arbitrary "source" vertex (the "source"
   vertex is defined by the AdjacencyList key to which an AdjacentSet is bound).
   The AdjacentSet type maps each neighboring vertex with a floating point "edge
@@ -108,10 +108,12 @@ struct Vertex {
   std::string name_;
   double weight_;
 
-  // TODO: check if mutable here is appropriate
-  // Having a mutable State shouldn't affect map/unordered_map behavior because
-  // the overloaded comparison operators and hash functions we define only use
-  // the name of the Vertex as the value.
+  // TODO: check if mutable is appropriate.
+  // Since the underlying implementation of Graph relies on pointers to const
+  // Vertex, any Vertex data member we want to be able to modify through the
+  // Graph needs to be of mutable type. This shouldn't create undefined behavior
+  // because the overloaded comparison operators and hash functions we define
+  // only use the name of the Vertex as the value.
   mutable State state_ = State::UNDISCOVERED;
 };
 
@@ -127,8 +129,8 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
   return !operator==(lhs, rhs);
 }
 
-// To use unordered_map as our underlying data structure, we must overload
-// std::hash with our self-defined Vertex type.
+// To use std::unordered_map with our self-defined Vertex type, we must overload
+// std::hash.
 // https://en.cppreference.com/w/cpp/container/unordered_map/unordered_map
 namespace std {
 template <>
@@ -139,9 +141,15 @@ struct hash<Vertex> {
 };
 }  // namespace std
 
+// TODO: should AdjacencyList's keys also be a pointer (all Vertices
+// represented by the Graph allocated on the heap)? in that case we'd be better
+// off with shared_ptrs?
 class Graph {
  private:
-  // Underlying data structure types.
+  // Underlying data structure types. Keep in mind the ordering of the
+  // AdjacentSet depends on the pointer itself, not the pointed-to Vertex.
+  // Well-tuned unordered maps should also work here if we need a performance
+  // boost.
   using AdjacentSet = std::map<const Vertex*, double>;
   using AdjacencyList = std::map<Vertex, AdjacentSet>;
 
@@ -157,7 +165,7 @@ class Graph {
   // Constructs a graph given only a set of vertices, no edges.
   Graph(const InputVertexSet& vertex_set, bool is_directed);
 
-  // Constructs a graph without specified edge weights.
+  // Constructs a fully specified unweighted graph.
   Graph(InputUnweightedAL unweighted_al, bool is_directed);
 
   // Constructs a fully specified weighted graph.

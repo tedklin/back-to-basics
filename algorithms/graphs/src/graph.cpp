@@ -43,13 +43,15 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
   add_vertex(source);
   add_vertex(dest);
 
+  // There should only be one instance of each Vertex in a Graph, so we store
+  // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
+  // of adjacency_list_).
   auto source_iter = adjacency_list_.find(source);
   auto dest_iter = adjacency_list_.find(dest);
 
   // This should never happen, because we always add both the source and the
-  // dest vertices at the beginning of this function. Still, this could
-  // potentially be a particularly evasive bug to catch if it does happen, so we
-  // check just in case.
+  // dest vertices at the beginning of this function. Still, we check just in
+  // case.
   if (source_iter == adjacency_list_.end() ||
       dest_iter == adjacency_list_.end()) {
     std::runtime_error(
