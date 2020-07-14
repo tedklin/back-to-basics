@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(graphs LANGUAGES CXX)
+project(graphlib LANGUAGES CXX)
 
 # ccache
 find_program(CCACHE_PROGRAM ccache)

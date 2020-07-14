@@ -5,7 +5,7 @@ macro(package_add_example EXAMPLENAME)
   target_compile_features(${EXAMPLENAME} PRIVATE cxx_std_17)
 
   # link graphs_lib
-  target_link_libraries(${EXAMPLENAME} PRIVATE graphs_lib)
+  target_link_libraries(${EXAMPLENAME} PRIVATE graphlib)
 endmacro()
 
 package_add_example(init_test init_test.cpp)

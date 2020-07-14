@@ -16,8 +16,8 @@ All work is my own unless otherwise specified.
 
 - basics/
     - Basic data structure manipulation / usage.
-- graphs/
-    - A self-contained graph library based on concepts in Skiena but with more intuitive data structures from STL.
+- graphlib/
+    - A self-contained custom graph library based on concepts in Skiena but with more intuitive data structures from STL.
 
 ## Various notes / resources
 
