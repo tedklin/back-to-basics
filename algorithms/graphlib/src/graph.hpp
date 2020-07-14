@@ -1,13 +1,3 @@
-/**
- * This is my attempt at defining a graph class type completely from scratch,
- * based on concepts in Skiena but using different underlying data structures.
- * The primary goal is to be as intuitive as possible, at the potential
- * expense of space overhead.
- *
- * The concept of weights is supported but optional. Unweighted graphs simply
- * use implicit default values of 1.
- */
-
 /*
   Let the following be an undirected, unweighted graph with vertices
   {A, B, C, D, E}:
@@ -116,7 +106,8 @@ struct Vertex {
   // because the overloaded comparison operators and hash functions we define
   // only use the name of the Vertex as the value.
   mutable State state_ = State::UNDISCOVERED;
-  mutable int color_ = 0;
+  mutable int color_ = 0;                     // bipartiteness
+  mutable int entry_time = 0, exit_time = 0;  // dfs
 };
 
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
@@ -131,8 +122,7 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
   return !operator==(lhs, rhs);
 }
 
-// There are no implicit conversions from scoped enum members, so we define our
-// own conversion methods.
+// There is no string conversion for scoped enum members, so we define our own.
 inline std::string to_string(const Vertex::State& state);
 
 }  // namespace graphlib
