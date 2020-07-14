@@ -8,5 +8,6 @@ macro(package_add_example EXAMPLENAME)
   target_link_libraries(${EXAMPLENAME} PRIVATE graphs_lib)
 endmacro()
 
-package_add_example(test test.cpp)
+package_add_example(init_test init_test.cpp)
+package_add_example(bfs_test bfs_test.cpp)
 # ^^^ ADD MORE EXAMPLE EXECUTABLES HERE ^^^

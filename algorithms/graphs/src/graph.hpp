@@ -89,7 +89,10 @@
 
  */
 
+#pragma once
+
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 
@@ -101,7 +104,12 @@ struct Vertex {
 
   std::string name_;
   double weight_;
-  State state_ = State::UNDISCOVERED;
+
+  // TODO: check if mutable here is appropriate
+  // Having a mutable State shouldn't affect map/unordered_map behavior because
+  // the overloaded comparison operators and hash functions we define only use
+  // the name of the Vertex as the value.
+  mutable State state_ = State::UNDISCOVERED;
 };
 
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
@@ -129,35 +137,52 @@ struct hash<Vertex> {
 }  // namespace std
 
 class Graph {
- public:
-  // Underlying data structure can be swapped to unordered_map by changing the
-  // following four typenames.
-  using EdgeSet = std::map<Vertex, double>;
+ private:
+  // Underlying data structure types.
+  using EdgeSet = std::map<std::shared_ptr<Vertex>, double>;
   using AdjacencyList = std::map<Vertex, EdgeSet>;
 
-  // Convenience typenames used for user input; not actual underlying type.
+ public:
+  // Convenience typenames used for user input; not actual underlying types.
   using InputUnweightedAL = std::map<Vertex, std::set<Vertex>>;
+  using InputWeightedAL = std::map<Vertex, std::map<Vertex, double>>;
   using InputVertexSet = std::set<Vertex>;
 
+  // Constructs an empty graph.
   Graph(bool is_directed);
 
-  // Creates a graph given only a set of vertices, no edges.
+  // Constructs a graph given only a set of vertices, no edges.
   Graph(const InputVertexSet& vertex_set, bool is_directed);
 
-  // Creates a graph without specified edge weights.
+  // Constructs a graph without specified edge weights.
   Graph(InputUnweightedAL unweighted_al, bool is_directed);
 
-  // Creates a fully specified weighted graph.
-  Graph(AdjacencyList adjacency_list, bool is_directed);
+  // Constructs a fully specified weighted graph.
+  Graph(InputWeightedAL adjacency_list, bool is_directed);
 
   void add_vertex(const Vertex& v);
 
   void add_edge(const Vertex& source, const Vertex& dest,
                 double edge_weight = 1);
 
+  // Reset all Vertices in this Graph to state UNDISCOVERED.
+  void reset_state();
+
   std::string vertex_set_str() const;
 
   std::string adjacency_list_str() const;
+
+  const AdjacencyList& adjacency_list() const { return adjacency_list_; }
+
+  AdjacencyList& mutable_adjacency_list() { return adjacency_list_; }
+
+  const EdgeSet& edge_set(const Vertex& source) const {
+    return adjacency_list_.at(source);
+  }
+
+  EdgeSet& mutable_edge_set(const Vertex& source) {
+    return adjacency_list_.at(source);
+  }
 
  private:
   AdjacencyList adjacency_list_;

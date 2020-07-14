@@ -1,22 +1,19 @@
-// Quick ad-hoc tests for core functionality
+// Quick ad-hoc tests for Graph type initialization and other core
+// functionality.
 
 #include "graph.hpp"
 
 #include <iostream>
 
 void equality_op_overload() {
-  Vertex v1("A");
-  Vertex v2("B");
-  Vertex v1_again("A");
+  Vertex v1("A"), v2("B"), v1_again("A");
 
   std::cout << (v1 == v2) << '\n';
   std::cout << (v1 == v1_again) << "\n\n";
 }
 
 void hash_overload() {
-  Vertex v1("A");
-  Vertex v2("B");
-  Vertex v1_again("A");
+  Vertex v1("A"), v2("B"), v1_again("A");
 
   std::cout << std::hash<Vertex>{}(v1) << '\n';
   std::cout << std::hash<Vertex>{}(v2) << '\n';
@@ -24,15 +21,21 @@ void hash_overload() {
 }
 
 void vertex_set_initializer() {
-  Vertex v1("A"), v2("B"), v3("C");
-  Graph::InputVertexSet vertex_set({v1, v2, v3});
+  Vertex v1("A"), v2("B"), v3("C"), v1_again("A"), v2_again("B");
 
-  // TODO: why doesn't this work? isn't there an implicit conversion from string
-  // to Vertex, as defined by the Vertex constructor?
-  // Graph::InputVertexSet vertex_set_conv({"A", "B", "C"});
+  // Check output using different initial states.
+  v2.state_ = Vertex::State::PROCESSED;
+  v3.state_ = Vertex::State::DISCOVERED;
 
-  Graph graph(vertex_set, false);
-  std::cout << graph.vertex_set_str() << "\n\n";
+  // v1_again should be ignored.
+  Graph graph({v1, v2, v3, v1_again}, false);
+
+  // v2_again should be ignored.
+  graph.add_vertex(v2_again);
+
+  // Check that only A, B, and C exist in the graph, with their appropriate
+  // initial states set.
+  std::cout << graph.vertex_set_str() << "\n";
 }
 
 void unweighted_al_initializer() {
@@ -68,11 +71,11 @@ void example_initializer() {
   Graph::InputUnweightedAL rep1 = {
       {A, {D, E}}, {B, {}}, {C, {E}}, {D, {A, E}}, {E, {A, C, D}}};
 
-  Graph::AdjacencyList rep2 = {{A, {{D, 1}, {E, 1}}},
-                               {B, {}},
-                               {C, {{E, 1}}},
-                               {D, {{A, 1}, {E, 1}}},
-                               {E, {{A, 1}, {C, 1}, {D, 1}}}};
+  Graph::InputWeightedAL rep2 = {{A, {{D, 1}, {E, 1}}},
+                                 {B, {}},
+                                 {C, {{E, 1}}},
+                                 {D, {{A, 1}, {E, 1}}},
+                                 {E, {{A, 1}, {C, 1}, {D, 1}}}};
 
   Graph::InputUnweightedAL rep3 = {
       {A, {D, E}}, {B, {}}, {C, {}}, {D, {E}}, {E, {C}}};
@@ -89,5 +92,5 @@ int main() {
   // hash_overload();
   // vertex_set_initializer();
   // unweighted_al_initializer();
-  example_initializer();
+  // example_initializer();
 }

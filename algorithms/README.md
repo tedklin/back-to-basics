@@ -8,7 +8,9 @@ Taking all of that into consideration, I plan to:
 - implement and play around with a select few fundamental data structures / algorithms from *Skiena* that I've also seen mentioned time and time again elsewhere in the real world.
 - commit to something like one Leetcode problem every other day, focusing on categories that seem most applicable / foundational.
 
-For most exercises, I assume anything in the C++ STL is fair game for use.
+For most exercises, I assume anything in the C++ STL is fair game for use. 
+
+All work is my own unless otherwise specified.
 
 ## Currently implemented
 

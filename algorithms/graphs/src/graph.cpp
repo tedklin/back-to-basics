@@ -2,6 +2,8 @@
 
 #include "graph.hpp"
 
+#include <string>
+
 Graph::Graph(bool is_directed) : is_directed_(is_directed) {}
 
 Graph::Graph(const InputVertexSet& vertex_set, bool is_directed)
@@ -22,26 +24,35 @@ Graph::Graph(InputUnweightedAL unweighted_al, bool is_directed)
   }
 }
 
-Graph::Graph(AdjacencyList adjacency_list, bool is_directed)
-    : adjacency_list_(adjacency_list), is_directed_(is_directed) {}
+Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
+    : is_directed_(is_directed) {
+  for (const auto& p : weighted_al) {
+    Vertex source = p.first;
+    add_vertex(source);
+    for (const auto& e : p.second) {
+      add_edge(source, e.first, e.second);
+    }
+  }
+}
 
-inline void Graph::add_vertex(const Vertex& v) { adjacency_list_[v]; }
+void Graph::add_vertex(const Vertex& v) { adjacency_list_[v]; }
 
 void Graph::add_edge(const Vertex& source, const Vertex& dest,
                      double edge_weight) {
   add_vertex(source);
   add_vertex(dest);
 
-  adjacency_list_[source][dest] = edge_weight;
+  adjacency_list_[source][std::make_shared<Vertex>(dest)] = edge_weight;
   if (!is_directed_) {
-    adjacency_list_[dest][source] = edge_weight;
+    adjacency_list_[dest][std::make_shared<Vertex>(source)] = edge_weight;
   }
 }
 
 std::string Graph::vertex_set_str() const {
   std::string s("Vertex set:\n");
   for (const auto& p : adjacency_list_) {
-    s += p.first.name_ + " | ";
+    s += p.first.name_ + "(state=" + std::to_string(p.first.state_) + ")" +
+         " | ";
   }
   s += '\n';
   return s;
@@ -53,10 +64,16 @@ std::string Graph::adjacency_list_str() const {
     s += p.first.name_ + " -> ";
     for (const auto& e : p.second) {
       // recall e.second is weight
-      s += e.first.name_ + "(" + std::to_string(e.second) + ") | ";
+      s += e.first->name_ + "(wgt=" + std::to_string(e.second) + ") | ";
     }
     s += '\n';
   }
   s += '\n';
   return s;
+}
+
+void Graph::reset_state() {
+  for (auto& p : adjacency_list_) {
+    p.first.state_ = Vertex::State::UNDISCOVERED;
+  }
 }
