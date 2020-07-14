@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-void start_iter_check() {
+void start_error_check() {
   Vertex v1("A"), v2("B"), v3("C");
   Graph graph({v1, v2, v3}, false);
 
@@ -17,7 +17,21 @@ void start_iter_check() {
   bfs(&graph, Vertex("D"), nullptr, nullptr, nullptr);
 }
 
+void full_bfs_check() {
+  Vertex A("A"), B("B"), C("C"), D("D"), E("E");
+  Graph::InputUnweightedAL input_al = {
+      {A, {D, E}}, {B, {}}, {C, {}}, {D, {E}}, {E, {C}}};
+  Graph graph(input_al, false);
+
+  std::cout << "Untraversed graph " << graph.vertex_set_str() << "\n\n";
+
+  bfs(&graph, A, print_vertex, nullptr, nullptr);
+
+  // Here we're expecting that all vertices are in state PROCESSED (2).
+  std::cout << "Traversed graph " << graph.vertex_set_str() << "\n\n";
+}
+
 int main() {
-  start_iter_check();
-  // more stuff
+  start_error_check();
+  full_bfs_check();
 }

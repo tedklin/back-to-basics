@@ -23,7 +23,7 @@ void hash_overload() {
 void vertex_set_initializer() {
   Vertex v1("A"), v2("B"), v3("C"), v1_again("A"), v2_again("B");
 
-  // Check output using different initial states.
+  // Different initial states.
   v2.state_ = Vertex::State::PROCESSED;
   v3.state_ = Vertex::State::DISCOVERED;
 
@@ -88,9 +88,9 @@ void example_initializer() {
 }
 
 int main() {
-  // equality_op_overload();
-  // hash_overload();
-  // vertex_set_initializer();
-  // unweighted_al_initializer();
-  // example_initializer();
+  equality_op_overload();
+  hash_overload();
+  vertex_set_initializer();
+  unweighted_al_initializer();
+  example_initializer();
 }

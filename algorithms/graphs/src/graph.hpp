@@ -21,31 +21,40 @@
 
   The corresponding adjacency list would be:
 
-        A -> D, E
-        B -> (none)
-        C -> E
-        D -> A, E
-        E -> A, C, D
+        A -> {D, E}
+        B -> {}
+        C -> {E}
+        D -> {A, E}
+        E -> {A, C, D}
 
   =============================================================================
 
   The "Vertex" class represents a vertex with a string name and an optional
-  floating point weight. Note that vertex weights are a separate concept from
-  edge weights, which we will see below.
+  floating point weight. Note that "vertex weights" are a separate concept from
+  "edge weights", which we will see below.
 
-  The "Graph" class defines an "AdjacencyList" typename (map<Vertex, EdgeSet>),
-  which maps each vertex of a graph to a corresponding "EdgeSet" type. Note that
-  the set of keys in the "AdjacencyList" represents the set of all vertices in
-  the graph.
+  The "Graph" class defines two typenames, "AdjacencyList" and "AdjacentSet",
+  for internal use as the underlying data structure.
 
-  The "Graph" class also defines the "EdgeSet" typename (map<Vertex, double>),
-  which represents the set of neighboring vertices with edges to an arbitrary
-  "source" vertex (the "source" vertex is defined by the AdjacencyList key to
-  which an EdgeSet is bound). The underlying data structure for the EdgeSet type
-  is a map to support associating edges with floating point weights.
+  The "AdjacencyList" typename (map<Vertex, AdjacentSet>), represents a map from
+  each Vertex of a graph to a corresponding "AdjacentSet" type. Note that the
+  set of keys in the "AdjacencyList" represents the set of all vertices in the
+  graph.
 
-  Thus, the adjacency list in the example above could be thought of abstractly
-  as the following literal representation:
+  The "AdjacentSet" typename (map<shared_ptr<Vertex>, double>) represents the
+  set of neighboring vertices to an arbitrary "source" vertex (the "source"
+  vertex is defined by the AdjacencyList key to which an AdjacentSet is bound).
+  The AdjacentSet type maps each neighboring vertex with a floating point "edge
+  weight". Altogether, an AdjacencyList key, AdjacentSet key, and floating point
+  edge weight represent the concept of one edge in a graph.
+
+  =============================================================================
+
+  To support intuitive usage, the typenames "InputUnweightedAL" and
+  "InputWeightedAL" are defined for users to pass into Graph constructors.
+
+  The adjacency list in the example above could be thought of abstractly
+  as the following literal (of type "InputUnweightedAL"):
 
     rep1 = {
         {A, {D, E}},
@@ -55,9 +64,8 @@
         {E, {A, C, D}}
     }
 
-  The actual underlying AdjacencyList structure stored by the class (includes
-  implicit weights of 1 for an unweighted graph) would have a literal
-  representation of:
+  With weights, the adjacency list could be thought of abstractly as the
+  following literal (of type "InputWeightedAL"):
 
     rep2 = {
         {A, {{D, 1}, {E, 1}}},
@@ -67,13 +75,10 @@
         {E, {{A, 1}, {C, 1}, {D, 1}}}
     }
 
-  Both can be passed in as a literal initializers for the "Graph" class, with
-  "rep1" implicitly resulting in an unweighted graph with the underlying
-  structure "rep2".
-
   Furthermore, since this is an undirected graph (i.e. existence of edge {A, D}
   implies edge {D, A}), the "Graph" class also has support for passing in
-  literal intializers that don't include duplicate edges.
+  literal intializers that don't include duplicate edges. Similarly to rep1, the
+  following literal would be of type "InputUnweightedAL".
 
     rep3 = {
         {A, {D, E}},
@@ -82,8 +87,6 @@
         {D, {E}},
         {E, {C}}
     }
-
-  "rep3" would also result in the underlying structure "rep2".
 
   See the "example" function in test.cpp for verification that this works.
 
@@ -139,8 +142,8 @@ struct hash<Vertex> {
 class Graph {
  private:
   // Underlying data structure types.
-  using EdgeSet = std::map<std::shared_ptr<Vertex>, double>;
-  using AdjacencyList = std::map<Vertex, EdgeSet>;
+  using AdjacentSet = std::map<const Vertex*, double>;
+  using AdjacencyList = std::map<Vertex, AdjacentSet>;
 
  public:
   // Convenience typenames used for user input; not actual underlying types.
@@ -176,11 +179,11 @@ class Graph {
 
   AdjacencyList& mutable_adjacency_list() { return adjacency_list_; }
 
-  const EdgeSet& edge_set(const Vertex& source) const {
+  const AdjacentSet& adjacent_set(const Vertex& source) const {
     return adjacency_list_.at(source);
   }
 
-  EdgeSet& mutable_edge_set(const Vertex& source) {
+  AdjacentSet& mutable_adjacent_set(const Vertex& source) {
     return adjacency_list_.at(source);
   }
 

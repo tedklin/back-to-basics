@@ -42,9 +42,15 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
   add_vertex(source);
   add_vertex(dest);
 
-  adjacency_list_[source][std::make_shared<Vertex>(dest)] = edge_weight;
+  auto source_iter = adjacency_list_.find(source);
+  auto dest_iter = adjacency_list_.find(dest);
+
+  const Vertex* source_ptr = &(source_iter->first);
+  const Vertex* dest_ptr = &(dest_iter->first);
+
+  adjacency_list_[source][dest_ptr] = edge_weight;
   if (!is_directed_) {
-    adjacency_list_[dest][std::make_shared<Vertex>(source)] = edge_weight;
+    adjacency_list_[dest][source_ptr] = edge_weight;
   }
 }
 
@@ -63,7 +69,6 @@ std::string Graph::adjacency_list_str() const {
   for (const auto& p : adjacency_list_) {
     s += p.first.name_ + " -> ";
     for (const auto& e : p.second) {
-      // recall e.second is weight
       s += e.first->name_ + "(wgt=" + std::to_string(e.second) + ") | ";
     }
     s += '\n';
