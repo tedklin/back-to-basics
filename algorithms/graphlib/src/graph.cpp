@@ -52,7 +52,21 @@ Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
   }
 }
 
-void Graph::add_vertex(const Vertex& v) { adjacency_list_[v]; }
+void Graph::add_vertex(const Vertex& v) {
+  v.reset();
+  adjacency_list_[v];
+}
+
+const Vertex* Graph::ptr_to_vertex(const Vertex& v) const {
+  auto vertex_iter = adjacency_list_.find(v);
+  if (vertex_iter == adjacency_list_.end()) {
+    throw std::runtime_error(
+        "Graph::ptr_to_vertex error! Tried to obtain pointer to nonexistent "
+        "vertex (" +
+        v.name_ + ")\n");
+  }
+  return &(vertex_iter->first);
+}
 
 void Graph::add_edge(const Vertex& source, const Vertex& dest,
                      double edge_weight) {
@@ -62,20 +76,8 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
   // There should only be one instance of each Vertex in a Graph, so we store
   // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
   // of adjacency_list_).
-  auto source_iter = adjacency_list_.find(source);
-  auto dest_iter = adjacency_list_.find(dest);
-
-  // This should never happen, because we always add both the source and the
-  // dest vertices at the beginning of this function. Still, we check just in
-  // case.
-  if (source_iter == adjacency_list_.end() ||
-      dest_iter == adjacency_list_.end()) {
-    std::runtime_error(
-        "Graph::add_edge error! Tried to add an edge to a nonexistent vertex");
-  }
-
-  const Vertex* source_ptr = &(source_iter->first);
-  const Vertex* dest_ptr = &(dest_iter->first);
+  const Vertex* source_ptr = ptr_to_vertex(source);
+  const Vertex* dest_ptr = ptr_to_vertex(dest);
 
   adjacency_list_[source][dest_ptr] = edge_weight;
   if (!is_directed_) {

@@ -76,8 +76,25 @@ void print_connected_components() {
   }
 }
 
-void is_bipartite() {
-  // TODO: test this
+void bipartite_check() {
+  // Bipartite undirected graph example:
+  //    A---B
+  //    |   |
+  //    C---D
+  Vertex A("A"), B("B"), C("C"), D("D");
+  Graph::InputUnweightedAL bipartite_al = {{A, {B, C}}, {D, {B, C}}};
+  Graph bipartite_graph(bipartite_al, false);
+  std::cout << "expecting bipartite:\n"
+            << graphlib::is_bipartite(&bipartite_graph) << "\n\n";
+
+  // Non bipartite undirected graph example:
+  //    A---B
+  //    | \ |
+  //    C---D
+  Graph::InputUnweightedAL nonbipartite_al = {{A, {B, C, D}}, {D, {B, C}}};
+  Graph nonbipartite_graph(nonbipartite_al, false);
+  std::cout << "expecting non bipartite:\n"
+            << graphlib::is_bipartite(&nonbipartite_graph) << "\n\n";
 }
 
 int main() {
@@ -96,4 +113,8 @@ int main() {
   std::cout << "============\n";
   std::cout << "PRINT_CONNECTED_COMPONENTS\n\n";
   print_connected_components();
+
+  std::cout << "============\n";
+  std::cout << "BIPARTITE_CHECK\n\n";
+  bipartite_check();
 }

@@ -4,6 +4,7 @@
 #include <map>
 #include <queue>
 #include <stack>
+#include <stdexcept>
 
 namespace graphlib {
 
@@ -14,8 +15,10 @@ std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
                                                   double weight),
                              void (*process_vertex_late)(const Vertex* v)) {
   // Ensure that we are referencing a Vertex within the given Graph.
-  auto root_iter = graph->adjacency_list().find(search_root);
-  if (root_iter == graph->adjacency_list().end()) {
+  const Vertex* root_ptr;
+  try {
+    root_ptr = graph->ptr_to_vertex(search_root);
+  } catch (std::runtime_error) {
     std::cerr << "Warning! Tried to perform BFS with a search root that's not "
                  "in the graph!\n\n";
     return std::map<Vertex, Vertex>();
@@ -27,7 +30,7 @@ std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
 
   // Start BFS.
   std::queue<const Vertex*> q;
-  q.push(&(root_iter->first));
+  q.push(root_ptr);
 
   while (!q.empty()) {
     const Vertex* v1 = q.front();
@@ -78,9 +81,8 @@ std::stack<Vertex> shortest_path(Graph* graph, Vertex search_root,
   return s;
 }
 
-// Global component variables to circumvent inability to pass capturing lambdas
-// as function pointers. Remember to clear / reset value before and after each
-// use.
+// Global helper variables to circumvent inability to pass capturing lambdas as
+// function pointers. Remember to clear / reset value before and after each use.
 std::set<Vertex> component;
 bool bipartite = true;
 
@@ -101,13 +103,16 @@ bool is_bipartite(Graph* graph) {
   bipartite = true;
   for (auto x : graph->adjacency_list()) {
     if (x.first.state_ == Vertex::State::UNDISCOVERED) {
-      x.first.color_ = 1;
+      graph->ptr_to_vertex(x.first)->color_ = 1;
       bfs(graph, x.first, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {
             if (v1->color_ == v2->color_) {
+              std::cout << v1->name_ << " (color=" << v1->color_ << ") and "
+                        << v2->name_ << " (color=" << v2->color_
+                        << ") violate bipartiteness\n";
               bipartite = false;
             }
-            v2->color_ = -v1->color_;
+            v2->color_ = -(v1->color_);
           });
     }
   }

@@ -1,7 +1,5 @@
 # Algorithm implementations and exercises
 
-All work is my own unless otherwise specified.
-
 - basics/
     - Basic data structure manipulation / usage.
 - graphlib/

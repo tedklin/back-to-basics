@@ -96,6 +96,7 @@ struct Vertex {
   Vertex(const std::string& name, double weight = 1)
       : name_(name), weight_(weight) {}
 
+  // TODO: make these const?
   std::string name_;
   double weight_;
 
@@ -108,6 +109,16 @@ struct Vertex {
   mutable State state_ = State::UNDISCOVERED;
   mutable int color_ = 0;                     // bipartiteness
   mutable int entry_time = 0, exit_time = 0;  // dfs
+
+  // TODO: removing the const qualifier here makes it so that any const Vertex
+  // object can't call reset (see add_vertex in Graph.cpp). is there a better
+  // way to do this that doesn't create confusion over intention?
+  void reset() const {
+    state_ = State::UNDISCOVERED;
+    color_ = 0;
+    entry_time = 0;
+    exit_time = 0;
+  }
 };
 
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
@@ -172,6 +183,8 @@ class Graph {
   Graph(InputWeightedAL adjacency_list, bool is_directed);
 
   void add_vertex(const Vertex& v);
+
+  const Vertex* ptr_to_vertex(const Vertex& v) const;
 
   void add_edge(const Vertex& source, const Vertex& dest,
                 double edge_weight = 1);
