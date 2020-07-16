@@ -1,31 +1,22 @@
 #pragma once
 
+#include "bfs.hpp"
 #include "graph.hpp"
 
 #include <map>
-#include <set>
-#include <stack>
-#include <vector>
 
 namespace graphlib {
 
-// Traditional BFS algorithm.
-std::map<const Vertex*, const Vertex*> bfs(
+// Traditional DFS algorithm.
+std::map<const Vertex*, const Vertex*> dfs(
     Graph* graph, Vertex search_root,
     void (*process_vertex_early)(const Vertex* v) = nullptr,
     void (*process_edge)(const Vertex* v1, const Vertex* v2,
                          double weight) = nullptr,
     void (*process_vertex_late)(const Vertex* v) = nullptr);
 
-// Repeatedly pop the stack returned by this function to obtain shortest path.
-std::stack<const Vertex*> shortest_path(Graph* graph, Vertex search_root,
-                                        Vertex destination);
-
-std::vector<std::set<Vertex>> connected_components(Graph* graph);
-
-bool is_bipartite(Graph* graph);
-
 // Misc common vertex and edge processing functions
+// (common to BFS, defined in bfs.cpp)
 void print_vertex(const Vertex* v);
 void print_edge(const Vertex* v1, const Vertex* v2, double weight);
 

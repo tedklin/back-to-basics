@@ -48,12 +48,12 @@ void print_shortest_path() {
   Graph graph(input_al, false);
 
   std::cout << "Shortest path from A to C:\n";
-  std::stack<Vertex> path = graphlib::shortest_path(&graph, A, C);
+  std::stack<const Vertex*> path = graphlib::shortest_path(&graph, A, C);
   while (path.size() > 1) {
-    std::cout << path.top().name_ << " -> ";
+    std::cout << path.top()->name_ << " -> ";
     path.pop();
   }
-  std::cout << path.top().name_ << "\n\n";
+  std::cout << path.top()->name_ << "\n\n";
 }
 
 void print_connected_components() {
@@ -71,9 +71,10 @@ void print_connected_components() {
     for (Vertex v : component) {
       std::cout << v.name_ << " | ";
     }
-    std::cout << "\n";
+    std::cout << '\n';
     ++i;
   }
+  std::cout << '\n';
 }
 
 void bipartite_check() {

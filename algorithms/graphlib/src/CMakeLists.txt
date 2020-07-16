@@ -1,5 +1,6 @@
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graph.cpp")
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/bfs.cpp")
+list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/dfs.cpp")
 # ^^^ APPEND NEW SOURCE FILES TO THE SOURCE_LIST
 
 # Make an automatic library - will be static or dynamic based on user setting

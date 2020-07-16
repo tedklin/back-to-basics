@@ -1,4 +1,4 @@
-// Vertex and Graph function implementations
+// Vertex and Graph function implementations.
 
 #include "graph.hpp"
 
@@ -76,12 +76,9 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
   // There should only be one instance of each Vertex in a Graph, so we store
   // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
   // of adjacency_list_).
-  const Vertex* source_ptr = ptr_to_vertex(source);
-  const Vertex* dest_ptr = ptr_to_vertex(dest);
-
-  adjacency_list_[source][dest_ptr] = edge_weight;
+  adjacency_list_[source][ptr_to_vertex(dest)] = edge_weight;
   if (!is_directed_) {
-    adjacency_list_[dest][source_ptr] = edge_weight;
+    adjacency_list_[dest][ptr_to_vertex(source)] = edge_weight;
   }
 }
 
@@ -109,7 +106,7 @@ std::string Graph::adjacency_list_str() const {
 
 void Graph::reset_state() {
   for (auto& p : adjacency_list_) {
-    p.first.state_ = Vertex::State::UNDISCOVERED;
+    p.first.reset();
   }
 }
 

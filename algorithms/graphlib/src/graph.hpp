@@ -96,7 +96,7 @@ struct Vertex {
   Vertex(const std::string& name, double weight = 1)
       : name_(name), weight_(weight) {}
 
-  // TODO: make these const?
+  // TODO: make these const? might have to introduce explicit copy control.
   std::string name_;
   double weight_;
 
@@ -152,9 +152,6 @@ struct hash<graphlib::Vertex> {
 
 namespace graphlib {
 
-// TODO: should AdjacencyList's keys also be a pointer (all Vertices
-// represented by the Graph allocated on the heap)? in that case we'd be better
-// off with shared_ptrs?
 class Graph {
  private:
   // Underlying data structure types. Well-tuned unordered maps should also work
@@ -184,12 +181,16 @@ class Graph {
 
   void add_vertex(const Vertex& v);
 
+  // Obtain a pointer to a Vertex within this Graph instance. If you don't use
+  // this, you are likely going to accidentally use a copy of Vertex when your
+  // intention was to access the singular Vertex instance stored by this Graph
+  // (i.e. the keyset of adjacency_list_).
   const Vertex* ptr_to_vertex(const Vertex& v) const;
 
   void add_edge(const Vertex& source, const Vertex& dest,
                 double edge_weight = 1);
 
-  // Reset all Vertices in this Graph to state UNDISCOVERED.
+  // Reset the state, color, etc, of all Vertices in this Graph instance.
   void reset_state();
 
   std::string vertex_set_str() const;
@@ -209,7 +210,10 @@ class Graph {
   }
 
  private:
+  // The keyset of adjacency_list_ represents the only copy of Vertices this
+  // Graph stores.
   AdjacencyList adjacency_list_;
+
   bool is_directed_;
 };
 

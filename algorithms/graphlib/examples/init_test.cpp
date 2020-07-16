@@ -26,7 +26,7 @@ void hash_overload() {
 void vertex_set_initializer() {
   Vertex v1("A"), v2("B"), v3("C"), v1_again("A"), v2_again("B");
 
-  // Different initial states.
+  // Initial states should be reset to UNDISCOVERED when passed into a graph.
   v2.state_ = Vertex::State::PROCESSED;
   v3.state_ = Vertex::State::DISCOVERED;
 
@@ -36,8 +36,8 @@ void vertex_set_initializer() {
   // v2_again should be ignored.
   graph.add_vertex(v2_again);
 
-  // Check that only A, B, and C exist in the graph, with their appropriate
-  // initial states set.
+  // Check that only A, B, and C exist in the graph, all with state UNDISCOVERED
+  // (0).
   std::cout << graph.vertex_set_str() << "\n";
 }
 
@@ -50,7 +50,7 @@ void unweighted_al_initializer() {
       {{v1, {v2, v3}}, {v2, {v1, v3}}, {v3, {v1, v2}}});
   Graph::InputUnweightedAL unweighted_al_min({{v1, {v2, v3}}, {v2, {v3}}});
 
-  Graph graph_undirected_1(unweighted_al_full, false);
+  Graph graph_undirected_1(unweighted_al_full, false);  // also tests dup edges!
   Graph graph_undirected_2(unweighted_al_min, false);
   std::cout << "full undirected\n"
             << graph_undirected_1.adjacency_list_str() << '\n';

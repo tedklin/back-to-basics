@@ -10,4 +10,5 @@ endmacro()
 
 package_add_example(init_test init_test.cpp)
 package_add_example(bfs_test bfs_test.cpp)
+package_add_example(dfs_test dfs_test.cpp)
 # ^^^ ADD MORE EXAMPLE EXECUTABLES HERE ^^^

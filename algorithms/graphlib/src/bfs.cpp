@@ -1,19 +1,15 @@
 #include "bfs.hpp"
 
 #include <iostream>
-#include <map>
 #include <queue>
-#include <stack>
-#include <stdexcept>
 
 namespace graphlib {
 
-std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
-                             void (*process_vertex_early)(const Vertex* v),
-                             void (*process_edge)(const Vertex* v1,
-                                                  const Vertex* v2,
-                                                  double weight),
-                             void (*process_vertex_late)(const Vertex* v)) {
+std::map<const Vertex*, const Vertex*> bfs(
+    Graph* graph, Vertex search_root,
+    void (*process_vertex_early)(const Vertex* v),
+    void (*process_edge)(const Vertex* v1, const Vertex* v2, double weight),
+    void (*process_vertex_late)(const Vertex* v)) {
   // Ensure that we are referencing a Vertex within the given Graph.
   const Vertex* root_ptr;
   try {
@@ -21,12 +17,11 @@ std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
   } catch (std::runtime_error) {
     std::cerr << "Warning! Tried to perform BFS with a search root that's not "
                  "in the graph!\n\n";
-    return std::map<Vertex, Vertex>();
+    return std::map<const Vertex*, const Vertex*>();
   }
 
-  // Map from a copy of each Vertex to its "parent" in a shortest-path tree
-  // w.r.t. the root.
-  std::map<Vertex, Vertex> parent;
+  // Map from each Vertex to its "parent" in a search tree w.r.t. the root.
+  std::map<const Vertex*, const Vertex*> parent;
 
   // Start BFS.
   std::queue<const Vertex*> q;
@@ -41,19 +36,15 @@ std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
       process_vertex_early(v1);
     }
 
-    // Recall our representation of an edge is a map from a pointer to an
-    // adjacent destination Vertex to a floating-point edge weight.
     for (auto adj : graph->adjacent_set(*v1)) {
       const Vertex* v2 = &(*(adj.first));
       double weight = adj.second;
-
       if (process_edge) {
         process_edge(v1, v2, weight);
       }
-
       if (v2->state_ == Vertex::State::UNDISCOVERED) {
         v2->state_ = Vertex::State::DISCOVERED;
-        parent.insert({*v2, *v1});
+        parent.insert({v2, v1});
         q.push(v2);
       }
     }
@@ -63,18 +54,16 @@ std::map<Vertex, Vertex> bfs(Graph* graph, Vertex search_root,
     }
     v1->state_ = Vertex::State::PROCESSED;
   }
-
   return parent;
 }
 
-std::stack<Vertex> shortest_path(Graph* graph, Vertex search_root,
-                                 Vertex destination) {
-  std::map<Vertex, Vertex> parent = bfs(graph, search_root);
-
-  Vertex v = destination;
-  std::stack<Vertex> s;
+std::stack<const Vertex*> shortest_path(Graph* graph, Vertex search_root,
+                                        Vertex destination) {
+  std::map<const Vertex*, const Vertex*> parent = bfs(graph, search_root);
+  const Vertex* v = graph->ptr_to_vertex(destination);
+  std::stack<const Vertex*> s;
   s.push(v);
-  while (v != search_root) {
+  while (*v != search_root) {
     v = parent.at(v);
     s.push(v);
   }
