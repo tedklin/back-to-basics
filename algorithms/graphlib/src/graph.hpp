@@ -25,9 +25,9 @@ floating point weight. Note that "vertex weights" are a separate concept from
 The "Graph" class defines two typenames, "VertexSet" and "AdjacentSet", for
 internal use as the underlying data structure.
 
-The "VertexSet" typename (map<Vertex, AdjacentSet>), represents a map from
-each Vertex of a graph to a corresponding "AdjacentSet" type. Note that the set
-of keys in the "VertexSet" represents the set of all vertices in the graph.
+The "VertexSet" typename (map<Vertex, AdjacentSet>), represents the set of all
+Vertex instances contained in a Graph. It also maps each Vertex of a graph to a
+corresponding "AdjacentSet" type.
 
 The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
 neighboring vertices to an arbitrary "source" vertex (the "source" vertex is

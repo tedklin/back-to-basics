@@ -54,7 +54,7 @@ void print_shortest_path() {
   Graph graph(input_al, false);
 
   std::cout << "Shortest path from A to C:\n";
-  std::stack<const Vertex*> path = graphlib::find_path(
+  std::stack<const Vertex*> path = graphlib::shortest_path(
       &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(C));
   if (!path.empty()) {
     while (path.size() > 1) {
@@ -65,8 +65,8 @@ void print_shortest_path() {
   }
 
   std::cout << "Shortest path from A to B:\n";
-  path = graphlib::find_path(&graph, graph.internal_vertex_ptr(A),
-                             graph.internal_vertex_ptr(B));
+  path = graphlib::shortest_path(&graph, graph.internal_vertex_ptr(A),
+                                 graph.internal_vertex_ptr(B));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

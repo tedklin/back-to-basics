@@ -42,8 +42,9 @@ void dfs_helper(Graph* graph, const Vertex* v1,
                  process_vertex_late);
     } else if ((v2->state_ == Vertex::State::DISCOVERED && v1->parent_ != v2) ||
                graph->is_directed()) {
-      // Back edge
-      // Avoids duplicate (reverse adjacent) edges in undirected graphs.
+      // Back edge if undirected.
+      // Back, forward, or cross edge if directed.
+      // Also avoids duplicate (reverse adjacent) edges if undirected.
       process_edge(v1, v2, weight);
     }
 
@@ -69,6 +70,25 @@ void dfs(Graph* graph, const Vertex* search_root,
   // Start DFS.
   dfs_helper(graph, search_root, process_vertex_early, process_edge,
              process_vertex_late);
+}
+
+EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
+  if (v2->parent_ = v1) return EdgeType::TREE;
+  if (v2->state_ == Vertex::State::DISCOVERED) return EdgeType::BACK;
+
+  // Additional possible edge types for directed graphs.
+  if (v2->state_ == Vertex::State::PROCESSED &&
+      v2->entry_time_ > v1->entry_time_) {
+    return EdgeType::FORWARD;
+  }
+  if (v2->state_ == Vertex::State::PROCESSED &&
+      v2->entry_time_ < v1->entry_time_) {
+    return EdgeType::CROSS;
+  }
+
+  std::cerr << "Warning: unclassified edge " << v1->name_ << " -> " << v2->name_
+            << "\n\n";
+  return EdgeType::UNCLASSIFIED;
 }
 
 bool is_cyclic(Graph* graph) {

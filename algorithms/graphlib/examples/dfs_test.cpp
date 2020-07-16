@@ -11,7 +11,7 @@ using graphlib::Vertex;
 
 void cycle_detection() {
   // Example seen in comment at the top of graph.hpp
-  // A-D-E form a cycle
+  // (A-D-E form a cycle)
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
   Graph::InputUnweightedAL cyclic_al = {
       {A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};

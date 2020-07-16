@@ -43,8 +43,8 @@ void bfs(Graph* graph, const Vertex* search_root,
   }
 }
 
-std::stack<const Vertex*> find_path(Graph* graph, const Vertex* search_root,
-                                    const Vertex* destination) {
+std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
+                                        const Vertex* destination) {
   bfs(graph, search_root);
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
@@ -54,7 +54,7 @@ std::stack<const Vertex*> find_path(Graph* graph, const Vertex* search_root,
       v = v->parent_;
       s.push(v);
     } else {
-      std::cout << "No path between " << search_root->name_ << " and "
+      std::cerr << "No path between " << search_root->name_ << " and "
                 << destination->name_ << "\n\n";
       return std::stack<const Vertex*>();
     }
