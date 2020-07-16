@@ -54,12 +54,12 @@ Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
 
 void Graph::add_vertex(const Vertex& v) {
   v.reset();
-  adjacency_list_[v];
+  vertex_set_[v];
 }
 
 const Vertex* Graph::internal_vertex_ptr(const Vertex& v) const {
-  auto vertex_iter = adjacency_list_.find(v);
-  if (vertex_iter == adjacency_list_.end()) {
+  auto vertex_iter = vertex_set_.find(v);
+  if (vertex_iter == vertex_set_.end()) {
     throw std::runtime_error(
         "Graph::internal_vertex_ptr error! Tried to obtain pointer to "
         "nonexistent "
@@ -76,25 +76,32 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
 
   // There should only be one instance of each Vertex in a Graph, so we store
   // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
-  // of adjacency_list_).
-  adjacency_list_[source][internal_vertex_ptr(dest)] = edge_weight;
+  // of vertex_set_).
+  vertex_set_[source][internal_vertex_ptr(dest)] = edge_weight;
   if (!is_directed_) {
-    adjacency_list_[dest][internal_vertex_ptr(source)] = edge_weight;
+    vertex_set_[dest][internal_vertex_ptr(source)] = edge_weight;
   }
 }
 
 std::string Graph::vertex_set_str() const {
   std::string s("Vertex set:\n");
-  for (const auto& p : adjacency_list_) {
-    s += p.first.name_ + "(state=" + to_string(p.first.state_) + ")" + " | ";
+  for (const auto& p : vertex_set_) {
+    s += p.first.name_ + "(state=" + graphlib::to_string(p.first.state_) + ")" +
+         " | ";
   }
   s += '\n';
   return s;
 }
 
-std::string Graph::adjacency_list_str() const {
+void Graph::reset_state() {
+  for (auto& p : vertex_set_) {
+    p.first.reset();
+  }
+}
+
+std::string to_string(const Graph& graph) {
   std::string s("Adjacency list:\n");
-  for (const auto& p : adjacency_list_) {
+  for (const auto& p : graph.vertex_set()) {
     s += p.first.name_ + " -> ";
     for (const auto& e : p.second) {
       s += e.first->name_ + "(wgt=" + std::to_string(e.second) + ") | ";
@@ -103,12 +110,6 @@ std::string Graph::adjacency_list_str() const {
   }
   s += '\n';
   return s;
-}
-
-void Graph::reset_state() {
-  for (auto& p : adjacency_list_) {
-    p.first.reset();
-  }
 }
 
 }  // namespace graphlib

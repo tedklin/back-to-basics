@@ -64,26 +64,26 @@ std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
 
 // Global helper variables to circumvent inability to pass capturing lambdas as
 // function pointers. Remember to clear / reset value before and after each use.
-std::set<Vertex> _component;
-bool _bipartite = true;
+std::set<Vertex> g_component;
+bool g_bipartite = true;
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph) {
-  _component.clear();
+  g_component.clear();
   std::vector<std::set<Vertex>> components;
-  for (auto x : graph->adjacency_list()) {
+  for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
-      bfs(graph, v, [](const Vertex* v) { _component.insert(*v); });
-      components.push_back(_component);
-      _component.clear();
+      bfs(graph, v, [](const Vertex* v) { g_component.insert(*v); });
+      components.push_back(g_component);
+      g_component.clear();
     }
   }
   return components;
 }
 
 bool is_bipartite(Graph* graph) {
-  _bipartite = true;
-  for (auto x : graph->adjacency_list()) {
+  g_bipartite = true;
+  for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       v->color_ = 1;
@@ -93,13 +93,13 @@ bool is_bipartite(Graph* graph) {
               std::cout << v1->name_ << " (color=" << v1->color_ << ") and "
                         << v2->name_ << " (color=" << v2->color_
                         << ") violate bipartiteness\n";
-              _bipartite = false;
+              g_bipartite = false;
             }
             v2->color_ = -(v1->color_);
           });
     }
   }
-  return _bipartite;
+  return g_bipartite;
 }
 
 void print_vertex(const Vertex* v) {

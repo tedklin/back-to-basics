@@ -53,16 +53,16 @@ void unweighted_al_initializer() {
   Graph graph_undirected_1(unweighted_al_full, false);  // also tests dup edges!
   Graph graph_undirected_2(unweighted_al_min, false);
   std::cout << "full undirected\n"
-            << graph_undirected_1.adjacency_list_str() << '\n';
+            << graphlib::to_string(graph_undirected_1) << '\n';
   std::cout << "min undirected\n"
-            << graph_undirected_2.adjacency_list_str() << '\n';
+            << graphlib::to_string(graph_undirected_2) << '\n';
 
   Graph graph_directed_1(unweighted_al_full, true);
   Graph graph_directed_2(unweighted_al_min, true);
   std::cout << "full directed\n"
-            << graph_directed_1.adjacency_list_str() << '\n';
+            << graphlib::to_string(graph_directed_1) << '\n';
   std::cout << "min directed\n"
-            << graph_directed_2.adjacency_list_str() << '\n';
+            << graphlib::to_string(graph_directed_2) << '\n';
 }
 
 // The example as seen in the comment at the top of graph.hpp.
@@ -84,9 +84,9 @@ void example_initializer() {
 
   Graph graph1(rep1, false), graph2(rep2, false), graph3(rep3, false);
 
-  std::cout << "rep1\n" << graph1.adjacency_list_str() << '\n';
-  std::cout << "rep2\n" << graph2.adjacency_list_str() << '\n';
-  std::cout << "rep3\n" << graph3.adjacency_list_str() << '\n';
+  std::cout << "rep1\n" << graphlib::to_string(graph1) << '\n';
+  std::cout << "rep2\n" << graphlib::to_string(graph2) << '\n';
+  std::cout << "rep3\n" << graphlib::to_string(graph3) << '\n';
 }
 
 int main() {

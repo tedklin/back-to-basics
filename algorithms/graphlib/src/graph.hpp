@@ -22,18 +22,18 @@ The "Vertex" class represents a vertex with a string name and an optional
 floating point weight. Note that "vertex weights" are a separate concept from
 "edge weights", which we will see below.
 
-The "Graph" class defines two typenames, "AdjacencyList" and "AdjacentSet", for
+The "Graph" class defines two typenames, "VertexSet" and "AdjacentSet", for
 internal use as the underlying data structure.
 
-The "AdjacencyList" typename (map<Vertex, AdjacentSet>), represents a map from
+The "VertexSet" typename (map<Vertex, AdjacentSet>), represents a map from
 each Vertex of a graph to a corresponding "AdjacentSet" type. Note that the set
-of keys in the "AdjacencyList" represents the set of all vertices in the graph.
+of keys in the "VertexSet" represents the set of all vertices in the graph.
 
 The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
 neighboring vertices to an arbitrary "source" vertex (the "source" vertex is
-defined by the AdjacencyList key to which an AdjacentSet is bound). The
+defined by the VertexSet key to which an AdjacentSet is bound). The
 AdjacentSet type maps each neighboring vertex with a floating point "edge
-weight". Altogether, an AdjacencyList key, AdjacentSet key, and floating point
+weight". Altogether, an VertexSet key, AdjacentSet key, and floating point
 edge weight represent the concept of one edge in a graph.
 
 ===============================================================================
@@ -158,7 +158,7 @@ class Graph {
   // AdjacentSet depends on the pointer itself, not the pointed-to Vertex.
   // If the same edge is added more than once performance loss may occur.
   using AdjacentSet = std::map<const Vertex*, double>;
-  using AdjacencyList = std::map<Vertex, AdjacentSet>;
+  using VertexSet = std::map<Vertex, AdjacentSet>;
 
  public:
   // Convenience typenames used for user input; not actual underlying types.
@@ -183,7 +183,7 @@ class Graph {
   // Obtain a pointer to a Vertex within this Graph instance. If you don't use
   // this, you are likely going to accidentally use a copy of Vertex when your
   // intention was to access the singular Vertex instance stored by this Graph
-  // (i.e. the keyset of adjacency_list_).
+  // (i.e. the keyset of vertex_set_).
   const Vertex* internal_vertex_ptr(const Vertex& v) const;
 
   void add_edge(const Vertex& source, const Vertex& dest,
@@ -192,30 +192,30 @@ class Graph {
   // Reset the state, color, etc, of all Vertices in this Graph instance.
   void reset_state();
 
+  const VertexSet& vertex_set() const { return vertex_set_; }
+
   std::string vertex_set_str() const;
 
-  std::string adjacency_list_str() const;
-
-  const AdjacencyList& adjacency_list() const { return adjacency_list_; }
-
-  AdjacencyList& mutable_adjacency_list() { return adjacency_list_; }
-
   const AdjacentSet& adjacent_set(const Vertex& source) const {
-    return adjacency_list_.at(source);
+    return vertex_set_.at(source);
   }
 
   AdjacentSet& mutable_adjacent_set(const Vertex& source) {
-    return adjacency_list_.at(source);
+    return vertex_set_.at(source);
   }
 
   bool is_directed() { return is_directed_; }
 
  private:
-  // The keyset of adjacency_list_ represents the only copy of Vertices this
+  // The keyset of vertex_set_ represents the only copy of Vertices this
   // Graph stores.
-  AdjacencyList adjacency_list_;
+  VertexSet vertex_set_;
 
   bool is_directed_;
 };
+
+// Return a string displaying all vertices in a given graph and corresponding
+// adjacency sets.
+std::string to_string(const Graph& graph);
 
 }  // namespace graphlib
