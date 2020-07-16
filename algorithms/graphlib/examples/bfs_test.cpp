@@ -15,13 +15,17 @@ void start_error_check() {
   Graph graph({v1, v2, v3}, false);
 
   std::cout << "Not expecting error...\n\n";
-  bfs(&graph, v1);
+  graphlib::bfs(&graph, graph.internal_vertex_ptr(v1));
 
   std::cout << "Not expecting error...\n\n";
-  bfs(&graph, Vertex("A"));
+  graphlib::bfs(&graph, graph.internal_vertex_ptr(Vertex("A")));
 
   std::cout << "Expecting error...\n";
-  bfs(&graph, Vertex("D"));
+  try {
+    graphlib::bfs(&graph, graph.internal_vertex_ptr(Vertex("D")));
+  } catch (std::runtime_error e) {
+    std::cout << "Caught runtime exception:\n" << e.what() << '\n';
+  }
 }
 
 void bfs_traverse_check() {
@@ -33,10 +37,11 @@ void bfs_traverse_check() {
 
   std::cout << "Untraversed graph\n" << graph.vertex_set_str() << "\n";
 
-  graphlib::bfs(&graph, A, graphlib::print_vertex, nullptr, nullptr);
+  graphlib::bfs(&graph, graph.internal_vertex_ptr(A), graphlib::print_vertex,
+                nullptr, nullptr);
 
-  // Here we're expecting all vertices in the same connected component as Vertex
-  // A to be in state PROCESSED (2).
+  // Here we're expecting all vertices connected to Vertex A to be in state
+  // PROCESSED (2).
   std::cout << "\nTraversed graph\n" << graph.vertex_set_str() << "\n\n";
 }
 
@@ -48,12 +53,26 @@ void print_shortest_path() {
   Graph graph(input_al, false);
 
   std::cout << "Shortest path from A to C:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_path(&graph, A, C);
-  while (path.size() > 1) {
-    std::cout << path.top()->name_ << " -> ";
-    path.pop();
+  std::stack<const Vertex*> path = graphlib::shortest_path(
+      &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(C));
+  if (!path.empty()) {
+    while (path.size() > 1) {
+      std::cout << path.top()->name_ << " -> ";
+      path.pop();
+    }
+    std::cout << path.top()->name_ << "\n\n";
   }
-  std::cout << path.top()->name_ << "\n\n";
+
+  std::cout << "Shortest path from A to B:\n";
+  path = graphlib::shortest_path(&graph, graph.internal_vertex_ptr(A),
+                                 graph.internal_vertex_ptr(B));
+  if (!path.empty()) {
+    while (path.size() > 1) {
+      std::cout << path.top()->name_ << " -> ";
+      path.pop();
+    }
+    std::cout << path.top()->name_ << "\n\n";
+  }
 }
 
 void print_connected_components() {

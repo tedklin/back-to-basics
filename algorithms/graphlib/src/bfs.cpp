@@ -5,27 +5,14 @@
 
 namespace graphlib {
 
-std::map<const Vertex*, const Vertex*> bfs(
-    Graph* graph, Vertex search_root,
-    void (*process_vertex_early)(const Vertex* v),
-    void (*process_edge)(const Vertex* v1, const Vertex* v2, double weight),
-    void (*process_vertex_late)(const Vertex* v)) {
-  // Ensure that we are referencing a Vertex within the given Graph.
-  const Vertex* root_ptr;
-  try {
-    root_ptr = graph->ptr_to_vertex(search_root);
-  } catch (std::runtime_error) {
-    std::cerr << "Warning! Tried to perform BFS with a search root that's not "
-                 "in the graph!\n\n";
-    return std::map<const Vertex*, const Vertex*>();
-  }
-
-  // Map from each Vertex to its "parent" in a search tree w.r.t. the root.
-  std::map<const Vertex*, const Vertex*> parent;
-
+void bfs(Graph* graph, const Vertex* search_root,
+         void (*process_vertex_early)(const Vertex* v),
+         void (*process_edge)(const Vertex* v1, const Vertex* v2,
+                              double weight),
+         void (*process_vertex_late)(const Vertex* v)) {
   // Start BFS.
   std::queue<const Vertex*> q;
-  q.push(root_ptr);
+  q.push(search_root);
 
   while (!q.empty()) {
     const Vertex* v1 = q.front();
@@ -44,7 +31,7 @@ std::map<const Vertex*, const Vertex*> bfs(
       }
       if (v2->state_ == Vertex::State::UNDISCOVERED) {
         v2->state_ = Vertex::State::DISCOVERED;
-        parent.insert({v2, v1});
+        v2->parent_ = v1;
         q.push(v2);
       }
     }
@@ -54,18 +41,23 @@ std::map<const Vertex*, const Vertex*> bfs(
     }
     v1->state_ = Vertex::State::PROCESSED;
   }
-  return parent;
 }
 
-std::stack<const Vertex*> shortest_path(Graph* graph, Vertex search_root,
-                                        Vertex destination) {
-  std::map<const Vertex*, const Vertex*> parent = bfs(graph, search_root);
-  const Vertex* v = graph->ptr_to_vertex(destination);
+std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
+                                        const Vertex* destination) {
+  bfs(graph, search_root);
+  const Vertex* v = destination;
   std::stack<const Vertex*> s;
   s.push(v);
-  while (*v != search_root) {
-    v = parent.at(v);
-    s.push(v);
+  while (v != search_root) {
+    if (v) {
+      v = v->parent_;
+      s.push(v);
+    } else {
+      std::cout << "No path between " << search_root->name_ << " and "
+                << destination->name_ << "\n\n";
+      return std::stack<const Vertex*>();
+    }
   }
   return s;
 }
@@ -79,8 +71,9 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   component.clear();
   std::vector<std::set<Vertex>> components;
   for (auto x : graph->adjacency_list()) {
-    if (x.first.state_ == Vertex::State::UNDISCOVERED) {
-      bfs(graph, x.first, [](const Vertex* v) { component.insert(*v); });
+    const Vertex* v = graph->internal_vertex_ptr(x.first);
+    if (v->state_ == Vertex::State::UNDISCOVERED) {
+      bfs(graph, v, [](const Vertex* v) { component.insert(*v); });
       components.push_back(component);
       component.clear();
     }
@@ -91,9 +84,10 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
 bool is_bipartite(Graph* graph) {
   bipartite = true;
   for (auto x : graph->adjacency_list()) {
-    if (x.first.state_ == Vertex::State::UNDISCOVERED) {
-      graph->ptr_to_vertex(x.first)->color_ = 1;
-      bfs(graph, x.first, nullptr,
+    const Vertex* v = graph->internal_vertex_ptr(x.first);
+    if (v->state_ == Vertex::State::UNDISCOVERED) {
+      v->color_ = 1;
+      bfs(graph, v, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {
             if (v1->color_ == v2->color_) {
               std::cout << v1->name_ << " (color=" << v1->color_ << ") and "

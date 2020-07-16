@@ -57,11 +57,12 @@ void Graph::add_vertex(const Vertex& v) {
   adjacency_list_[v];
 }
 
-const Vertex* Graph::ptr_to_vertex(const Vertex& v) const {
+const Vertex* Graph::internal_vertex_ptr(const Vertex& v) const {
   auto vertex_iter = adjacency_list_.find(v);
   if (vertex_iter == adjacency_list_.end()) {
     throw std::runtime_error(
-        "Graph::ptr_to_vertex error! Tried to obtain pointer to nonexistent "
+        "Graph::internal_vertex_ptr error! Tried to obtain pointer to "
+        "nonexistent "
         "vertex (" +
         v.name_ + ")\n");
   }
@@ -76,9 +77,9 @@ void Graph::add_edge(const Vertex& source, const Vertex& dest,
   // There should only be one instance of each Vertex in a Graph, so we store
   // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
   // of adjacency_list_).
-  adjacency_list_[source][ptr_to_vertex(dest)] = edge_weight;
+  adjacency_list_[source][internal_vertex_ptr(dest)] = edge_weight;
   if (!is_directed_) {
-    adjacency_list_[dest][ptr_to_vertex(source)] = edge_weight;
+    adjacency_list_[dest][internal_vertex_ptr(source)] = edge_weight;
   }
 }
 
