@@ -1,8 +1,7 @@
 #pragma once
 
+#include "bfs.hpp"
 #include "graph.hpp"
-
-#include <map>
 
 namespace graphlib {
 
@@ -13,8 +12,11 @@ void dfs(Graph* graph, const Vertex* search_root,
                               double weight) = nullptr,
          void (*process_vertex_late)(const Vertex* v) = nullptr);
 
-// Forward declarations for common vertex and edge processing functions.
-// (common to BFS, defined in bfs.cpp)
+bool is_cyclic(Graph* graph);
+
+// Forward declarations for functions common to BFS.
+std::stack<const Vertex*> find_path(Graph* graph, const Vertex* search_root,
+                                    const Vertex* destination);
 void print_vertex(const Vertex* v);
 void print_edge(const Vertex* v1, const Vertex* v2, double weight);
 
