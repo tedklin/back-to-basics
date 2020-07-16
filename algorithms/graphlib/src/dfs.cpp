@@ -79,17 +79,22 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
                void (*process_edge)(const Vertex* v1, const Vertex* v2,
                                     double weight),
                void (*process_vertex_late)(const Vertex* v)) {
+  g_time = 0;
+  g_finished = false;
+  g_cyclic = false;
+
   for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
-      dfs(graph, v, process_vertex_early, process_edge, process_vertex_late);
+      dfs_helper(graph, v, process_vertex_early, process_edge,
+                 process_vertex_late);
     }
   }
 }
 
 EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
   // Note that undirected graphs can only have tree or back edges.
-  if (v2->parent_ = v1) return EdgeType::TREE;
+  if (v2->parent_ == v1) return EdgeType::TREE;
   if (v2->state_ == Vertex::State::DISCOVERED) return EdgeType::BACK;
 
   // Additional possible edge types for directed graphs.
@@ -131,15 +136,14 @@ std::stack<const Vertex*> topological_sort(Graph* graph) {
     g_topstack.pop();
   }
 
-  dfs_graph(
-      graph, nullptr,
-      [](const Vertex* v1, const Vertex* v2, double weight) {
-        if (classify_edge(v1, v2) == EdgeType::BACK) {
-          std::cout
-              << "Warning: tried to perform topological sort on a non-DAG!\n\n";
-        }
-      },
-      [](const Vertex* v) { g_topstack.push(v); });
+  dfs_graph(graph, nullptr,
+            [](const Vertex* v1, const Vertex* v2, double weight) {
+              if (classify_edge(v1, v2) == EdgeType::BACK) {
+                std::cerr << "Warning: tried to perform topological sort on a "
+                             "non-DAG!\n\n";
+              }
+            },
+            [](const Vertex* v) { g_topstack.push(v); });
   return g_topstack;
 }
 

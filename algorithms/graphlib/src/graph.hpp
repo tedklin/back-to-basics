@@ -97,7 +97,7 @@ struct Vertex {
   std::string name_;
   double weight_;
 
-  // TODO: do more research on if mutable is appropriate here.
+  // TODO: do more research on if mutables are appropriate here.
   // Since the underlying implementation of Graph relies on pointers to const
   // Vertex, any Vertex data member we want to be able to modify through the
   // Graph needs to be of mutable type. This shouldn't create undefined behavior
@@ -107,6 +107,9 @@ struct Vertex {
   mutable const Vertex* parent_ = nullptr;      // search tree parent
   mutable int entry_time_ = 0, exit_time_ = 0;  // dfs
   mutable int color_ = 0;                       // bipartiteness
+
+  // earliest reachable ancestor
+  mutable const Vertex* reachable_ancestor_ = nullptr;
 
   // TODO: removing the const qualifier here makes it so that any const Vertex
   // object can't call reset (see add_vertex in Graph.cpp). is there a better

@@ -34,13 +34,21 @@ void top_sort() {
                                      {D, {}},     {E, {D}},    {F, {E}},
                                      {G, {A, F}}};
   Graph dag(dag_al, true);
-
+  std::cout << "Finding topological sort...\n";
   std::stack<const Vertex*> s = graphlib::topological_sort(&dag);
   while (!s.empty()) {
     std::cout << s.top()->name_ << " | ";
     s.pop();
   }
   std::cout << "\n\n";
+
+  // Example above, but with edge G->F reversed, creating a cyclic graph.
+  Graph::InputUnweightedAL dcg_al = {{A, {B, C}}, {B, {C, D}}, {C, {E, F}},
+                                     {D, {}},     {E, {D}},    {F, {E, G}},
+                                     {G, {A}}};
+  Graph dcg(dcg_al, true);
+  std::cout << "Finding topological sort...\n";
+  s = graphlib::topological_sort(&dcg);
 }
 
 int main() {
