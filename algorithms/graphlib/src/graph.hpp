@@ -103,10 +103,10 @@ struct Vertex {
   // Graph needs to be of mutable type. This shouldn't create undefined behavior
   // because the overloaded comparison operators and hash functions we define
   // only use the name of the Vertex as the value.
-  mutable State state_ = State::UNDISCOVERED;  // search state
-  mutable const Vertex* parent_ = nullptr;     // search tree parent
-  mutable int entry_time = 0, exit_time = 0;   // dfs
-  mutable int color_ = 0;                      // bipartiteness
+  mutable State state_ = State::UNDISCOVERED;   // search state
+  mutable const Vertex* parent_ = nullptr;      // search tree parent
+  mutable int entry_time_ = 0, exit_time_ = 0;  // dfs
+  mutable int color_ = 0;                       // bipartiteness
 
   // TODO: removing the const qualifier here makes it so that any const Vertex
   // object can't call reset (see add_vertex in Graph.cpp). is there a better
@@ -114,8 +114,8 @@ struct Vertex {
   void reset() const {
     state_ = State::UNDISCOVERED;
     parent_ = nullptr;
-    entry_time = 0;
-    exit_time = 0;
+    entry_time_ = 0;
+    exit_time_ = 0;
     color_ = 0;
   }
 };

@@ -7,12 +7,11 @@
 namespace graphlib {
 
 // Traditional DFS algorithm.
-std::map<const Vertex*, const Vertex*> dfs(
-    Graph* graph, const Vertex* search_root,
-    void (*process_vertex_early)(const Vertex* v) = nullptr,
-    void (*process_edge)(const Vertex* v1, const Vertex* v2,
-                         double weight) = nullptr,
-    void (*process_vertex_late)(const Vertex* v) = nullptr);
+void dfs(Graph* graph, const Vertex* search_root,
+         void (*process_vertex_early)(const Vertex* v) = nullptr,
+         void (*process_edge)(const Vertex* v1, const Vertex* v2,
+                              double weight) = nullptr,
+         void (*process_vertex_late)(const Vertex* v) = nullptr);
 
 // Forward declarations for common vertex and edge processing functions.
 // (common to BFS, defined in bfs.cpp)
