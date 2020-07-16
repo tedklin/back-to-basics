@@ -27,8 +27,8 @@ void cycle_detection() {
 }
 
 void top_sort() {
-  // DAG with only one possible topological sort: G, A, B, C, F, E, D.
-  // As seen in Figure 5.15 in Skiena.
+  // DAG with only one possible topological sort: G, A, B, C, F, E, D
+  // as seen in Figure 5.15 (p.179) in Skiena.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), G("G");
   Graph::InputUnweightedAL dag_al = {{A, {B, C}}, {B, {C, D}}, {C, {E, F}},
                                      {D, {}},     {E, {D}},    {F, {E}},

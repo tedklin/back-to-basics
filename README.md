@@ -9,7 +9,7 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
 - ROS (Robot Operating System)
-    - ETH Zurich - Programming for Robotics, ROS (online course)
+    - ETH Zurich - Programming for Robotics, ROS
 
 
 ## Disclaimers
@@ -24,6 +24,6 @@ External sources are also sprinkled throughout my notes. They are credited / lin
 
 **2. There is no guarantee that any code in this repo is optimal or even correct.**
 
-I always attempt things myself first. Any code in the exercises is my own work (with reference to my primary study material) unless otherwise specified.
+Any code is my own work (with reference to my primary study material) unless otherwise specified.
 
 The various mini-projects in this repo (such as [*graphlib*](https://github.com/tedklin/back-to-basics/tree/master/algorithms/graphlib)) are mostly intended to be playgrounds for me to solidify the various concepts I'm learning. As such, rigorous testing and continuous integration are absent. Regardless, I still tried to maintain correctness, include thorough documentation, and adhere to standard best practices.
