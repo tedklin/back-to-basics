@@ -9,7 +9,7 @@
 using graphlib::Graph;
 using graphlib::Vertex;
 
-void cycle_detection() {
+void cycle_detection_check() {
   // Example seen in comment at the top of graph.hpp
   // (A-D-E form a cycle)
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
@@ -22,11 +22,11 @@ void cycle_detection() {
   // Example above, but without the edge connecting A and D.
   Graph::InputUnweightedAL acyclic_al = {{A, {E}}, {B, {}}, {D, {E}}, {E, {C}}};
   Graph acyclic_graph(acyclic_al, false);
-  std::cout << "Expecting cyclic: " << graphlib::is_cyclic(&acyclic_graph)
+  std::cout << "Expecting not cyclic: " << graphlib::is_cyclic(&acyclic_graph)
             << "\n\n";
 }
 
-void top_sort() {
+void print_top_sort() {
   // DAG with only one possible topological sort: G, A, B, C, F, E, D
   // as seen in Figure 5.15 (p.179) in Skiena.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E"), F("F"), G("G");
@@ -53,10 +53,10 @@ void top_sort() {
 
 int main() {
   std::cout << "============\n";
-  std::cout << "CYCLE_DETECTION\n\n";
-  cycle_detection();
+  std::cout << "CYCLE_DETECTION_CHECK\n\n";
+  cycle_detection_check();
 
   std::cout << "============\n";
-  std::cout << "TOP_SORT\n\n";
-  top_sort();
+  std::cout << "PRINT_TOP_SORT\n\n";
+  print_top_sort();
 }

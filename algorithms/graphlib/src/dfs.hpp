@@ -3,6 +3,7 @@
 #include "bfs.hpp"
 #include "graph.hpp"
 
+#include <set>
 #include <stack>
 
 namespace graphlib {
@@ -24,6 +25,10 @@ void dfs_graph(Graph* graph,
                void (*process_vertex_late)(const Vertex* v) = nullptr);
 
 bool is_cyclic(Graph* graph);
+
+std::set<const Vertex*> articulation_vertices(Graph* graph);  // TODO: test
+
+bool is_biconnected(Graph* graph);  // TODO: test
 
 // Repeatedly pop the stack returned by this function to obtain topological
 // sort of a DAG.

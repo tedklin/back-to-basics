@@ -15,8 +15,11 @@ bool g_finished = false;
 // Cycle detection.
 bool g_cyclic = false;
 
+// Articulation vertex / cut node detection.
+std::set<const Vertex*> g_artic_vertices;
+
 // Topological sort helper stack.
-std::stack<const Vertex*> g_topstack;
+std::stack<const Vertex*> g_top_stack;
 
 // In a recursive DFS scheme, a helper is necessary because it's otherwise
 // impossible to reset the global timer.
@@ -130,10 +133,72 @@ bool is_cyclic(Graph* graph) {
   return g_cyclic;
 }
 
+// TODO: test
+std::set<const Vertex*> articulation_vertices(Graph* graph) {
+  g_artic_vertices.clear();
+  dfs_graph(
+      graph, nullptr,
+      [](const Vertex* v1, const Vertex* v2, double weight) {
+        if (classify_edge(v1, v2) == EdgeType::TREE) {
+          ++(v1->tree_out_degree_);
+        } else if (classify_edge(v1, v2) == EdgeType::BACK &&
+                   v1->parent_ != v2) {
+          if (v2->entry_time_ < v1->reachable_ancestor_->entry_time_) {
+            v1->reachable_ancestor_ = v2;
+          }
+        }
+      },
+      [](const Vertex* v) {
+        // If v is the search tree root vertex
+        if (!(v->parent_)) {
+          if (v->tree_out_degree_ > 1) {
+            std::cout << "Root articulation vertex found: " << v->name_ << '\n';
+            g_artic_vertices.insert(v);
+          }
+          return;
+        }
+
+        // If v's search tree parent is not the root vertex
+        if (!(v->parent_->parent_)) {
+          if (v->reachable_ancestor_ == v->parent_) {
+            std::cout << "Parent articulation vertex found: " << v->name_
+                      << '\n';
+            g_artic_vertices.insert(v);
+          }
+          if (v->reachable_ancestor_ == v) {
+            std::cout << "Bridge articulation vertex found: "
+                      << v->parent_->name_ << '\n';
+            g_artic_vertices.insert(v->parent_);
+
+            // If v is not a leaf
+            if (v->tree_out_degree_ > 0) {
+              std::cout << "Bridge articulation vertex found: " << v->name_
+                        << '\n';
+              g_artic_vertices.insert(v);
+            }
+          }
+        }
+
+        // A Vertex's earliest reachable ancestor is also its search tree
+        // child's earliest reachable ancestor.
+        if (v->reachable_ancestor_->entry_time_ <
+            v->parent_->reachable_ancestor_->entry_time_) {
+          v->parent_->reachable_ancestor_ = v->reachable_ancestor_;
+        }
+      });
+  return g_artic_vertices;
+}
+
+// TODO: test
+bool is_biconnected(Graph* graph) {
+  articulation_vertices(graph);
+  return g_artic_vertices.empty();
+}
+
 std::stack<const Vertex*> topological_sort(Graph* graph) {
   // Clear global stack.
-  while (!g_topstack.empty()) {
-    g_topstack.pop();
+  while (!g_top_stack.empty()) {
+    g_top_stack.pop();
   }
 
   dfs_graph(graph, nullptr,
@@ -143,8 +208,8 @@ std::stack<const Vertex*> topological_sort(Graph* graph) {
                              "non-DAG!\n\n";
               }
             },
-            [](const Vertex* v) { g_topstack.push(v); });
-  return g_topstack;
+            [](const Vertex* v) { g_top_stack.push(v); });
+  return g_top_stack;
 }
 
 }  // namespace graphlib
