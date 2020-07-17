@@ -5,6 +5,9 @@
 
 namespace graphlib {
 
+// Global helper variables to circumvent inability to pass capturing lambdas as
+// function pointers. Remember to clear / reset value before and after each use.
+
 // Time intervals can give us valuable information about the structure of the
 // DFS search tree (see Skiena).
 int g_time = 0;
@@ -20,6 +23,10 @@ std::set<const Vertex*> g_artic_vertices;
 
 // Topological sort helper stack.
 std::stack<const Vertex*> g_top_stack;
+
+// Strong component helpers.
+std::vector<std::set<const Vertex*>> g_components;
+std::set<const Vertex*> g_component;
 
 // In a recursive DFS scheme, a helper is necessary because it's otherwise
 // impossible to reset the global timer.
@@ -134,7 +141,7 @@ bool is_cyclic(Graph* graph) {
 }
 
 // TODO: test
-std::set<const Vertex*> articulation_vertices(Graph* graph) {
+std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
   dfs_graph(
       graph, nullptr,
@@ -195,7 +202,7 @@ bool is_biconnected(Graph* graph) {
   return g_artic_vertices.empty();
 }
 
-std::stack<const Vertex*> topological_sort(Graph* graph) {
+std::stack<const Vertex*>& topological_sort(Graph* graph) {
   // Clear global stack.
   while (!g_top_stack.empty()) {
     g_top_stack.pop();
@@ -210,6 +217,41 @@ std::stack<const Vertex*> topological_sort(Graph* graph) {
             },
             [](const Vertex* v) { g_top_stack.push(v); });
   return g_top_stack;
+}
+
+// TODO: test
+std::vector<std::set<const Vertex*>>& strong_components(Graph* graph) {
+  g_components.clear();
+  g_component.clear();
+
+  dfs_graph(
+      graph, [](const Vertex* v) { g_component.insert(v); },
+      [](const Vertex* v1, const Vertex* v2, double weight) {
+        if (classify_edge(v1, v2) == EdgeType::BACK &&
+            v2->entry_time_ < v1->low_->entry_time_) {
+          v1->low_ = v2;
+        }
+        if (classify_edge(v1, v2) == EdgeType::CROSS) {
+          bool component_unassigned;
+          for (std::set<const Vertex*> component : g_components) {
+            component_unassigned = (component.find(v2) == component.end());
+          }
+          if (component_unassigned && v2->entry_time_ < v1->low_->entry_time_) {
+            v1->low_ = v2;
+          }
+        }
+      },
+      [](const Vertex* v) {
+        if (v->low_ == v) {
+          g_components.push_back(g_component);
+          g_component.clear();
+        }
+        if (v->low_->entry_time_ < v->parent_->low_->entry_time_) {
+          v->parent_->low_ = v->low_;
+        }
+      });
+
+  return g_components;
 }
 
 }  // namespace graphlib
