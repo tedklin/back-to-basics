@@ -6,6 +6,7 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 
 - Algorithms
     - *Skiena - The Algorithm Design Manual, 2nd Ed.*
+    - *Sedgewick, Wayne - Algorithms, 4th Ed.*
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
 - ROS (Robot Operating System)

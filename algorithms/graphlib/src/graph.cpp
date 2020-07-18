@@ -7,7 +7,7 @@
 
 namespace graphlib {
 
-inline std::string to_string(const Vertex::State& state) {
+std::string to_string(const Vertex::State& state) {
   switch (state) {
     case Vertex::State::UNDISCOVERED:
       return "0";

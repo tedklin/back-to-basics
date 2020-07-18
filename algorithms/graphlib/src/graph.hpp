@@ -141,7 +141,7 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
 }
 
 // There is no string conversion for scoped enum members, so we define our own.
-inline std::string to_string(const Vertex::State& state);
+std::string to_string(const Vertex::State& state);
 
 }  // namespace graphlib
 
@@ -224,7 +224,7 @@ class Graph {
 
 // Return a string displaying all vertices in a given graph and corresponding
 // adjacency sets.
-inline std::string to_string(const Graph& graph);
+std::string to_string(const Graph& graph);
 
 // An auxiliary Edge class for use with MSTs.
 struct Edge {
