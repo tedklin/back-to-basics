@@ -22,7 +22,7 @@ void bfs(Graph* graph, const Vertex* search_root,
       process_vertex_early(v1);
     }
 
-    for (auto adj : graph->adjacent_set(*v1)) {
+    for (auto& adj : graph->adjacent_set(*v1)) {
       const Vertex* v2 = &(*(adj.first));
       double weight = adj.second;
       if (process_edge) {
@@ -71,7 +71,7 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   g_component.clear();
 
   std::vector<std::set<Vertex>> components;
-  for (auto x : graph->vertex_set()) {
+  for (auto& x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       bfs(graph, v, [](const Vertex* v) { g_component.insert(*v); });
@@ -85,7 +85,7 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
 bool is_bipartite(Graph* graph) {
   g_bipartite = true;
 
-  for (auto x : graph->vertex_set()) {
+  for (auto& x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       v->color_ = 1;

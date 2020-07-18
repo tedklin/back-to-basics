@@ -75,8 +75,8 @@ void print_shortest_path() {
 }
 
 void print_connected_components() {
-  // Example seen in comment at the top of graph.hpp,
-  // but with added vertex F connected to B to create two connected components.
+  // Example seen in comment at the top of graph.hpp, but with added vertex F
+  // connected to B to create two nonsingular connected components.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E"), F("F");
   Graph::InputUnweightedAL input_al = {
       {A, {D, E}}, {B, {F}}, {D, {E}}, {E, {C}}};
@@ -84,7 +84,7 @@ void print_connected_components() {
 
   auto components = graphlib::connected_components(&graph);
   int i = 1;
-  for (auto component : components) {
+  for (const auto& component : components) {
     std::cout << "Component " << i << ":\n";
     for (Vertex v : component) {
       std::cout << v.name_ << " | ";
