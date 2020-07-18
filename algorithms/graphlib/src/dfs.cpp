@@ -99,6 +99,9 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
   }
 }
 
+// The four basic edge types as seen in Skiena.
+enum class EdgeType { TREE, BACK, FORWARD, CROSS, UNCLASSIFIED };
+
 EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
   // Note that undirected graphs can only have tree or back edges.
   if (v2->parent_ == v1) return EdgeType::TREE;

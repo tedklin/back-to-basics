@@ -12,8 +12,6 @@
 
 namespace graphlib {
 
-enum class EdgeType { TREE, BACK, FORWARD, CROSS, UNCLASSIFIED };
-
 // Traditional DFS algorithm.
 void dfs(Graph* graph, const Vertex* search_root,
          void (*process_vertex_early)(const Vertex* v) = nullptr,
