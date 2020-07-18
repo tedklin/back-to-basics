@@ -11,7 +11,7 @@ using graphlib::Graph;
 using graphlib::Vertex;
 
 // "tiny_ewg" graph example provided in Sedgewick.
-void print_prims_mst() {
+void tiny_ewg_mst() {
   Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7");
   Graph::InputWeightedAL al = {
       {v0, {{v7, 0.16}, {v4, 0.38}, {v2, 0.26}}},
@@ -23,8 +23,17 @@ void print_prims_mst() {
       {v6, {{v2, 0.4}, {v0, 0.58}, {v4, 0.93}}}};
   Graph tiny_ewg(al, false);
 
-  std::vector<Edge> vec = graphlib::prim_mst(&tiny_ewg);
-  for (const auto& e : vec) {
+  std::cout << "MST found by Prim's algorithm:\n";
+  std::vector<Edge> prims_output = graphlib::prim_mst(&tiny_ewg);
+  for (const auto& e : prims_output) {
+    std::cout << graphlib::to_string(e);
+  }
+  std::cout << '\n';
+
+  std::cout << "MST found by Kruskal's algorithm:\n";
+  tiny_ewg.reset_state();
+  std::vector<Edge> kruskals_output = graphlib::kruskal_mst(&tiny_ewg);
+  for (const auto& e : kruskals_output) {
     std::cout << graphlib::to_string(e);
   }
   std::cout << '\n';
@@ -32,6 +41,6 @@ void print_prims_mst() {
 
 int main() {
   std::cout << "=============\n";
-  std::cout << "PRINT_PRIMS_MST\n\n";
-  print_prims_mst();
+  std::cout << "TINY_EWG_MST\n\n";
+  tiny_ewg_mst();
 }

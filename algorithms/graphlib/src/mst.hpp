@@ -6,25 +6,6 @@
 
 namespace graphlib {
 
-// An auxiliary Edge class for use with MSTs.
-struct Edge {
-  Edge(const Vertex* v1, const Vertex* v2, double weight)
-      : v1_(v1), v2_(v2), weight_(weight) {}
-
-  const Vertex* v1_ = nullptr;
-  const Vertex* v2_ = nullptr;
-  double weight_ = 0;
-};
-
-inline bool operator>(const Edge& lhs, const Edge& rhs) {
-  return (lhs.weight_ > rhs.weight_);
-}
-
-inline std::string to_string(const Edge& edge) {
-  return edge.v1_->name_ + " -> " + edge.v2_->name_ + " (" +
-         std::to_string(edge.weight_) + ")\n";
-}
-
 // In the classical weighted Union-Find data structure, each set / connected
 // component is represented by a tree, with the tree root "naming" the set. The
 // underlying structure is composed of two maps, one of which maps each Vertex
@@ -43,24 +24,24 @@ class VertexUnionFind {
 
   // Returns the name of the set of the given Vertex (i.e. the root of the given
   // Vertex's tree.)
-  const Vertex* find(const Vertex* v) {
-    while (parents_[v]) {
-      v = parents_[v];
+  const Vertex* find(const Vertex* v) const {
+    while (parents_.at(v)) {
+      v = parents_.at(v);
     }
     return v;
   }
 
-  bool connected(const Vertex* v1, const Vertex* v2) {
+  bool connected(const Vertex* v1, const Vertex* v2) const {
     return find(v1) == find(v2);
   }
 
   void merge(const Vertex* v1, const Vertex* v2) {
-    const Vertex *set1 = find(v1), *set2 = find(v2);
-    if (set1 == set2) {
+    if (connected(v1, v2)) {
       return;
     }
 
     // Merge the smaller tree into the larger tree.
+    const Vertex *set1 = find(v1), *set2 = find(v2);
     if (sizes_[set1] < sizes_[set2]) {
       parents_[set1] = set2;
       sizes_[set2] += sizes_[set1];
@@ -78,5 +59,8 @@ class VertexUnionFind {
 // Prim's algorithm ("lazy" version in Sedgewick). Assumes given graph is
 // connected.
 std::vector<Edge> prim_mst(Graph* graph);
+
+// Kruskal's algorithm.
+std::vector<Edge> kruskal_mst(Graph* graph);
 
 }  // namespace graphlib

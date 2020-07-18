@@ -12,12 +12,12 @@ std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>
 // Debugging utility to check contents of an Edge priority queue.
 std::string to_string(
     std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq) {
-  std::string s;
+  std::string s("Vertex priority queue contents:\n");
   while (!pq.empty()) {
     s += to_string(pq.top());
     pq.pop();
   }
-  s += "\n";
+  s += '\n';
   return s;
 }
 
@@ -59,6 +59,36 @@ std::vector<Edge> prim_mst(Graph* graph) {
     }
   }
 
+  return mst;
+}
+
+std::vector<Edge> kruskal_mst(Graph* graph) {
+  std::vector<Edge> mst;
+  while (!g_crossing_edges.empty()) {
+    g_crossing_edges.pop();
+  }
+
+  // Add all edges in given graph to priority queue.
+  for (const auto& v : graph->vertex_set()) {
+    const Vertex* v1 = graph->internal_vertex_ptr(v.first);
+    for (const auto& adj : v.second) {
+      const Vertex* v2 = adj.first;
+      double weight = adj.second;
+      g_crossing_edges.emplace(v1, v2, weight);
+    }
+  }
+
+  VertexUnionFind uf(graph);
+  while (!g_crossing_edges.empty() && mst.size() < graph->vertex_set().size()) {
+    Edge e = g_crossing_edges.top();
+    g_crossing_edges.pop();
+
+    if (uf.connected(e.v1_, e.v2_)) {
+      continue;
+    }
+    uf.merge(e.v1_, e.v2_);
+    mst.push_back(e);
+  }
   return mst;
 }
 
