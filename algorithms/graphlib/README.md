@@ -6,5 +6,5 @@ The project setup for this library was created based on [my CMake template](http
 
 ## Notes
 
-- *Skiena* has a list of [acknowledged errors](http://www3.cs.stonybrook.edu/~skiena/algorist/book/errata). While many errors seem to be regarding word choice, others are bugs that result in implementation incorrectness. I double checked everything I implemented based on this book against this error list, but there is a chance I didn't catch all of them.
+- *Skiena* has a list of [acknowledged errors](http://www3.cs.stonybrook.edu/~skiena/algorist/book/errata). While many errors seem to be regarding word choice, others are bugs that result in implementation incorrectness. I double checked everything I implemented from this book against this error list, but there is a chance I didn't catch all of them.
 - I haven't fully digested the DFS algorithms related to connectivity (biconnectivity and strong components) yet. My implementations of those remain untested, and I plan to revisit them later.

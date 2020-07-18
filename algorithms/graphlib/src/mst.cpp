@@ -23,7 +23,7 @@ std::string to_string(
 
 void prim_visit(Graph* graph, const Vertex* v) {
   v->state_ = Vertex::State::DISCOVERED;
-  for (auto adj : graph->adjacent_set(*v)) {
+  for (auto& adj : graph->adjacent_set(*v)) {
     const Vertex* v2 = adj.first;
     double weight = adj.second;
     if (v2->state_ == Vertex::State::UNDISCOVERED) {
