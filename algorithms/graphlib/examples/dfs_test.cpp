@@ -47,7 +47,7 @@ void print_top_sort() {
                                      {D, {}},     {E, {D}},    {F, {E, G}},
                                      {G, {A}}};
   Graph dcg(dcg_al, true);
-  std::cout << "Finding topological sort...\n";
+  std::cout << "(expecting cycle error) Finding topological sort...\n";
   s = graphlib::topological_sort(&dcg);
 }
 
