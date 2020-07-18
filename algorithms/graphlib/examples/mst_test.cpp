@@ -9,7 +9,7 @@ using graphlib::Graph;
 using graphlib::Vertex;
 
 // Example graph provided in Sedgewick.
-void tiny_ewg() {
+void prims_tiny_ewg() {
   Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7");
   Graph::InputWeightedAL al = {
       {v0, {{v7, 0.16}, {v4, 0.38}, {v2, 0.26}}},
@@ -25,6 +25,11 @@ void tiny_ewg() {
   for (const auto& e : vec) {
     std::cout << graphlib::to_string(e);
   }
+  std::cout << '\n';
 }
 
-int main() { tiny_ewg(); }
+int main() {
+  std::cout << "=============\n";
+  std::cout << "TINY_EWG\n\n";
+  prims_tiny_ewg();
+}

@@ -1,12 +1,25 @@
 #include "mst.hpp"
 
+#include <iostream>
 #include <queue>
 
 namespace graphlib {
 
-// Global helper priority queue for keeping track of next smallest crossing
-// edge.
-std::priority_queue<Edge> g_crossing_edges;
+// Keeps track of next smallest crossing edge.
+std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>
+    g_crossing_edges;
+
+// Debugging utility to check contents of an Edge priority queue.
+std::string to_string(
+    std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq) {
+  std::string s;
+  while (!pq.empty()) {
+    s += to_string(pq.top());
+    pq.pop();
+  }
+  s += "\n";
+  return s;
+}
 
 void prim_visit(Graph* graph, const Vertex* v) {
   v->state_ = Vertex::State::DISCOVERED;

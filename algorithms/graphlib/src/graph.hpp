@@ -236,8 +236,8 @@ struct Edge {
   double weight_ = 0;
 };
 
-inline bool operator<(const Edge& e1, const Edge& e2) {
-  return (e1.weight_ < e2.weight_);
+inline bool operator>(const Edge& e1, const Edge& e2) {
+  return (e1.weight_ > e2.weight_);
 }
 
 inline std::string to_string(const Edge& edge) {
