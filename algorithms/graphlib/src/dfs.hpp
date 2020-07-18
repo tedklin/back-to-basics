@@ -30,15 +30,15 @@ void dfs_graph(Graph* graph,
 
 bool is_cyclic(Graph* graph);
 
+// Repeatedly pop the stack returned by this function to obtain topological
+// sort of a DAG.
+std::stack<const Vertex*>& topological_sort(Graph* graph);
+
 // TODO: test
 std::set<const Vertex*>& articulation_vertices(Graph* graph);
 
 // TODO: test
 bool is_biconnected(Graph* graph);
-
-// Repeatedly pop the stack returned by this function to obtain topological
-// sort of a DAG.
-std::stack<const Vertex*>& topological_sort(Graph* graph);
 
 // TODO: test
 std::vector<std::set<const Vertex*>>& strong_components(Graph* graph);

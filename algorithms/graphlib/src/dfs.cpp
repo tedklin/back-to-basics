@@ -18,11 +18,11 @@ bool g_finished = false;
 // Cycle detection.
 bool g_cyclic = false;
 
-// Articulation vertex / cut node detection.
-std::set<const Vertex*> g_artic_vertices;
-
 // Topological sort helper stack.
 std::stack<const Vertex*> g_top_stack;
+
+// Articulation vertex / cut node detection.
+std::set<const Vertex*> g_artic_vertices;
 
 // Strong component helpers.
 std::vector<std::set<const Vertex*>> g_components;
@@ -140,6 +140,23 @@ bool is_cyclic(Graph* graph) {
   return g_cyclic;
 }
 
+std::stack<const Vertex*>& topological_sort(Graph* graph) {
+  // Clear global stack.
+  while (!g_top_stack.empty()) {
+    g_top_stack.pop();
+  }
+
+  dfs_graph(graph, nullptr,
+            [](const Vertex* v1, const Vertex* v2, double weight) {
+              if (classify_edge(v1, v2) == EdgeType::BACK) {
+                std::cerr << "Warning: tried to perform topological sort on a "
+                             "non-DAG!\n\n";
+              }
+            },
+            [](const Vertex* v) { g_top_stack.push(v); });
+  return g_top_stack;
+}
+
 // TODO: test
 std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
@@ -200,23 +217,6 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
 bool is_biconnected(Graph* graph) {
   articulation_vertices(graph);
   return g_artic_vertices.empty();
-}
-
-std::stack<const Vertex*>& topological_sort(Graph* graph) {
-  // Clear global stack.
-  while (!g_top_stack.empty()) {
-    g_top_stack.pop();
-  }
-
-  dfs_graph(graph, nullptr,
-            [](const Vertex* v1, const Vertex* v2, double weight) {
-              if (classify_edge(v1, v2) == EdgeType::BACK) {
-                std::cerr << "Warning: tried to perform topological sort on a "
-                             "non-DAG!\n\n";
-              }
-            },
-            [](const Vertex* v) { g_top_stack.push(v); });
-  return g_top_stack;
 }
 
 // TODO: test
