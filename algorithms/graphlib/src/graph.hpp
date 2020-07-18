@@ -37,8 +37,8 @@ weight". Altogether, an VertexSet key, AdjacentSet key, and floating point
 edge weight represent the concept of one edge in a graph.
 
 There exists an auxiliary "Edge" class, which also represents the concept of an
-edge in a graph, but this is only used for defining MSTs and not for defining
-Graphs themselves.
+edge in a graph, but this is only used for specific algorithms (like finding
+MSTs) and not for defining Graphs themselves.
 
 ===============================================================================
 
@@ -224,7 +224,7 @@ class Graph {
 // adjacency sets.
 std::string to_string(const Graph& graph);
 
-// An auxiliary Edge class for use with MSTs.
+// An auxiliary Edge class.
 struct Edge {
   Edge(const Vertex* v1, const Vertex* v2, double weight)
       : v1_(v1), v2_(v2), weight_(weight) {}

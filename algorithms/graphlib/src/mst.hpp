@@ -6,12 +6,15 @@
 
 namespace graphlib {
 
-// In the classical weighted Union-Find data structure, each set / connected
-// component is represented by a tree, with the tree root "naming" the set. The
-// underlying structure is composed of two maps, one of which maps each Vertex
-// to its parent in its tree. If the Vertex is mapped to nullptr, then it
-// represents its own set / connected component. The other map keeps track of
-// the size of each tree, which helps keep trees balanced when they are merged.
+// This is a Graph adaptation of the weighted Union-Find data structure.
+// The universal set is the set of all Vertices in a given Graph, and disjoint
+// subsets represent connected components.
+//
+// Each disjoint subset can be represented as a tree, with the tree root
+// "naming" the subset. The underlying implementation here is composed of two
+// maps, one of which binds each Vertex to its parent in its tree. Vertices
+// bound to a nullptr represent tree roots. The other map keeps track of each
+// tree's size, which is used to keep trees balanced when they are merged.
 class VertexUnionFind {
  public:
   VertexUnionFind(Graph* graph) {
@@ -22,8 +25,8 @@ class VertexUnionFind {
     }
   }
 
-  // Returns the name of the set of the given Vertex (i.e. the root of the given
-  // Vertex's tree.)
+  // Returns the "name" of the subset containing a given Vertex (i.e. the root
+  // of the given Vertex's tree.)
   const Vertex* find(const Vertex* v) const {
     while (parents_.at(v)) {
       v = parents_.at(v);
@@ -35,12 +38,13 @@ class VertexUnionFind {
     return find(v1) == find(v2);
   }
 
+  // Merge the subsets containing the given Vertices.
   void merge(const Vertex* v1, const Vertex* v2) {
     if (connected(v1, v2)) {
       return;
     }
 
-    // Merge the smaller tree into the larger tree.
+    // Merge the smaller tree into the larger tree to maintain balance.
     const Vertex *set1 = find(v1), *set2 = find(v2);
     if (sizes_[set1] < sizes_[set2]) {
       parents_[set1] = set2;

@@ -12,7 +12,7 @@ std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>
 // Debugging utility to check contents of an Edge priority queue.
 std::string to_string(
     std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>> pq) {
-  std::string s("Vertex priority queue contents:\n");
+  std::string s("Edge priority queue contents:\n");
   while (!pq.empty()) {
     s += to_string(pq.top());
     pq.pop();
