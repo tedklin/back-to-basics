@@ -12,7 +12,7 @@ void equality_op_overload() {
   Vertex v1("A"), v2("B"), v1_again("A");
 
   std::cout << (v1 == v2) << '\n';
-  std::cout << (v1 == v1_again) << "\n\n";
+  std::cout << (v1 == v1_again) << '\n';
 }
 
 void hash_overload() {
@@ -20,7 +20,7 @@ void hash_overload() {
 
   std::cout << std::hash<Vertex>{}(v1) << '\n';
   std::cout << std::hash<Vertex>{}(v2) << '\n';
-  std::cout << std::hash<Vertex>{}(v1_again) << "\n\n";
+  std::cout << std::hash<Vertex>{}(v1_again) << '\n';
 }
 
 void vertex_set_initializer() {
@@ -38,7 +38,7 @@ void vertex_set_initializer() {
 
   // Check that only A, B, and C exist in the graph, all with state UNDISCOVERED
   // (0).
-  std::cout << graph.vertex_set_str() << "\n";
+  std::cout << graph.vertex_set_str();
 }
 
 void unweighted_al_initializer() {
@@ -52,17 +52,13 @@ void unweighted_al_initializer() {
 
   Graph graph_undirected_1(unweighted_al_full, false);  // also tests dup edges!
   Graph graph_undirected_2(unweighted_al_min, false);
-  std::cout << "full undirected\n"
-            << graphlib::to_string(graph_undirected_1) << '\n';
-  std::cout << "min undirected\n"
-            << graphlib::to_string(graph_undirected_2) << '\n';
+  std::cout << "full undirected\n" << graphlib::to_string(graph_undirected_1);
+  std::cout << "min undirected\n" << graphlib::to_string(graph_undirected_2);
 
   Graph graph_directed_1(unweighted_al_full, true);
   Graph graph_directed_2(unweighted_al_min, true);
-  std::cout << "full directed\n"
-            << graphlib::to_string(graph_directed_1) << '\n';
-  std::cout << "min directed\n"
-            << graphlib::to_string(graph_directed_2) << '\n';
+  std::cout << "full directed\n" << graphlib::to_string(graph_directed_1);
+  std::cout << "min directed\n" << graphlib::to_string(graph_directed_2);
 }
 
 // The example as seen in the comment at the top of graph.hpp.
@@ -84,29 +80,29 @@ void example_initializer() {
 
   Graph graph1(rep1, false), graph2(rep2, false), graph3(rep3, false);
 
-  std::cout << "rep1\n" << graphlib::to_string(graph1) << '\n';
-  std::cout << "rep2\n" << graphlib::to_string(graph2) << '\n';
-  std::cout << "rep3\n" << graphlib::to_string(graph3) << '\n';
+  std::cout << "rep1\n" << graphlib::to_string(graph1);
+  std::cout << "rep2\n" << graphlib::to_string(graph2);
+  std::cout << "rep3\n" << graphlib::to_string(graph3);
 }
 
 int main() {
-  std::cout << "=============\n";
+  std::cout << "\n=============\n";
   std::cout << "EQUALITY_OP_OVERLOAD\n\n";
   equality_op_overload();
 
-  std::cout << "=============\n";
+  std::cout << "\n=============\n";
   std::cout << "HASH_OVERLOAD\n\n";
   hash_overload();
 
-  std::cout << "=============\n";
+  std::cout << "\n=============\n";
   std::cout << "VERTEX_SET_INITIALIZER\n\n";
   vertex_set_initializer();
 
-  std::cout << "=============\n";
+  std::cout << "\n=============\n";
   std::cout << "UNWEIGHTED_AL_INITIALIZER\n\n";
   unweighted_al_initializer();
 
-  std::cout << "=============\n";
+  std::cout << "\n=============\n";
   std::cout << "EXAMPLE_INITIALIZER\n\n";
   example_initializer();
 }

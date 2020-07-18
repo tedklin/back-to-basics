@@ -1,6 +1,6 @@
 // The current DFS implementation (see dfs.cpp) is recursive with several global
-// variables storing information of interest. That is why most of the functions
-// are allowed to return by reference.
+// variables storing the information of interest. That is why most of the
+// functions here are allowed to return by reference.
 
 #pragma once
 

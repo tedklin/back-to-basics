@@ -163,8 +163,8 @@ class Graph {
  private:
   // Underlying data structure types. Well-tuned unordered maps should also work
   // here if we need a performance boost. Keep in mind the ordering of the
-  // AdjacentSet depends on the pointer itself, not the pointed-to Vertex.
-  // If the same edge is added more than once performance loss may occur.
+  // AdjacentSet has no signicance (it depends on the pointer itself, not the
+  // pointed-to Vertex).
   using AdjacentSet = std::map<const Vertex*, double>;
   using VertexSet = std::map<Vertex, AdjacentSet>;
 
@@ -188,16 +188,14 @@ class Graph {
 
   void add_vertex(const Vertex& v);
 
-  // Obtain a pointer to a Vertex within this Graph instance. If you don't use
-  // this, you are likely going to accidentally use a copy of Vertex when your
-  // intention was to access the singular Vertex instance stored by this Graph
-  // (i.e. the keyset of vertex_set_).
+  // Given a Vertex, obtain a pointer to the singular instance of that Vertex
+  // within this Graph object (i.e. in the keyset of vertex_set_).
   const Vertex* internal_vertex_ptr(const Vertex& v) const;
 
   void add_edge(const Vertex& source, const Vertex& dest,
                 double edge_weight = 1);
 
-  // Reset the state, color, etc, of all Vertices in this Graph instance.
+  // Reset the state, color, etc, of all Vertices in this Graph object.
   void reset_state();
 
   const VertexSet& vertex_set() const { return vertex_set_; }
@@ -215,14 +213,14 @@ class Graph {
   bool is_directed() { return is_directed_; }
 
  private:
-  // The keyset of vertex_set_ represents the only copy of Vertices this
-  // Graph stores.
+  // The keyset of vertex_set_ represents the only copy of Vertices this Graph
+  // stores.
   VertexSet vertex_set_;
 
   bool is_directed_;
 };
 
-// Return a string displaying all vertices in a given graph and corresponding
+// For a given graph, return a string displaying all vertices and corresponding
 // adjacency sets.
 std::string to_string(const Graph& graph);
 
@@ -236,8 +234,8 @@ struct Edge {
   double weight_ = 0;
 };
 
-inline bool operator>(const Edge& e1, const Edge& e2) {
-  return (e1.weight_ > e2.weight_);
+inline bool operator>(const Edge& lhs, const Edge& rhs) {
+  return (lhs.weight_ > rhs.weight_);
 }
 
 inline std::string to_string(const Edge& edge) {

@@ -28,8 +28,8 @@ std::set<const Vertex*> g_artic_vertices;
 std::vector<std::set<const Vertex*>> g_components;
 std::set<const Vertex*> g_component;
 
-// In a recursive DFS scheme, a helper is necessary because it's otherwise
-// impossible to reset the global timer.
+// In this recursive DFS scheme, a helper is necessary because it's otherwise
+// impossible to reset the global variables.
 void dfs_helper(Graph* graph, const Vertex* v1,
                 void (*process_vertex_early)(const Vertex* v),
                 void (*process_edge)(const Vertex* v1, const Vertex* v2,
@@ -48,7 +48,7 @@ void dfs_helper(Graph* graph, const Vertex* v1,
     double weight = adj.second;
 
     if (v2->state_ == Vertex::State::UNDISCOVERED) {
-      // Tree edge
+      // Tree edge.
       v2->parent_ = v1;
       process_edge(v1, v2, weight);
       dfs_helper(graph, v2, process_vertex_early, process_edge,
@@ -57,7 +57,7 @@ void dfs_helper(Graph* graph, const Vertex* v1,
                graph->is_directed()) {
       // Back edge if undirected.
       // Back, forward, or cross edge if directed.
-      // Also avoids duplicate (reverse adjacent) edges if undirected.
+      // Avoids duplicate (reverse adjacent) edges if undirected.
       process_edge(v1, v2, weight);
     }
 
@@ -78,9 +78,7 @@ void dfs(Graph* graph, const Vertex* search_root,
          void (*process_vertex_late)(const Vertex* v)) {
   g_time = 0;
   g_finished = false;
-  g_cyclic = false;
 
-  // Start DFS.
   dfs_helper(graph, search_root, process_vertex_early, process_edge,
              process_vertex_late);
 }
@@ -91,7 +89,6 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
                void (*process_vertex_late)(const Vertex* v)) {
   g_time = 0;
   g_finished = false;
-  g_cyclic = false;
 
   for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
@@ -123,6 +120,8 @@ EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
 }
 
 bool is_cyclic(Graph* graph) {
+  g_cyclic = false;
+
   for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
@@ -137,11 +136,11 @@ bool is_cyclic(Graph* graph) {
     }
     if (g_cyclic) break;
   }
+
   return g_cyclic;
 }
 
 std::stack<const Vertex*>& topological_sort(Graph* graph) {
-  // Clear global stack.
   while (!g_top_stack.empty()) {
     g_top_stack.pop();
   }
@@ -154,12 +153,14 @@ std::stack<const Vertex*>& topological_sort(Graph* graph) {
               }
             },
             [](const Vertex* v) { g_top_stack.push(v); });
+
   return g_top_stack;
 }
 
 // TODO: test
 std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
+
   dfs_graph(
       graph, nullptr,
       [](const Vertex* v1, const Vertex* v2, double weight) {
@@ -210,6 +211,7 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
           v->parent_->reachable_ancestor_ = v->reachable_ancestor_;
         }
       });
+
   return g_artic_vertices;
 }
 

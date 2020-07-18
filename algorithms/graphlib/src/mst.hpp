@@ -6,8 +6,8 @@
 
 namespace graphlib {
 
-// Prim's algorithm ("lazy" version) as seen in Sedgewick. Assumes given graph
-// is connected.
+// Prim's algorithm ("lazy" version in Sedgewick). Assumes given graph is
+// connected.
 std::vector<Edge> prim_mst(Graph* graph);
 
 }  // namespace graphlib

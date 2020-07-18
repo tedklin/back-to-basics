@@ -1,6 +1,6 @@
 # graphlib
 
-This is my attempt at creating a graph library based on the fundamental graph theory concepts taught in *Skiena* and *Sedgewick*. Compared to the published code in the aforementioned books, the implementations in this library aim to be more flexible and use more intuitive data structures, at the potential expense of space overhead.
+This is my attempt at creating a graph library based on the fundamental graph theory taught in *Skiena* and *Sedgewick*. Compared to the published code in the aforementioned books, the implementations in this library aim to be more flexible and use more intuitive data structures.
 
 The project setup for this library was created based on [my CMake template](https://github.com/tedklin/cmake_sandbox).
 

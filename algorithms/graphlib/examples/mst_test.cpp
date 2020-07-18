@@ -1,3 +1,5 @@
+// Quick ad-hoc tests for MST-related graph algorithms.
+
 #include "mst.hpp"
 
 #include <iostream>
@@ -8,8 +10,8 @@ using graphlib::Edge;
 using graphlib::Graph;
 using graphlib::Vertex;
 
-// Example graph provided in Sedgewick.
-void prims_tiny_ewg() {
+// "tiny_ewg" graph example provided in Sedgewick.
+void print_prims_mst() {
   Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7");
   Graph::InputWeightedAL al = {
       {v0, {{v7, 0.16}, {v4, 0.38}, {v2, 0.26}}},
@@ -19,9 +21,9 @@ void prims_tiny_ewg() {
       {v4, {{v5, 0.35}, {v7, 0.37}}},
       {v5, {{v7, 0.28}}},
       {v6, {{v2, 0.4}, {v0, 0.58}, {v4, 0.93}}}};
-  Graph graph(al, false);
+  Graph tiny_ewg(al, false);
 
-  std::vector<Edge> vec = graphlib::prim_mst(&graph);
+  std::vector<Edge> vec = graphlib::prim_mst(&tiny_ewg);
   for (const auto& e : vec) {
     std::cout << graphlib::to_string(e);
   }
@@ -30,6 +32,6 @@ void prims_tiny_ewg() {
 
 int main() {
   std::cout << "=============\n";
-  std::cout << "TINY_EWG\n\n";
-  prims_tiny_ewg();
+  std::cout << "PRINT_PRIMS_MST\n\n";
+  print_prims_mst();
 }

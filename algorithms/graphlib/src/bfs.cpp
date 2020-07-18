@@ -10,7 +10,6 @@ void bfs(Graph* graph, const Vertex* search_root,
          void (*process_edge)(const Vertex* v1, const Vertex* v2,
                               double weight),
          void (*process_vertex_late)(const Vertex* v)) {
-  // Start BFS.
   std::queue<const Vertex*> q;
   q.push(search_root);
 
@@ -49,6 +48,7 @@ std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
   s.push(v);
+
   while (v != search_root) {
     if (v) {
       v = v->parent_;
@@ -69,6 +69,7 @@ bool g_bipartite = true;
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   g_component.clear();
+
   std::vector<std::set<Vertex>> components;
   for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
@@ -83,6 +84,7 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
 
 bool is_bipartite(Graph* graph) {
   g_bipartite = true;
+
   for (auto x : graph->vertex_set()) {
     const Vertex* v = graph->internal_vertex_ptr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {

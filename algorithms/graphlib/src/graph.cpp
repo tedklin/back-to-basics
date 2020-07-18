@@ -1,5 +1,3 @@
-// Vertex and Graph function implementations.
-
 #include "graph.hpp"
 
 #include <stdexcept>
@@ -62,8 +60,7 @@ const Vertex* Graph::internal_vertex_ptr(const Vertex& v) const {
   if (vertex_iter == vertex_set_.end()) {
     throw std::runtime_error(
         "Graph::internal_vertex_ptr error! Tried to obtain pointer to "
-        "nonexistent "
-        "vertex (" +
+        "nonexistent vertex (" +
         v.name_ + ")\n");
   }
   return &(vertex_iter->first);
@@ -100,7 +97,7 @@ void Graph::reset_state() {
 }
 
 std::string to_string(const Graph& graph) {
-  std::string s("Adjacency list:\n");
+  std::string s("Adjacency lists:\n");
   for (const auto& p : graph.vertex_set()) {
     s += p.first.name_ + " -> ";
     for (const auto& e : p.second) {

@@ -25,7 +25,7 @@ void start_error_check() {
   try {
     graphlib::bfs(&graph, graph.internal_vertex_ptr(Vertex("D")));
   } catch (std::runtime_error e) {
-    std::cout << "Caught runtime exception:\n" << e.what() << '\n';
+    std::cout << "Caught runtime exception:\n" << e.what();
   }
 }
 
@@ -36,14 +36,12 @@ void bfs_traverse_check() {
       {A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};
   Graph graph(input_al, false);
 
-  std::cout << "Untraversed graph\n" << graph.vertex_set_str() << "\n";
-
+  std::cout << "Untraversed graph\n" << graph.vertex_set_str() << '\n';
   graphlib::bfs(&graph, graph.internal_vertex_ptr(A), graphlib::print_vertex,
                 nullptr, nullptr);
-
   // Here we're expecting all vertices connected to Vertex A to be in state
   // PROCESSED (2).
-  std::cout << "\nTraversed graph\n" << graph.vertex_set_str() << "\n\n";
+  std::cout << "\nTraversed graph\n" << graph.vertex_set_str();
 }
 
 void print_shortest_path() {
@@ -61,10 +59,10 @@ void print_shortest_path() {
       std::cout << path.top()->name_ << " -> ";
       path.pop();
     }
-    std::cout << path.top()->name_ << "\n\n";
+    std::cout << path.top()->name_ << '\n';
   }
 
-  std::cout << "Shortest path from A to B:\n";
+  std::cout << "\nShortest path from A to B:\n";
   path = graphlib::shortest_path(&graph, graph.internal_vertex_ptr(A),
                                  graph.internal_vertex_ptr(B));
   if (!path.empty()) {
@@ -72,7 +70,7 @@ void print_shortest_path() {
       std::cout << path.top()->name_ << " -> ";
       path.pop();
     }
-    std::cout << path.top()->name_ << "\n\n";
+    std::cout << path.top()->name_ << '\n';
   }
 }
 
@@ -94,7 +92,6 @@ void print_connected_components() {
     std::cout << '\n';
     ++i;
   }
-  std::cout << '\n';
 }
 
 void bipartite_check() {
@@ -106,7 +103,7 @@ void bipartite_check() {
   Graph::InputUnweightedAL bipartite_al = {{A, {B, C}}, {D, {B, C}}};
   Graph bipartite_graph(bipartite_al, false);
   std::cout << "expecting bipartite:\n"
-            << graphlib::is_bipartite(&bipartite_graph) << "\n\n";
+            << graphlib::is_bipartite(&bipartite_graph) << '\n';
 
   // Non bipartite undirected graph example:
   //    A---B
@@ -114,28 +111,28 @@ void bipartite_check() {
   //    C---D
   Graph::InputUnweightedAL nonbipartite_al = {{A, {B, C, D}}, {D, {B, C}}};
   Graph nonbipartite_graph(nonbipartite_al, false);
-  std::cout << "expecting non bipartite:\n"
-            << graphlib::is_bipartite(&nonbipartite_graph) << "\n\n";
+  std::cout << "\nexpecting non bipartite:\n"
+            << graphlib::is_bipartite(&nonbipartite_graph) << '\n';
 }
 
 int main() {
-  std::cout << "============\n";
+  std::cout << "\n============\n";
   std::cout << "START_ERROR_CHECK\n\n";
   start_error_check();
 
-  std::cout << "============\n";
+  std::cout << "\n============\n";
   std::cout << "BFS_TRAVERSE_CHECK\n\n";
   bfs_traverse_check();
 
-  std::cout << "============\n";
+  std::cout << "\n============\n";
   std::cout << "PRINT_SHORTEST_PATH\n\n";
   print_shortest_path();
 
-  std::cout << "============\n";
+  std::cout << "\n============\n";
   std::cout << "PRINT_CONNECTED_COMPONENTS\n\n";
   print_connected_components();
 
-  std::cout << "============\n";
+  std::cout << "\n============\n";
   std::cout << "BIPARTITE_CHECK\n\n";
   bipartite_check();
 }
