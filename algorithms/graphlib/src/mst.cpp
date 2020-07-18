@@ -33,6 +33,11 @@ void prim_visit(Graph* graph, const Vertex* v) {
 }
 
 std::vector<Edge> prim_mst(Graph* graph) {
+  if (graph->is_directed()) {
+    std::cerr << "Error: Tried to run Prim's algorithm on directed graph!\n";
+    return std::vector<Edge>();
+  }
+
   std::vector<Edge> mst;
   while (!g_crossing_edges.empty()) {
     g_crossing_edges.pop();
@@ -58,11 +63,15 @@ std::vector<Edge> prim_mst(Graph* graph) {
       prim_visit(graph, e.v2_);
     }
   }
-
   return mst;
 }
 
 std::vector<Edge> kruskal_mst(Graph* graph) {
+  if (graph->is_directed()) {
+    std::cerr << "Error: Tried to run Kruskal's algorithm on directed graph!\n";
+    return std::vector<Edge>();
+  }
+
   std::vector<Edge> mst;
   while (!g_crossing_edges.empty()) {
     g_crossing_edges.pop();
