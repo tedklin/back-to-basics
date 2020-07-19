@@ -14,18 +14,17 @@
 
 namespace graphlib {
 
-// Maps each vertex to its currently known shortest distance to the search
+// Maps each vertex to its currently-known shortest distance to the search
 // root.
 std::map<const Vertex*, double> g_dist_to_root;
 
-// To create a custom min-heap, we need to define our own Compare type.
+// To emulate a min-heap in a vector, we need to define our own Compare type.
 struct GreaterDist {
   bool operator()(const Vertex* lhs, const Vertex* rhs) const {
     return g_dist_to_root.at(lhs) > g_dist_to_root.at(rhs);
   }
 };
 
-// TODO: end search early when destination is found.
 void dijkstra(Graph* graph, const Vertex* search_root,
               const Vertex* destination) {
   g_dist_to_root.clear();
@@ -49,6 +48,8 @@ void dijkstra(Graph* graph, const Vertex* search_root,
     const Vertex* v1 = min_heap.back();
     min_heap.pop_back();
 
+    if (v1 == destination) return;
+
     for (auto& e : graph->adjacent_set(*v1)) {
       const Vertex* v2 = e.first;
       double weight = e.second;
@@ -70,9 +71,6 @@ void dijkstra(Graph* graph, const Vertex* search_root,
       }
     }
   }
-
-  // The shortest-paths-tree should now be encoded in each Vertex's parent
-  // member.
 }
 
 // Analogous to shortest_unweighted_path in bfs.cpp
