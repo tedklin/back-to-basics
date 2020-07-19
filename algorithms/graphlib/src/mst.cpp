@@ -5,7 +5,7 @@
 
 namespace graphlib {
 
-// Keeps track of next smallest crossing edge.
+// Min-heap keeps track of the next non-tree vertex closest to the growing tree.
 std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>
     g_crossing_edges;
 

@@ -44,15 +44,15 @@ void bfs_traverse_check() {
   std::cout << "\nTraversed graph\n" << graph.vertex_set_str();
 }
 
-void print_shortest_path() {
+void print_shortest_unweighted_path() {
   // Example seen in comment at the top of graph.hpp
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
   Graph::InputUnweightedAL input_al = {
       {A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};
   Graph graph(input_al, false);
 
-  std::cout << "Shortest path from A to C:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_path(
+  std::cout << "Shortest unweighted path from A to C:\n";
+  std::stack<const Vertex*> path = graphlib::shortest_unweighted_path(
       &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(C));
   if (!path.empty()) {
     while (path.size() > 1) {
@@ -62,9 +62,9 @@ void print_shortest_path() {
     std::cout << path.top()->name_ << '\n';
   }
 
-  std::cout << "\nShortest path from A to B:\n";
-  path = graphlib::shortest_path(&graph, graph.internal_vertex_ptr(A),
-                                 graph.internal_vertex_ptr(B));
+  std::cout << "\nShortest unweighted path from A to B:\n";
+  path = graphlib::shortest_unweighted_path(
+      &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(B));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -125,8 +125,8 @@ int main() {
   bfs_traverse_check();
 
   std::cout << "\n============\n";
-  std::cout << "PRINT_SHORTEST_PATH\n\n";
-  print_shortest_path();
+  std::cout << "PRINT_SHORTEST_UNWEIGHTED_PATH\n\n";
+  print_shortest_unweighted_path();
 
   std::cout << "\n============\n";
   std::cout << "PRINT_CONNECTED_COMPONENTS\n\n";

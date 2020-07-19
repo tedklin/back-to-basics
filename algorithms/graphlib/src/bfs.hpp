@@ -15,9 +15,11 @@ void bfs(Graph* graph, const Vertex* search_root,
                               double weight) = nullptr,
          void (*process_vertex_late)(const Vertex* v) = nullptr);
 
-// Repeatedly pop the stack returned by this function to obtain shortest path.
-std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
-                                        const Vertex* destination);
+// Repeatedly pop the stack returned by this function to obtain shortest
+// unweighted path.
+std::stack<const Vertex*> shortest_unweighted_path(Graph* graph,
+                                                   const Vertex* search_root,
+                                                   const Vertex* destination);
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph);
 

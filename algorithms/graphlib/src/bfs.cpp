@@ -42,8 +42,9 @@ void bfs(Graph* graph, const Vertex* search_root,
   }
 }
 
-std::stack<const Vertex*> shortest_path(Graph* graph, const Vertex* search_root,
-                                        const Vertex* destination) {
+std::stack<const Vertex*> shortest_unweighted_path(Graph* graph,
+                                                   const Vertex* search_root,
+                                                   const Vertex* destination) {
   bfs(graph, search_root);
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
