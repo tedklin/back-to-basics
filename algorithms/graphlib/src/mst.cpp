@@ -5,7 +5,8 @@
 
 namespace graphlib {
 
-// Min-heap keeps track of the next non-tree vertex closest to the growing tree.
+// Min-heap keeps track of the shortest edge between a non-tree vertex and the
+// growing spanning tree.
 std::priority_queue<Edge, std::vector<Edge>, std::greater<Edge>>
     g_crossing_edges;
 
@@ -32,6 +33,7 @@ void prim_visit(Graph* graph, const Vertex* v) {
   }
 }
 
+// "Lazy" implementation as seen in Sedgewick.
 std::vector<Edge> prim_mst(Graph* graph) {
   if (graph->is_directed()) {
     std::cerr << "Error: Tried to run Prim's algorithm on directed graph!\n";
@@ -66,9 +68,9 @@ std::vector<Edge> prim_mst(Graph* graph) {
   return mst;
 }
 
-// This is a Graph adaptation of the weighted Union-Find data structure.
-// The universal set is the set of all Vertices in a given Graph, and disjoint
-// subsets represent connected components.
+// This is a Graph adaptation of the weighted Union-Find data structure to help
+// with Kruskal's algorithm. The universal set is the set of all Vertices in a
+// given Graph, and disjoint subsets represent connected components.
 //
 // Each disjoint subset can be represented as a tree, with the tree root
 // "naming" the subset. The underlying implementation here is composed of two

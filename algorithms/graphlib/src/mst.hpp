@@ -6,8 +6,7 @@
 
 namespace graphlib {
 
-// Prim's algorithm ("lazy" version in Sedgewick). Assumes given graph is
-// connected.
+// Prim's algorithm. Assumes given graph is connected.
 std::vector<Edge> prim_mst(Graph* graph);
 
 // Kruskal's algorithm.
