@@ -1,9 +1,9 @@
 // Dijkstra's algorithm uses a min-heap to keep track of the next non-tree
-// vertex closest to the source. However, an std::priority_queue doesn't work
-// because we need the ability to change the comparator value (distance to
-// search root) of an existing key and reheapify on the go. To support this
-// ability efficiently, we use std::make_heap, push_heap, pop_heap backed by an
-// std::vector.
+// Vertex closest to the search root. std::priority_queue doesn't work here
+// because we need the ability to change the "value" (distance to search root)
+// of a Vertex already in the heap and reheapify on the go. To support this
+// functionality, we use std::make_heap, std::push_heap, and std::pop_heap on an
+// underlying std::vector.
 
 #include "weighted_paths.hpp"
 
@@ -25,8 +25,9 @@ struct GreaterDist {
   }
 };
 
+// TODO: end search early when destination is found.
 void dijkstra(Graph* graph, const Vertex* search_root,
-              const Vertex* destination = nullptr) {
+              const Vertex* destination) {
   g_dist_to_root.clear();
   for (const auto& v : graph->vertex_set()) {
     if (graph->internal_vertex_ptr(v.first) == search_root) {
@@ -42,8 +43,8 @@ void dijkstra(Graph* graph, const Vertex* search_root,
   min_heap.push_back(search_root);
 
   while (!min_heap.empty()) {
-    // Move the next smallest element (top of min-heap) to the end of the
-    // vector, then store it, then pop it.
+    // Bubble the smallest element (top of min-heap) down to the end of the
+    // vector, store it in v1, then pop it.
     std::pop_heap(min_heap.begin(), min_heap.end(), GreaterDist());
     const Vertex* v1 = min_heap.back();
     min_heap.pop_back();
@@ -57,12 +58,12 @@ void dijkstra(Graph* graph, const Vertex* search_root,
         v2->parent_ = v1;
 
         if (std::find(min_heap.begin(), min_heap.end(), v2) != min_heap.end()) {
-          // If v2 is already in the min-heap, completely reheapify with v2's
-          // changed g_dist_to_root value.
+          // If v2 is already in the min-heap, do a complete reheapify with
+          // v2's updated "g_dist_to_root" value.
           std::make_heap(min_heap.begin(), min_heap.end(), GreaterDist());
         } else {
-          // If v2 is not yet in the min-heap, push it to the back, then bubble
-          // it up to its proper place on the heap.
+          // If v2 is not yet in the min-heap, push it to the back of the
+          // vector, then bubble it up to its proper heap placement.
           min_heap.push_back(v2);
           std::push_heap(min_heap.begin(), min_heap.end(), GreaterDist());
         }
