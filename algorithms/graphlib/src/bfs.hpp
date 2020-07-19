@@ -8,7 +8,8 @@
 
 namespace graphlib {
 
-// Traditional BFS algorithm.
+// Traditional BFS algorithm. Results in a complete BFS search tree encoded in
+// the parent members of each Vertex.
 void bfs(Graph* graph, const Vertex* search_root,
          void (*process_vertex_early)(const Vertex* v) = nullptr,
          void (*process_edge)(const Vertex* v1, const Vertex* v2,

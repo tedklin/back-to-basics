@@ -10,9 +10,9 @@ using graphlib::Edge;
 using graphlib::Graph;
 using graphlib::Vertex;
 
-// "tiny_ewg" graph example provided in Sedgewick.
-// See expected results in Sedgewick (p.617 and p.624)
 void tiny_ewg_mst() {
+  // "tiny_ewg" graph example provided in Sedgewick.
+  // See expected results in Sedgewick (p.617 and p.624)
   Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7");
   Graph::InputWeightedAL al = {
       {v0, {{v7, 0.16}, {v4, 0.38}, {v2, 0.26}}},

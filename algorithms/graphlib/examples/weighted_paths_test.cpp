@@ -9,9 +9,9 @@
 using graphlib::Graph;
 using graphlib::Vertex;
 
-// "tiny_ewd" graph example provided in Sedgewick.
-// See expected results in Sedgewick (p.653)
 void tiny_ewd_dijkstras() {
+  // "tiny_ewd" graph example provided in Sedgewick.
+  // See expected results in Sedgewick (p.653)
   Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7");
   Graph::InputWeightedAL al = {{v0, {{v4, 0.38}, {v2, 0.26}}},
                                {v1, {{v3, 0.29}}},
@@ -23,8 +23,8 @@ void tiny_ewd_dijkstras() {
                                {v7, {{v5, 0.28}, {v3, 0.39}}}};
   Graph tiny_ewd(al, true);
 
-  // Updates parent members of each Vertex in graph to represent full shortest
-  // paths tree.
+  // Updates parent members of each Vertex in graph to represent complete
+  // shortest paths tree.
   graphlib::dijkstra(&tiny_ewd, tiny_ewd.internal_vertex_ptr(v0));
 
   std::cout << "Shortest paths parent tree:\n";
@@ -36,9 +36,6 @@ void tiny_ewd_dijkstras() {
     }
   }
   std::cout << '\n';
-
-  // The following are three example paths from search root v0, given arbitrary
-  // destinations.
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
   std::stack<const Vertex*> path = graphlib::shortest_weighted_path(

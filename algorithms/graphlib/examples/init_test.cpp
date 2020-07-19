@@ -61,10 +61,10 @@ void unweighted_al_initializer() {
   std::cout << "min directed\n" << graphlib::to_string(graph_directed_2);
 }
 
-// The example as seen in the comment at the top of graph.hpp.
-// All three literal representations should result in the same unweighted,
-// undirected graph.
 void example_initializer() {
+  // The example as seen in the comment at the top of graph.hpp.
+  // All three literal representations should result in the same unweighted,
+  // undirected graph.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
 
   Graph::InputUnweightedAL rep1 = {

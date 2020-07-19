@@ -196,6 +196,8 @@ class Graph {
                 double edge_weight = 1);
 
   // Reset the state, color, etc, of all Vertices in this Graph object.
+  // This is intended for direct user usage and is *not* automatically called at
+  // the start of algorithmic functions present in this library.
   void reset_state();
 
   const VertexSet& vertex_set() const { return vertex_set_; }
