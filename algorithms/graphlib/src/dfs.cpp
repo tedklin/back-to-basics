@@ -43,7 +43,7 @@ void dfs_helper(Graph* graph, const Vertex* v1,
     process_vertex_early(v1);
   }
 
-  for (auto& adj : graph->adjacent_set(*v1)) {
+  for (auto& adj : graph->GetAdjacentSet(*v1)) {
     const Vertex* v2 = adj.first;
     double weight = adj.second;
 
@@ -54,7 +54,7 @@ void dfs_helper(Graph* graph, const Vertex* v1,
       dfs_helper(graph, v2, process_vertex_early, process_edge,
                  process_vertex_late);
     } else if ((v2->state_ == Vertex::State::DISCOVERED && v1->parent_ != v2) ||
-               graph->is_directed()) {
+               graph->IsDirected()) {
       // Back edge if undirected.
       // Back, forward, or cross edge if directed.
       // Avoids duplicate (reverse adjacent) edges if undirected.
@@ -90,8 +90,8 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
   g_time = 0;
   g_finished = false;
 
-  for (auto& x : graph->vertex_set()) {
-    const Vertex* v = graph->internal_vertex_ptr(x.first);
+  for (auto& x : graph->GetVertexSet()) {
+    const Vertex* v = graph->GetInternalVertexPtr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs_helper(graph, v, process_vertex_early, process_edge,
                  process_vertex_late);
@@ -125,8 +125,8 @@ EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
 bool is_cyclic(Graph* graph) {
   g_cyclic = false;
 
-  for (auto& x : graph->vertex_set()) {
-    const Vertex* v = graph->internal_vertex_ptr(x.first);
+  for (auto& x : graph->GetVertexSet()) {
+    const Vertex* v = graph->GetInternalVertexPtr(x.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs(graph, v, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {

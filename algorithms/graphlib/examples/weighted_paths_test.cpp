@@ -25,11 +25,11 @@ void tiny_ewd_dijkstras() {
 
   // Updates parent members of each Vertex in graph to represent complete
   // shortest paths tree.
-  graphlib::dijkstra(&tiny_ewd, tiny_ewd.internal_vertex_ptr(v0));
+  graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0));
 
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
-  for (const auto& v : tiny_ewd.vertex_set()) {
+  for (const auto& v : tiny_ewd.GetVertexSet()) {
     if (v.first != v0) {
       std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
                 << '\n';
@@ -39,8 +39,8 @@ void tiny_ewd_dijkstras() {
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
   std::stack<const Vertex*> path = graphlib::shortest_weighted_path(
-      &tiny_ewd, tiny_ewd.internal_vertex_ptr(v0),
-      tiny_ewd.internal_vertex_ptr(v1));
+      &tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0),
+      tiny_ewd.GetInternalVertexPtr(v1));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -52,8 +52,8 @@ void tiny_ewd_dijkstras() {
 
   std::cout << "Shortest weighted path from 0 to 3:\n";
   path = graphlib::shortest_weighted_path(&tiny_ewd,
-                                          tiny_ewd.internal_vertex_ptr(v0),
-                                          tiny_ewd.internal_vertex_ptr(v3));
+                                          tiny_ewd.GetInternalVertexPtr(v0),
+                                          tiny_ewd.GetInternalVertexPtr(v3));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -65,8 +65,8 @@ void tiny_ewd_dijkstras() {
 
   std::cout << "Shortest weighted path from 0 to 6:\n";
   path = graphlib::shortest_weighted_path(&tiny_ewd,
-                                          tiny_ewd.internal_vertex_ptr(v0),
-                                          tiny_ewd.internal_vertex_ptr(v6));
+                                          tiny_ewd.GetInternalVertexPtr(v0),
+                                          tiny_ewd.GetInternalVertexPtr(v6));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

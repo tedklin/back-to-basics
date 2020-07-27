@@ -115,8 +115,8 @@ struct Vertex {
   mutable const Vertex* low_ = this;  // oldest common strong component
 
   // Note: removing the const qualifier here makes it so that any const Vertex
-  // object can't call reset (see add_vertex in Graph.cpp).
-  void reset() const {
+  // object can't call Reset (see AddVertex in Graph.cpp).
+  void Reset() const {
     state_ = State::UNDISCOVERED;
     parent_ = nullptr;
     color_ = 0;
@@ -186,33 +186,33 @@ class Graph {
   // Constructs a fully specified weighted graph.
   Graph(InputWeightedAL adjacency_list, bool is_directed);
 
-  void add_vertex(const Vertex& v);
+  void AddVertex(const Vertex& v);
 
   // Given a Vertex, obtain a pointer to the singular instance of that Vertex
   // within this Graph object (i.e. in the keyset of vertex_set_).
-  const Vertex* internal_vertex_ptr(const Vertex& v) const;
+  const Vertex* GetInternalVertexPtr(const Vertex& v) const;
 
-  void add_edge(const Vertex& source, const Vertex& dest,
-                double edge_weight = 1);
+  void AddEdge(const Vertex& source, const Vertex& dest,
+               double edge_weight = 1);
 
   // Reset the state, color, etc, of all Vertices in this Graph object.
   // This is intended for direct user usage and is *not* automatically called at
   // the start of algorithmic functions present in this library.
-  void reset_state();
+  void ResetState();
 
-  const VertexSet& vertex_set() const { return vertex_set_; }
+  const VertexSet& GetVertexSet() const { return vertex_set_; }
 
-  std::string vertex_set_str() const;
+  std::string GetVertexSetStr() const;
 
-  const AdjacentSet& adjacent_set(const Vertex& source) const {
+  const AdjacentSet& GetAdjacentSet(const Vertex& source) const {
     return vertex_set_.at(source);
   }
 
-  AdjacentSet& mutable_adjacent_set(const Vertex& source) {
+  AdjacentSet& GetMutableAdjacentSet(const Vertex& source) {
     return vertex_set_.at(source);
   }
 
-  bool is_directed() { return is_directed_; }
+  bool IsDirected() { return is_directed_; }
 
  private:
   // The keyset of vertex_set_ represents the only copy of Vertices this Graph

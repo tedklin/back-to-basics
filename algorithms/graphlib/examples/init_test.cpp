@@ -34,11 +34,11 @@ void vertex_set_initializer() {
   Graph graph({v1, v2, v3, v1_again}, false);
 
   // v2_again should be ignored.
-  graph.add_vertex(v2_again);
+  graph.AddVertex(v2_again);
 
   // Check that only A, B, and C exist in the graph, all with state UNDISCOVERED
   // (0).
-  std::cout << graph.vertex_set_str();
+  std::cout << graph.GetVertexSetStr();
 }
 
 void unweighted_al_initializer() {

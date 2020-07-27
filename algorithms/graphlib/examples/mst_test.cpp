@@ -32,7 +32,7 @@ void tiny_ewg_mst() {
   std::cout << '\n';
 
   std::cout << "MST found by Kruskal's algorithm:\n";
-  tiny_ewg.reset_state();
+  tiny_ewg.ResetState();
   std::vector<Edge> kruskals_output = graphlib::kruskal_mst(&tiny_ewg);
   for (const auto& e : kruskals_output) {
     std::cout << graphlib::to_string(e);

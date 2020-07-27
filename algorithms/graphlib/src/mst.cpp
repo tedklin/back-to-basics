@@ -24,7 +24,7 @@ std::string to_string(
 
 void prim_visit(Graph* graph, const Vertex* v) {
   v->state_ = Vertex::State::DISCOVERED;
-  for (auto& adj : graph->adjacent_set(*v)) {
+  for (auto& adj : graph->GetAdjacentSet(*v)) {
     const Vertex* v2 = adj.first;
     double weight = adj.second;
     if (v2->state_ == Vertex::State::UNDISCOVERED) {
@@ -35,7 +35,7 @@ void prim_visit(Graph* graph, const Vertex* v) {
 
 // "Lazy" implementation as seen in Sedgewick.
 std::vector<Edge> prim_mst(Graph* graph) {
-  if (graph->is_directed()) {
+  if (graph->IsDirected()) {
     std::cerr << "Error: Tried to run Prim's algorithm on directed graph!\n";
     return std::vector<Edge>();
   }
@@ -47,7 +47,7 @@ std::vector<Edge> prim_mst(Graph* graph) {
 
   // Assuming the given graph is connected, this successfully adds at least one
   // crossing edge to the priority queue to kick off the algorithm.
-  prim_visit(graph, &(graph->vertex_set().cbegin()->first));
+  prim_visit(graph, &(graph->GetVertexSet().cbegin()->first));
 
   while (!g_crossing_edges.empty()) {
     Edge e = g_crossing_edges.top();
@@ -81,33 +81,33 @@ class VertexUnionFind {
  public:
   VertexUnionFind(Graph* graph) {
     // Initially, each vertex is its own subset.
-    for (const auto& v : graph->vertex_set()) {
-      parents_[graph->internal_vertex_ptr(v.first)] = nullptr;
-      sizes_[graph->internal_vertex_ptr(v.first)] = 1;
+    for (const auto& v : graph->GetVertexSet()) {
+      parents_[graph->GetInternalVertexPtr(v.first)] = nullptr;
+      sizes_[graph->GetInternalVertexPtr(v.first)] = 1;
     }
   }
 
   // Returns the "name" of the subset containing a given Vertex (i.e. the root
   // of the given Vertex's tree.)
-  const Vertex* find(const Vertex* v) const {
+  const Vertex* Find(const Vertex* v) const {
     while (parents_.at(v)) {
       v = parents_.at(v);
     }
     return v;
   }
 
-  bool connected(const Vertex* v1, const Vertex* v2) const {
-    return find(v1) == find(v2);
+  bool IsConnected(const Vertex* v1, const Vertex* v2) const {
+    return Find(v1) == Find(v2);
   }
 
   // Merge the subsets containing the given Vertices.
-  void merge(const Vertex* v1, const Vertex* v2) {
-    if (connected(v1, v2)) {
+  void Union(const Vertex* v1, const Vertex* v2) {
+    if (IsConnected(v1, v2)) {
       return;
     }
 
     // Merge the smaller tree into the larger tree to maintain balance.
-    const Vertex *set1 = find(v1), *set2 = find(v2);
+    const Vertex *set1 = Find(v1), *set2 = Find(v2);
     if (sizes_[set1] < sizes_[set2]) {
       parents_[set1] = set2;
       sizes_[set2] += sizes_[set1];
@@ -123,7 +123,7 @@ class VertexUnionFind {
 };
 
 std::vector<Edge> kruskal_mst(Graph* graph) {
-  if (graph->is_directed()) {
+  if (graph->IsDirected()) {
     std::cerr << "Error: Tried to run Kruskal's algorithm on directed graph!\n";
     return std::vector<Edge>();
   }
@@ -134,8 +134,8 @@ std::vector<Edge> kruskal_mst(Graph* graph) {
   }
 
   // Add all edges in given graph to priority queue.
-  for (const auto& v : graph->vertex_set()) {
-    const Vertex* v1 = graph->internal_vertex_ptr(v.first);
+  for (const auto& v : graph->GetVertexSet()) {
+    const Vertex* v1 = graph->GetInternalVertexPtr(v.first);
     for (const auto& adj : v.second) {
       const Vertex* v2 = adj.first;
       double weight = adj.second;
@@ -144,14 +144,15 @@ std::vector<Edge> kruskal_mst(Graph* graph) {
   }
 
   VertexUnionFind uf(graph);
-  while (!g_crossing_edges.empty() && mst.size() < graph->vertex_set().size()) {
+  while (!g_crossing_edges.empty() &&
+         mst.size() < graph->GetVertexSet().size()) {
     Edge e = g_crossing_edges.top();
     g_crossing_edges.pop();
 
-    if (uf.connected(e.v1_, e.v2_)) {
+    if (uf.IsConnected(e.v1_, e.v2_)) {
       continue;
     }
-    uf.merge(e.v1_, e.v2_);
+    uf.Union(e.v1_, e.v2_);
     mst.push_back(e);
   }
   return mst;

@@ -16,14 +16,14 @@ void start_error_check() {
   Graph graph({v1, v2, v3}, false);
 
   std::cout << "Not expecting error...\n\n";
-  graphlib::bfs(&graph, graph.internal_vertex_ptr(v1));
+  graphlib::bfs(&graph, graph.GetInternalVertexPtr(v1));
 
   std::cout << "Not expecting error...\n\n";
-  graphlib::bfs(&graph, graph.internal_vertex_ptr(Vertex("A")));
+  graphlib::bfs(&graph, graph.GetInternalVertexPtr(Vertex("A")));
 
   std::cout << "Expecting error...\n";
   try {
-    graphlib::bfs(&graph, graph.internal_vertex_ptr(Vertex("D")));
+    graphlib::bfs(&graph, graph.GetInternalVertexPtr(Vertex("D")));
   } catch (std::runtime_error e) {
     std::cout << "Caught runtime exception:\n" << e.what();
   }
@@ -36,12 +36,12 @@ void bfs_traverse_check() {
       {A, {D, E}}, {B, {}}, {D, {E}}, {E, {C}}};
   Graph graph(input_al, false);
 
-  std::cout << "Untraversed graph\n" << graph.vertex_set_str() << '\n';
-  graphlib::bfs(&graph, graph.internal_vertex_ptr(A), graphlib::print_vertex,
+  std::cout << "Untraversed graph\n" << graph.GetVertexSetStr() << '\n';
+  graphlib::bfs(&graph, graph.GetInternalVertexPtr(A), graphlib::print_vertex,
                 nullptr, nullptr);
   // Here we're expecting all vertices connected to Vertex A to be in state
   // PROCESSED (2).
-  std::cout << "\nTraversed graph\n" << graph.vertex_set_str();
+  std::cout << "\nTraversed graph\n" << graph.GetVertexSetStr();
 }
 
 void print_shortest_unweighted_path() {
@@ -53,7 +53,7 @@ void print_shortest_unweighted_path() {
 
   std::cout << "Shortest unweighted path from A to C:\n";
   std::stack<const Vertex*> path = graphlib::shortest_unweighted_path(
-      &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(C));
+      &graph, graph.GetInternalVertexPtr(A), graph.GetInternalVertexPtr(C));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -64,7 +64,7 @@ void print_shortest_unweighted_path() {
 
   std::cout << "\nShortest unweighted path from A to B:\n";
   path = graphlib::shortest_unweighted_path(
-      &graph, graph.internal_vertex_ptr(A), graph.internal_vertex_ptr(B));
+      &graph, graph.GetInternalVertexPtr(A), graph.GetInternalVertexPtr(B));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

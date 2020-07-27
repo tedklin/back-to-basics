@@ -28,11 +28,11 @@ struct GreaterDist {
 void dijkstra(Graph* graph, const Vertex* search_root,
               const Vertex* destination) {
   g_dist_to_root.clear();
-  for (const auto& v : graph->vertex_set()) {
-    if (graph->internal_vertex_ptr(v.first) == search_root) {
-      g_dist_to_root[graph->internal_vertex_ptr(v.first)] = 0;
+  for (const auto& v : graph->GetVertexSet()) {
+    if (graph->GetInternalVertexPtr(v.first) == search_root) {
+      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
     } else {
-      g_dist_to_root[graph->internal_vertex_ptr(v.first)] =
+      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] =
           std::numeric_limits<double>::infinity();
     }
   }
@@ -50,7 +50,7 @@ void dijkstra(Graph* graph, const Vertex* search_root,
 
     if (v1 == destination) return;
 
-    for (auto& e : graph->adjacent_set(*v1)) {
+    for (auto& e : graph->GetAdjacentSet(*v1)) {
       const Vertex* v2 = e.first;
       double weight = e.second;
 
