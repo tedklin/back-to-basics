@@ -108,10 +108,10 @@ struct Vertex {
   // only use the name of the Vertex as the value.
   mutable State state_ = State::UNDISCOVERED;        // search state
   mutable const Vertex* parent_ = nullptr;           // search tree parent
-  mutable int color_ = 0;                            // bipartiteness
+  mutable int color_ = 0;                            // two-coloring (bipartite)
   mutable int entry_time_ = 0, exit_time_ = 0;       // dfs time intervals
   mutable const Vertex* reachable_ancestor_ = this;  // dfs earliest ancestor
-  mutable int tree_out_degree_ = 0;                  // search tree out degree
+  mutable int tree_out_degree_ = 0;   // dfs search tree out degree
   mutable const Vertex* low_ = this;  // oldest common strong component
 
   // Note: removing the const qualifier here makes it so that any const Vertex

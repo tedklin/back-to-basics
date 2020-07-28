@@ -92,12 +92,16 @@ bool is_bipartite(Graph* graph) {
       v->color_ = 1;
       bfs(graph, v, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {
+            // Check for any nondiscovery edges that violate two-coloring.
             if (v1->color_ == v2->color_) {
               std::cout << v1->name_ << " (color=" << v1->color_ << ") and "
                         << v2->name_ << " (color=" << v2->color_
                         << ") violate bipartiteness\n";
               g_is_bipartite = false;
             }
+
+            // Color any newly discovered Vertex to be the complement of its
+            // parent.
             v2->color_ = -(v1->color_);
           });
     }

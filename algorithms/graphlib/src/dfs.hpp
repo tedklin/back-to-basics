@@ -20,7 +20,8 @@ void dfs(Graph* graph, const Vertex* search_root,
                               double weight) = nullptr,
          void (*process_vertex_late)(const Vertex* v) = nullptr);
 
-// DFS that traverses entire Graph (no specified search root).
+// DFS that traverses entire Graph (possibly disconnected, so no specified
+// search root).
 void dfs_graph(Graph* graph,
                void (*process_vertex_early)(const Vertex* v) = nullptr,
                void (*process_edge)(const Vertex* v1, const Vertex* v2,
@@ -34,12 +35,14 @@ bool is_cyclic(Graph* graph);
 std::stack<const Vertex*>& topological_sort(Graph* graph);
 
 // TODO: test
+// Articulation vertices are vertices that, when cut, disconnect the graph.
+// Presence of articulation vertices == not biconnected. Not sure if
+// implementation is valid for directed graphs.
 std::set<const Vertex*>& articulation_vertices(Graph* graph);
-
-// TODO: test
 bool is_biconnected(Graph* graph);
 
-// TODO: test
+// For directed graphs, a strongly connected component is one where every Vertex
+// can reach every other Vertex and vice versa.
 std::vector<std::set<const Vertex*>>& strong_components(Graph* graph);
 
 // Forward declarations for functions common to BFS.

@@ -55,9 +55,13 @@ void dfs_helper(Graph* graph, const Vertex* v1,
                  process_vertex_late);
     } else if ((v2->state_ == Vertex::State::DISCOVERED && v1->parent_ != v2) ||
                graph->IsDirected()) {
-      // Back edge if undirected.
-      // Back, forward, or cross edge if directed.
-      // Avoids duplicate (reverse adjacent) edges if undirected.
+      // If undirected, we ignore this edge if it's merely the reverse of an
+      // already processed edge. Reverse edges also be thought of as "cycles" of
+      // only two vertices and hold no meaning for undirected graphs. If this is
+      // not a reverse edge, this *must* be a (newly discovered) back edge.
+
+      // If directed, this can be a back, forward, or cross edge.
+
       process_edge(v1, v2, weight);
     }
 
@@ -177,7 +181,7 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
         }
       },
       [](const Vertex* v) {
-        // If v is the search tree root vertex
+        // Edge case for search tree root vertex
         if (!(v->parent_)) {
           if (v->tree_out_degree_ > 1) {
             std::cout << "Root articulation vertex found: " << v->name_ << '\n';
@@ -208,7 +212,7 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
         }
 
         // A Vertex's earliest reachable ancestor is also its search tree
-        // child's earliest reachable ancestor.
+        // parent's earliest reachable ancestor.
         if (v->reachable_ancestor_->entry_time_ <
             v->parent_->reachable_ancestor_->entry_time_) {
           v->parent_->reachable_ancestor_ = v->reachable_ancestor_;
