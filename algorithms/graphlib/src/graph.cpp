@@ -80,6 +80,12 @@ void Graph::AddEdge(const Vertex& source, const Vertex& dest,
   }
 }
 
+void Graph::ResetState() {
+  for (auto& p : vertex_set_) {
+    p.first.Reset();
+  }
+}
+
 std::string Graph::GetVertexSetStr() const {
   std::string s("Vertex set:\n");
   for (const auto& p : vertex_set_) {
@@ -88,12 +94,6 @@ std::string Graph::GetVertexSetStr() const {
   }
   s += '\n';
   return s;
-}
-
-void Graph::ResetState() {
-  for (auto& p : vertex_set_) {
-    p.first.Reset();
-  }
 }
 
 std::string to_string(const Graph& graph) {
@@ -107,6 +107,18 @@ std::string to_string(const Graph& graph) {
   }
   s += '\n';
   return s;
+}
+
+std::shared_ptr<Graph> Graph::GetReverseGraph() const {
+  std::shared_ptr<Graph> reverse = std::make_shared<Graph>(true);
+  for (const auto& p : this->GetVertexSet()) {
+    Vertex source = p.first;
+    reverse->AddVertex(source);
+    for (const auto& e : p.second) {
+      reverse->AddEdge(*(e.first), source, e.second);
+    }
+  }
+  return reverse;
 }
 
 }  // namespace graphlib

@@ -161,7 +161,7 @@ class Graph {
  private:
   // Underlying data structure types. Well-tuned unordered maps should also work
   // here if we need a performance boost. Keep in mind the ordering of the
-  // AdjacentSet has no signicance (it depends on the pointer itself, not the
+  // AdjacentSet has no significance (it depends on the pointer itself, not the
   // pointed-to Vertex).
   using AdjacentSet = std::map<const Vertex*, double>;
   using VertexSet = std::map<Vertex, AdjacentSet>;
@@ -211,6 +211,10 @@ class Graph {
   }
 
   bool IsDirected() { return is_directed_; }
+
+  // Return a new copy of this Graph, but with all edges reversed. Note that
+  // this naturally only makes sense for directed graphs.
+  std::shared_ptr<Graph> GetReverseGraph() const;
 
  private:
   // The keyset of vertex_set_ represents the only copy of Vertices this Graph

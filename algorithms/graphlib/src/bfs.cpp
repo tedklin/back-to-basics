@@ -69,8 +69,8 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   g_component.clear();
 
   std::vector<std::set<Vertex>> components;
-  for (auto& x : graph->GetVertexSet()) {
-    const Vertex* v = graph->GetInternalVertexPtr(x.first);
+  for (auto& p : graph->GetVertexSet()) {
+    const Vertex* v = graph->GetInternalVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       bfs(graph, v, [](const Vertex* v) { g_component.insert(*v); });
       components.push_back(g_component);
@@ -85,8 +85,8 @@ bool g_is_bipartite = true;
 bool is_bipartite(Graph* graph) {
   g_is_bipartite = true;
 
-  for (auto& x : graph->GetVertexSet()) {
-    const Vertex* v = graph->GetInternalVertexPtr(x.first);
+  for (auto& p : graph->GetVertexSet()) {
+    const Vertex* v = graph->GetInternalVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       v->color_ = 1;
       bfs(graph, v, nullptr,
