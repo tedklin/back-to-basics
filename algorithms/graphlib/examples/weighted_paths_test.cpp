@@ -38,7 +38,7 @@ void tiny_ewd_dijkstras() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_weighted_path(
+  std::stack<const Vertex*> path = graphlib::shortest_pos_weight_path(
       &tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0),
       tiny_ewd.GetInternalVertexPtr(v1));
   if (!path.empty()) {
@@ -51,9 +51,9 @@ void tiny_ewd_dijkstras() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 3:\n";
-  path = graphlib::shortest_weighted_path(&tiny_ewd,
-                                          tiny_ewd.GetInternalVertexPtr(v0),
-                                          tiny_ewd.GetInternalVertexPtr(v3));
+  path = graphlib::shortest_pos_weight_path(&tiny_ewd,
+                                            tiny_ewd.GetInternalVertexPtr(v0),
+                                            tiny_ewd.GetInternalVertexPtr(v3));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -64,9 +64,9 @@ void tiny_ewd_dijkstras() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 6:\n";
-  path = graphlib::shortest_weighted_path(&tiny_ewd,
-                                          tiny_ewd.GetInternalVertexPtr(v0),
-                                          tiny_ewd.GetInternalVertexPtr(v6));
+  path = graphlib::shortest_pos_weight_path(&tiny_ewd,
+                                            tiny_ewd.GetInternalVertexPtr(v0),
+                                            tiny_ewd.GetInternalVertexPtr(v6));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

@@ -34,7 +34,7 @@ bool is_cyclic(Graph* graph);
 // sort of a DAG. Useful for scheduling problems.
 std::stack<const Vertex*>& topological_sort(Graph* graph);
 
-// TODO: test
+// UNTESTED!
 // Articulation vertices are vertices that, when cut, disconnect the graph.
 // No articulation vertices == biconnected.
 std::set<const Vertex*>& articulation_vertices(Graph* graph);

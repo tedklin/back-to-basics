@@ -139,6 +139,10 @@ bool is_cyclic(Graph* graph) {
 std::stack<const Vertex*> g_topo_stack;
 
 std::stack<const Vertex*>& topological_sort(Graph* graph) {
+  if (!graph->IsDirected()) {
+    std::cerr << "Warning: tried to perform topological sort on a non-DAG!\n\n";
+  }
+
   while (!g_topo_stack.empty()) {
     g_topo_stack.pop();
   }
@@ -157,7 +161,7 @@ std::stack<const Vertex*>& topological_sort(Graph* graph) {
 
 std::set<const Vertex*> g_artic_vertices;
 
-// TODO: test
+// UNTESTED!
 std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
 
@@ -215,7 +219,7 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   return g_artic_vertices;
 }
 
-// TODO: test
+// UNTESTED!
 bool is_biconnected(Graph* graph) {
   articulation_vertices(graph);
   return g_artic_vertices.empty();
