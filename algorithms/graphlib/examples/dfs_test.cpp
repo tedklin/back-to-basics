@@ -51,6 +51,26 @@ void print_top_sort() {
   s = graphlib::topological_sort(&dcg);
 }
 
+void print_strong_components() {
+  // Figure 5.16 (p.182) in Skiena
+  Vertex v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7"), v8("8");
+  Graph::InputUnweightedAL directed_al = {
+      {v1, {v2}}, {v2, {v3, v4, v5}}, {v3, {v1}}, {v4, {v1, v6, v8}},
+      {v5, {v6}}, {v6, {v7}},         {v7, {v5}}, {v8, {v6}}};
+  Graph directed_graph(directed_al, true);
+  std::cout << "Finding connected components...\n";
+  std::vector<std::set<const Vertex*>> components =
+      graphlib::strong_components(&directed_graph);
+  int counter = 1;
+  for (const auto& component : components) {
+    std::cout << "Component " << counter++ << ": ";
+    for (const Vertex* v : component) {
+      std::cout << v->name_ << " | ";
+    }
+    std::cout << '\n';
+  }
+}
+
 int main() {
   std::cout << "============\n";
   std::cout << "CYCLE_DETECTION_CHECK\n\n";
@@ -59,4 +79,8 @@ int main() {
   std::cout << "============\n";
   std::cout << "PRINT_TOP_SORT\n\n";
   print_top_sort();
+
+  std::cout << "============\n";
+  std::cout << "PRINT_STRONG_COMPONENTS\n\n";
+  print_strong_components();
 }

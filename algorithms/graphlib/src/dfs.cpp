@@ -5,9 +5,6 @@
 
 namespace graphlib {
 
-// Global helper variables to circumvent inability to pass capturing lambdas as
-// function pointers. Remember to clear / reset value before and after each use.
-
 // Time intervals can give us valuable information about the structure of the
 // DFS search tree (see Skiena).
 int g_time = 0;
@@ -15,21 +12,6 @@ int g_time = 0;
 // Allow for early search termination.
 bool g_finished = false;
 
-// Cycle detection.
-bool g_cyclic = false;
-
-// Topological sort helper stack.
-std::stack<const Vertex*> g_top_stack;
-
-// Articulation vertex / cut node detection.
-std::set<const Vertex*> g_artic_vertices;
-
-// Strong component helpers.
-std::vector<std::set<const Vertex*>> g_components;
-std::set<const Vertex*> g_component;
-
-// In this recursive DFS scheme, a helper is necessary because it's otherwise
-// impossible to reset the global variables.
 void dfs_helper(Graph* graph, const Vertex* v1,
                 void (*process_vertex_early)(const Vertex* v),
                 void (*process_edge)(const Vertex* v1, const Vertex* v2,
@@ -126,6 +108,8 @@ EdgeType classify_edge(const Vertex* v1, const Vertex* v2) {
   return EdgeType::UNCLASSIFIED;
 }
 
+bool g_cyclic = false;
+
 bool is_cyclic(Graph* graph) {
   g_cyclic = false;
 
@@ -147,9 +131,11 @@ bool is_cyclic(Graph* graph) {
   return g_cyclic;
 }
 
+std::stack<const Vertex*> g_topo_stack;
+
 std::stack<const Vertex*>& topological_sort(Graph* graph) {
-  while (!g_top_stack.empty()) {
-    g_top_stack.pop();
+  while (!g_topo_stack.empty()) {
+    g_topo_stack.pop();
   }
 
   dfs_graph(graph, nullptr,
@@ -159,10 +145,12 @@ std::stack<const Vertex*>& topological_sort(Graph* graph) {
                              "non-DAG!\n\n";
               }
             },
-            [](const Vertex* v) { g_top_stack.push(v); });
+            [](const Vertex* v) { g_topo_stack.push(v); });
 
-  return g_top_stack;
+  return g_topo_stack;
 }
+
+std::set<const Vertex*> g_artic_vertices;
 
 // TODO: test
 std::set<const Vertex*>& articulation_vertices(Graph* graph) {
@@ -192,12 +180,12 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
 
         // If v's search tree parent is not the root vertex
         if (!(v->parent_->parent_)) {
-          if (v->reachable_ancestor_ == v->parent_) {
+          if (*(v->reachable_ancestor_) == *(v->parent_)) {
             std::cout << "Parent articulation vertex found: " << v->name_
                       << '\n';
             g_artic_vertices.insert(v);
           }
-          if (v->reachable_ancestor_ == v) {
+          if (*(v->reachable_ancestor_) == *v) {
             std::cout << "Bridge articulation vertex found: "
                       << v->parent_->name_ << '\n';
             g_artic_vertices.insert(v->parent_);
@@ -228,39 +216,9 @@ bool is_biconnected(Graph* graph) {
   return g_artic_vertices.empty();
 }
 
-// TODO: test
-std::vector<std::set<const Vertex*>>& strong_components(Graph* graph) {
-  g_components.clear();
-  g_component.clear();
+std::stack<const Vertex*> g_kosaraju_stack;
 
-  dfs_graph(
-      graph, [](const Vertex* v) { g_component.insert(v); },
-      [](const Vertex* v1, const Vertex* v2, double weight) {
-        if (classify_edge(v1, v2) == EdgeType::BACK &&
-            v2->entry_time_ < v1->low_->entry_time_) {
-          v1->low_ = v2;
-        }
-        if (classify_edge(v1, v2) == EdgeType::CROSS) {
-          bool component_unassigned;
-          for (std::set<const Vertex*> component : g_components) {
-            component_unassigned = (component.find(v2) == component.end());
-          }
-          if (component_unassigned && v2->entry_time_ < v1->low_->entry_time_) {
-            v1->low_ = v2;
-          }
-        }
-      },
-      [](const Vertex* v) {
-        if (v->low_ == v) {
-          g_components.push_back(g_component);
-          g_component.clear();
-        }
-        if (v->low_->entry_time_ < v->parent_->low_->entry_time_) {
-          v->parent_->low_ = v->low_;
-        }
-      });
-
-  return g_components;
-}
+// Kosaraju's algorithm.
+std::vector<std::set<const Vertex*>>& strong_components(Graph* graph) {}
 
 }  // namespace graphlib

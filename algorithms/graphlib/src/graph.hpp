@@ -111,8 +111,7 @@ struct Vertex {
   mutable int color_ = 0;                            // two-coloring (bipartite)
   mutable int entry_time_ = 0, exit_time_ = 0;       // dfs time intervals
   mutable const Vertex* reachable_ancestor_ = this;  // dfs earliest ancestor
-  mutable int tree_out_degree_ = 0;   // dfs search tree out degree
-  mutable const Vertex* low_ = this;  // oldest common strong component
+  mutable int tree_out_degree_ = 0;  // dfs search tree out degree
 
   // Note: removing the const qualifier here makes it so that any const Vertex
   // object can't call Reset (see AddVertex in Graph.cpp).
@@ -124,7 +123,6 @@ struct Vertex {
     exit_time_ = 0;
     reachable_ancestor_ = this;
     tree_out_degree_ = 0;
-    low_ = this;
   }
 };
 

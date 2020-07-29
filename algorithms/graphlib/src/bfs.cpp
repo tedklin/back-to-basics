@@ -5,11 +5,6 @@
 
 namespace graphlib {
 
-// Global helper variables to circumvent inability to pass capturing lambdas as
-// function pointers. Remember to clear / reset value before and after each use.
-std::set<Vertex> g_component;
-bool g_is_bipartite = true;
-
 void bfs(Graph* graph, const Vertex* search_root,
          void (*process_vertex_early)(const Vertex* v),
          void (*process_edge)(const Vertex* v1, const Vertex* v2,
@@ -68,6 +63,8 @@ std::stack<const Vertex*> shortest_unweighted_path(Graph* graph,
   return s;
 }
 
+std::set<Vertex> g_component;
+
 std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   g_component.clear();
 
@@ -82,6 +79,8 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
   }
   return components;
 }
+
+bool g_is_bipartite = true;
 
 bool is_bipartite(Graph* graph) {
   g_is_bipartite = true;
