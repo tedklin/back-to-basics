@@ -43,7 +43,7 @@ bool is_biconnected(Graph* graph);
 
 // For directed graphs, a strongly connected component is one where every Vertex
 // can reach every other Vertex and vice versa.
-std::vector<std::set<const Vertex*>>& strong_components(Graph* graph);
+std::vector<std::set<const Vertex*>> strong_components(Graph* graph);
 
 // Forward declarations for functions common to BFS.
 void print_vertex(const Vertex* v);

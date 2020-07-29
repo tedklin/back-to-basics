@@ -52,11 +52,14 @@ void print_top_sort() {
 }
 
 void print_strong_components() {
-  // Figure 5.16 (p.182) in Skiena
-  Vertex v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7"), v8("8");
+  // Sedgewick p.589
+  Vertex v0("0"), v1("1"), v2("2"), v3("3"), v4("4"), v5("5"), v6("6"), v7("7"),
+      v8("8"), v9("9"), v10("10"), v11("11"), v12("12");
   Graph::InputUnweightedAL directed_al = {
-      {v1, {v2}}, {v2, {v3, v4, v5}}, {v3, {v1}}, {v4, {v1, v6, v8}},
-      {v5, {v6}}, {v6, {v7}},         {v7, {v5}}, {v8, {v6}}};
+      {v0, {v2, v6}},      {v1, {v0}},          {v2, {v3, v4}}, {v3, {v2, v4}},
+      {v4, {v5, v6, v11}}, {v5, {v0, v3}},      {v6, {v7}},     {v7, {v8}},
+      {v8, {v7}},          {v9, {v6, v8, v12}}, {v10, {v9}},    {v11, {v9}},
+      {v12, {v10, v11}}};
   Graph directed_graph(directed_al, true);
   std::cout << "Finding connected components...\n";
   std::vector<std::set<const Vertex*>> components =

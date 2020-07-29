@@ -1,6 +1,7 @@
 #include "dfs.hpp"
 
 #include <iostream>
+#include <memory>
 #include <stack>
 
 namespace graphlib {
@@ -32,7 +33,9 @@ void dfs_helper(Graph* graph, const Vertex* v1,
     if (v2->state_ == Vertex::State::UNDISCOVERED) {
       // Tree edge.
       v2->parent_ = v1;
-      process_edge(v1, v2, weight);
+      if (process_edge) {
+        process_edge(v1, v2, weight);
+      }
       dfs_helper(graph, v2, process_vertex_early, process_edge,
                  process_vertex_late);
     } else if ((v2->state_ == Vertex::State::DISCOVERED && v1->parent_ != v2) ||
@@ -44,7 +47,9 @@ void dfs_helper(Graph* graph, const Vertex* v1,
 
       // If directed, this can be a back, forward, or cross edge.
 
-      process_edge(v1, v2, weight);
+      if (process_edge) {
+        process_edge(v1, v2, weight);
+      }
     }
 
     if (g_finished) return;
@@ -216,9 +221,32 @@ bool is_biconnected(Graph* graph) {
   return g_artic_vertices.empty();
 }
 
-std::stack<const Vertex*> g_kosaraju_stack;
+std::stack<Vertex> g_kosaraju_stack;
+std::set<const Vertex*> g_strong_component;
 
 // Kosaraju's algorithm.
-std::vector<std::set<const Vertex*>>& strong_components(Graph* graph) {}
+std::vector<std::set<const Vertex*>> strong_components(Graph* graph) {
+  std::vector<std::set<const Vertex*>> components;
+
+  std::shared_ptr<Graph> reverse = graph->GetReverseGraph();
+  dfs_graph(reverse.get(), nullptr, nullptr,
+            [](const Vertex* v) { g_kosaraju_stack.push(*v); });
+
+  while (!g_kosaraju_stack.empty()) {
+    const Vertex* v = graph->GetInternalVertexPtr(g_kosaraju_stack.top());
+    g_kosaraju_stack.pop();
+    if (v->state_ == Vertex::State::UNDISCOVERED) {
+      dfs_helper(graph, v,
+                 [](const Vertex* v) { g_strong_component.insert(v); }, nullptr,
+                 nullptr);
+    }
+    if (!g_strong_component.empty()) {
+      components.push_back(g_strong_component);
+    }
+    g_strong_component.clear();
+  }
+
+  return components;
+}
 
 }  // namespace graphlib
