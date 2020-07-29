@@ -70,7 +70,8 @@ std::vector<Edge> prim_mst(Graph* graph) {
 
 // This is a Graph adaptation of the weighted Union-Find data structure to help
 // with Kruskal's algorithm. The universal set is the set of all Vertices in a
-// given Graph, and disjoint subsets represent connected components.
+// given Graph, and the disjoint subsets maintained by the weighted Union-Find
+// represent connected components.
 //
 // Each disjoint subset can be represented as a tree, with the tree root
 // "naming" the subset. The underlying implementation here is composed of two
@@ -80,15 +81,15 @@ std::vector<Edge> prim_mst(Graph* graph) {
 class VertexUnionFind {
  public:
   VertexUnionFind(Graph* graph) {
-    // Initially, each vertex is its own subset.
+    // Initially, each vertex is its own subset / connected component.
     for (const auto& v : graph->GetVertexSet()) {
       parents_[graph->GetInternalVertexPtr(v.first)] = nullptr;
       sizes_[graph->GetInternalVertexPtr(v.first)] = 1;
     }
   }
 
-  // Returns the "name" of the subset containing a given Vertex (i.e. the root
-  // of the given Vertex's tree.)
+  // Returns the "name" of the subset / connected component containing a given
+  // Vertex (i.e. the root of the given Vertex's tree.)
   const Vertex* Find(const Vertex* v) const {
     while (parents_.at(v)) {
       v = parents_.at(v);

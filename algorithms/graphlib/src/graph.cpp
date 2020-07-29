@@ -30,10 +30,10 @@ Graph::Graph(const InputVertexSet& vertex_set, bool is_directed)
 
 Graph::Graph(InputUnweightedAL unweighted_al, bool is_directed)
     : is_directed_(is_directed) {
-  for (const auto& p : unweighted_al) {
-    Vertex source = p.first;
+  for (const auto& v : unweighted_al) {
+    Vertex source = v.first;
     AddVertex(source);
-    for (const Vertex& dest : p.second) {
+    for (const Vertex& dest : v.second) {
       AddEdge(source, dest);
     }
   }
@@ -41,11 +41,11 @@ Graph::Graph(InputUnweightedAL unweighted_al, bool is_directed)
 
 Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
     : is_directed_(is_directed) {
-  for (const auto& p : weighted_al) {
-    Vertex source = p.first;
+  for (const auto& v : weighted_al) {
+    Vertex source = v.first;
     AddVertex(source);
-    for (const auto& e : p.second) {
-      AddEdge(source, e.first, e.second);
+    for (const auto& adj : v.second) {
+      AddEdge(source, adj.first, adj.second);
     }
   }
 }
@@ -81,15 +81,15 @@ void Graph::AddEdge(const Vertex& source, const Vertex& dest,
 }
 
 void Graph::ResetState() {
-  for (auto& p : vertex_set_) {
-    p.first.Reset();
+  for (auto& v : vertex_set_) {
+    v.first.Reset();
   }
 }
 
 std::string Graph::GetVertexSetStr() const {
   std::string s("Vertex set:\n");
-  for (const auto& p : vertex_set_) {
-    s += p.first.name_ + "(state=" + graphlib::to_string(p.first.state_) + ")" +
+  for (const auto& v : vertex_set_) {
+    s += v.first.name_ + "(state=" + graphlib::to_string(v.first.state_) + ")" +
          " | ";
   }
   s += '\n';
@@ -98,10 +98,10 @@ std::string Graph::GetVertexSetStr() const {
 
 std::string to_string(const Graph& graph) {
   std::string s("Adjacency lists:\n");
-  for (const auto& p : graph.GetVertexSet()) {
-    s += p.first.name_ + " -> ";
-    for (const auto& e : p.second) {
-      s += e.first->name_ + "(wgt=" + std::to_string(e.second) + ") | ";
+  for (const auto& v : graph.GetVertexSet()) {
+    s += v.first.name_ + " -> ";
+    for (const auto& adj : v.second) {
+      s += adj.first->name_ + "(wgt=" + std::to_string(adj.second) + ") | ";
     }
     s += '\n';
   }
@@ -111,11 +111,11 @@ std::string to_string(const Graph& graph) {
 
 std::shared_ptr<Graph> Graph::GetReverseGraph() const {
   std::shared_ptr<Graph> reverse = std::make_shared<Graph>(true);
-  for (const auto& p : this->GetVertexSet()) {
-    Vertex source = p.first;
+  for (const auto& v : this->GetVertexSet()) {
+    Vertex source = v.first;
     reverse->AddVertex(source);
-    for (const auto& e : p.second) {
-      reverse->AddEdge(*(e.first), source, e.second);
+    for (const auto& adj : v.second) {
+      reverse->AddEdge(*(adj.first), source, adj.second);
     }
   }
   return reverse;

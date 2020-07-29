@@ -1,3 +1,9 @@
+// A minimum spanning tree can be thought of as the subgraph with the minimum
+// amount of "pipe" needed to connect a given connected graph. Useful for
+// minimizing the cost to connect a set of points.
+//
+// All input graphs are assumed to be undirected.
+
 #pragma once
 
 #include "graph.hpp"

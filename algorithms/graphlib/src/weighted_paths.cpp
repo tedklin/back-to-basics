@@ -50,9 +50,9 @@ void dijkstra(Graph* graph, const Vertex* search_root,
 
     if (v1 == destination) return;
 
-    for (auto& e : graph->GetAdjacentSet(*v1)) {
-      const Vertex* v2 = e.first;
-      double weight = e.second;
+    for (auto& adj : graph->GetAdjacentSet(*v1)) {
+      const Vertex* v2 = adj.first;
+      double weight = adj.second;
 
       if (g_dist_to_root.at(v2) > g_dist_to_root.at(v1) + weight) {
         g_dist_to_root.at(v2) = g_dist_to_root.at(v1) + weight;

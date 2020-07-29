@@ -61,7 +61,7 @@ void print_strong_components() {
       {v8, {v7}},          {v9, {v6, v8, v12}}, {v10, {v9}},    {v11, {v9}},
       {v12, {v10, v11}}};
   Graph directed_graph(directed_al, true);
-  std::cout << "Finding connected components...\n";
+  std::cout << "Finding strongly connected components...\n";
   std::vector<std::set<const Vertex*>> components =
       graphlib::strong_components(&directed_graph);
   int counter = 1;
