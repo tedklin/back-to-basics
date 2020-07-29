@@ -198,9 +198,13 @@ class Graph {
   // the start of algorithmic functions present in this library.
   void ResetState();
 
-  const VertexSet& GetVertexSet() const { return vertex_set_; }
+  // Return a new copy of this Graph, but with all edges reversed. Note that
+  // this naturally only makes sense for directed graphs.
+  std::shared_ptr<Graph> GetReverseGraph() const;
 
   std::string GetVertexSetStr() const;
+
+  const VertexSet& GetVertexSet() const { return vertex_set_; }
 
   const AdjacentSet& GetAdjacentSet(const Vertex& source) const {
     return vertex_set_.at(source);
@@ -211,10 +215,6 @@ class Graph {
   }
 
   bool IsDirected() { return is_directed_; }
-
-  // Return a new copy of this Graph, but with all edges reversed. Note that
-  // this naturally only makes sense for directed graphs.
-  std::shared_ptr<Graph> GetReverseGraph() const;
 
  private:
   // The keyset of vertex_set_ represents the only copy of Vertices this Graph
