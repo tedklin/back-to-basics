@@ -150,11 +150,10 @@ void bellman_ford(Graph* graph, const Vertex* search_root) {
   }
 }
 
-// Analogous to shortest_unweighted_path in bfs.cpp
-std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
-                                                   const Vertex* search_root,
-                                                   const Vertex* destination) {
-  dijkstra(graph, search_root, destination);
+// Returns a stack for the path currently encoded in the parent members of each
+// Vertex. Analogous to shortest_unweighted_path generation in bfs.cpp
+std::stack<const Vertex*> get_path(Graph* graph, const Vertex* search_root,
+                                   const Vertex* destination) {
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
   s.push(v);
@@ -172,26 +171,18 @@ std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
   return s;
 }
 
-// TODO: combine with above?
+std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
+                                                   const Vertex* search_root,
+                                                   const Vertex* destination) {
+  dijkstra(graph, search_root, destination);
+  return get_path(graph, search_root, destination);
+}
+
 std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
                                                  const Vertex* search_root,
                                                  const Vertex* destination) {
   bellman_ford(graph, search_root);
-  const Vertex* v = destination;
-  std::stack<const Vertex*> s;
-  s.push(v);
-
-  while (v != search_root) {
-    if (v) {
-      v = v->parent_;
-      s.push(v);
-    } else {
-      std::cerr << "No path between " << search_root->name_ << " and "
-                << destination->name_ << "\n\n";
-      return std::stack<const Vertex*>();
-    }
-  }
-  return s;
+  return get_path(graph, search_root, destination);
 }
 
 }  // namespace graphlib

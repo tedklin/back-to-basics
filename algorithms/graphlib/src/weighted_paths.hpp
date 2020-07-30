@@ -6,17 +6,18 @@
 
 namespace graphlib {
 
-// Dijkstra's algorithm for single-source shortest non-negative weighted paths.
+// For algorithms below that take a destination as an argument:
 // If not given a destination, results in a complete shortest-paths tree encoded
 // in each Vertex's parent member. If given a destination, terminates execution
 // once destination is processed.
+
+// Dijkstra's algorithm for single-source shortest non-negative weighted paths.
 void dijkstra(Graph* graph, const Vertex* search_root,
               const Vertex* destination = nullptr);
 
 // UNTESTED!
 // A faster method for computing single-source shortest paths for edge-weighted
-// DAGs, using a topological sort. If given a destination, terminates execution
-// once destination is processed.
+// DAGs, using a topological sort.
 void dag_paths(Graph* graph, const Vertex* search_root,
                const Vertex* destination = nullptr);
 
