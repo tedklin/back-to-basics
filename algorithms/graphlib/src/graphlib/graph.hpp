@@ -18,26 +18,27 @@ The corresponding adjacency sets would be:
 
 ===============================================================================
 
-The "Vertex" struct represents a vertex with a string name. It also encodes
-commonly used values associated with graph algorithms, such as search state.
+The "Vertex" struct represents a vertex with a string name. It encodes commonly
+used values associated with graph algorithms, such as search state. Inheritance
+can be leveraged to create Vertex types that store more information.
 
 The "Graph" class defines two typenames, "VertexMap" and "AdjacentSet", for
 internal use as the underlying data structure.
 
 The "VertexMap" typename (map<Vertex, AdjacentSet>), represents the set of all
-Vertex instances contained in a Graph. It also maps each Vertex of a graph to a
-corresponding "AdjacentSet" type.
+Vertex instances contained in a Graph. It maps each Vertex instance of a graph
+to a corresponding "AdjacentSet" type.
 
 The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
 neighboring vertices to an arbitrary "source" vertex (the "source" vertex is
-defined by the VertexMap key to which an AdjacentSet is bound). The
-AdjacentSet type maps each neighboring vertex with a floating point "edge
-weight". Altogether, an VertexMap key, AdjacentSet key, and floating point
-edge weight represent the concept of one edge in a graph.
+defined by the VertexMap key to which an AdjacentSet is bound). The AdjacentSet
+type maps each neighboring vertex with a floating point "edge weight".
+Altogether, an VertexMap key, AdjacentSet key, and floating point edge weight
+represent the concept of one edge in a graph.
 
 Note that the keyset of the Graph class member of type VertexMap is intended to
-be the only copy of Vertex instances in a Graph. When processing a graph, one
-should generally use pointers to the keys of the VertexMap.
+be the only copy of Vertex instances stored in a Graph. When processing a Graph,
+one should generally use pointers to the keys of the VertexMap.
 
 There exists an auxiliary "Edge" struct, which also represents the concept of an
 edge in a graph, but this is only used for specific algorithms (like finding
@@ -82,7 +83,8 @@ also result in the same Graph as the above.
       {E, {C}}
   }
 
-See the "example" function in test.cpp for verification that this works.
+See the "example_initializer" function in examples/core_test.cpp for
+verification that this works.
 */
 
 #pragma once

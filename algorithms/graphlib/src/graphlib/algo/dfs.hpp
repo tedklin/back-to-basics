@@ -34,16 +34,16 @@ bool is_cyclic(Graph* graph);
 // sort of a DAG. Useful for scheduling problems.
 std::stack<const Vertex*>& topological_sort(Graph* graph);
 
+// For directed graphs, a strongly connected component is one where every Vertex
+// can reach every other Vertex and vice versa. Strongly connected components
+// highlight significant groupings in a network of relationships.
+std::vector<std::set<const Vertex*>> strong_components(Graph* graph);
+
 // UNTESTED!
 // Articulation vertices are vertices that, when cut, disconnect the graph.
 // No articulation vertices == biconnected.
 std::set<const Vertex*>& articulation_vertices(Graph* graph);
 bool is_biconnected(Graph* graph);
-
-// For directed graphs, a strongly connected component is one where every Vertex
-// can reach every other Vertex and vice versa. Strongly connected components
-// highlight significant groupings in a network of relationships.
-std::vector<std::set<const Vertex*>> strong_components(Graph* graph);
 
 // Forward declarations for functions common to BFS.
 void print_vertex(const Vertex* v);
