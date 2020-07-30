@@ -5,7 +5,7 @@
 // functionality, we use std::make_heap, std::push_heap, and std::pop_heap on an
 // underlying std::vector.
 
-#include "weighted_paths.hpp"
+#include "graphlib/algo/weighted_paths.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -13,7 +13,7 @@
 #include <queue>
 #include <vector>
 
-#include "dfs.hpp"
+#include "graphlib/algo/dfs.hpp"
 
 namespace graphlib {
 

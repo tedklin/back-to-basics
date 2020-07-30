@@ -1,4 +1,4 @@
-#include "mst.hpp"
+#include "graphlib/algo/mst.hpp"
 
 #include <iostream>
 #include <queue>

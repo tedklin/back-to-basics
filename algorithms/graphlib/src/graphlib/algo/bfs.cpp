@@ -1,4 +1,4 @@
-#include "bfs.hpp"
+#include "graphlib/algo/bfs.hpp"
 
 #include <iostream>
 #include <queue>

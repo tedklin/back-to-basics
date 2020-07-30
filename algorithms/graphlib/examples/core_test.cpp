@@ -1,7 +1,7 @@
 // Quick ad-hoc tests for Graph type initialization and other core
 // functionality.
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 #include <iostream>
 

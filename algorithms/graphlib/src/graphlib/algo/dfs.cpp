@@ -1,4 +1,4 @@
-#include "dfs.hpp"
+#include "graphlib/algo/dfs.hpp"
 
 #include <iostream>
 #include <memory>

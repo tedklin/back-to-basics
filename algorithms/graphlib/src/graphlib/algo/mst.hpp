@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 #include <vector>
 

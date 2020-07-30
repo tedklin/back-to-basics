@@ -1,10 +1,10 @@
 // Quick ad-hoc tests for DFS-related graph algorithms.
 
-#include "dfs.hpp"
+#include "graphlib/algo/dfs.hpp"
 
 #include <iostream>
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 using graphlib::Graph;
 using graphlib::Vertex;

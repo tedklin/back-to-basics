@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "bfs.hpp"
-#include "graph.hpp"
+#include "graphlib/algo/bfs.hpp"
+#include "graphlib/graph.hpp"
 
 #include <set>
 #include <stack>

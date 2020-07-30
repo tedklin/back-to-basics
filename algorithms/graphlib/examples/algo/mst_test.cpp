@@ -1,10 +1,10 @@
 // Quick ad-hoc tests for MST-related graph algorithms.
 
-#include "mst.hpp"
+#include "graphlib/algo/mst.hpp"
 
 #include <iostream>
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 using graphlib::Edge;
 using graphlib::Graph;

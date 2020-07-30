@@ -1,12 +1,12 @@
 // Quick ad-hoc tests for BFS-related graph algorithms.
 
-#include "bfs.hpp"
+#include "graphlib/algo/bfs.hpp"
 
 #include <iostream>
 #include <map>
 #include <stack>
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 using graphlib::Graph;
 using graphlib::Vertex;

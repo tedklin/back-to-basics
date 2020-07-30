@@ -21,7 +21,7 @@ if(CCACHE_PROGRAM)
 endif()
 
 # compiled library code is here
-add_subdirectory(src)
+add_subdirectory(src/graphlib)
 
 # executable code is here
 add_subdirectory(examples)

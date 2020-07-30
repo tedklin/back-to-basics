@@ -1,10 +1,10 @@
 // Quick ad-hoc tests for weighted shortest path graph algorithms.
 
-#include "weighted_paths.hpp"
+#include "graphlib/algo/weighted_paths.hpp"
 
 #include <iostream>
 
-#include "graph.hpp"
+#include "graphlib/graph.hpp"
 
 using graphlib::Graph;
 using graphlib::Vertex;
