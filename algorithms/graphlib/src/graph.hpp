@@ -195,8 +195,9 @@ class Graph {
   void AddEdge(const Vertex& source, const Vertex& dest,
                double edge_weight = 1);
 
-  // Check if an edge is present in this Graph.
-  bool EdgePresent(const Vertex& source, const Vertex& dest) const;
+  bool EdgeExists(const Vertex& source, const Vertex& dest) const;
+
+  double EdgeWeight(const Vertex& source, const Vertex& dest) const;
 
   // Reset the state, color, etc, of all Vertices in this Graph object.
   // This is intended for direct user usage and is *not* automatically called at

@@ -85,16 +85,22 @@ void example_initializer() {
   std::cout << "rep3\n" << graphlib::to_string(graph3);
 }
 
-void edge_present() {
-  // The example as seen in the comment at the top of graph.hpp.
+void edge_tests() {
+  // The example as seen in the comment at the top of graph.hpp, but directed
+  // and with randomly inserted edge weights.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
-  Graph::InputUnweightedAL al = {
-      {A, {D, E}}, {B, {}}, {C, {E}}, {D, {A, E}}, {E, {A, C, D}}};
-  Graph graph(al, false);
+  Graph::InputWeightedAL al = {{A, {{D, 100.1}, {E, 1}}},
+                               {B, {}},
+                               {C, {{E, 1}}},
+                               {D, {{A, 1}, {E, 1}}},
+                               {E, {{A, 1}, {C, 1}, {D, 1}}}};
+  Graph graph(al, true);
 
-  std::cout << "expecting edge present: " << graph.EdgePresent(A, D) << '\n';
-  std::cout << "expecting edge not present: " << graph.EdgePresent(A, B)
-            << '\n';
+  std::cout << "expecting edge A-B not present: " << graph.EdgeExists(A, B)
+            << "\n\n";
+  std::cout << "expecting edge A-D present: " << graph.EdgeExists(A, D) << '\n';
+  std::cout << "edge A-D weight: " << graph.EdgeWeight(A, D) << '\n';
+  std::cout << "edge D-A weight: " << graph.EdgeWeight(D, A) << '\n';
 }
 
 int main() {
@@ -119,6 +125,6 @@ int main() {
   example_initializer();
 
   std::cout << "\n=============\n";
-  std::cout << "EDGE_PRESENT\n\n";
-  edge_present();
+  std::cout << "EDGE_TESTS\n\n";
+  edge_tests();
 }

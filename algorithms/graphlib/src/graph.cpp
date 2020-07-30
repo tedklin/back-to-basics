@@ -80,17 +80,25 @@ void Graph::AddEdge(const Vertex& source, const Vertex& dest,
   }
 }
 
-bool Graph::EdgePresent(const Vertex& source, const Vertex& dest) const {
+bool Graph::EdgeExists(const Vertex& source, const Vertex& dest) const {
   auto source_iter = vertex_map_.find(source);
   auto dest_iter = vertex_map_.find(dest);
   if (source_iter == vertex_map_.end() || dest_iter == vertex_map_.end()) {
     throw std::runtime_error(
-        "Graph::EdgePresent error! Given nonexistent vertices.\n");
+        "Graph::EdgeExists error! Given nonexistent vertices.\n");
   }
 
   // logarithmic time!
   return this->GetAdjacentSet(source).find(this->GetInternalVertexPtr(dest)) !=
          this->GetAdjacentSet(source).end();
+}
+
+double Graph::EdgeWeight(const Vertex& source, const Vertex& dest) const {
+  if (!EdgeExists(source, dest)) {
+    throw std::runtime_error(
+        "Graph::EdgeWeight error! Given nonexistent edge.\n");
+  }
+  return this->GetAdjacentSet(source).at(this->GetInternalVertexPtr(dest));
 }
 
 void Graph::ResetState() {
