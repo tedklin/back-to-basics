@@ -81,27 +81,34 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
 }
 
 bool g_is_bipartite = true;
+std::map<const Vertex*, int> g_color;  // "color" represented by 1 or -1
 
 bool is_bipartite(Graph* graph) {
   g_is_bipartite = true;
+  g_color.clear();
+  for (const auto& p : graph->GetVertexSet()) {
+    // We need to use a non-1 initial value to differentiate between tree edges
+    // and nondiscovery edges.
+    g_color[graph->GetInternalVertexPtr(p.first)] = 0;
+  }
 
   for (auto& p : graph->GetVertexSet()) {
     const Vertex* v = graph->GetInternalVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
-      v->color_ = 1;
+      g_color.at(v) = 1;
       bfs(graph, v, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {
             // Check for any nondiscovery edges that violate two-coloring.
-            if (v1->color_ == v2->color_) {
-              std::cout << v1->name_ << " (color=" << v1->color_ << ") and "
-                        << v2->name_ << " (color=" << v2->color_
+            if (g_color.at(v1) == g_color.at(v2)) {
+              std::cout << v1->name_ << " (color=" << g_color.at(v1) << ") and "
+                        << v2->name_ << " (color=" << g_color.at(v2)
                         << ") violate bipartiteness\n";
               g_is_bipartite = false;
             }
 
             // Color any newly discovered Vertex to be the complement of its
             // parent.
-            v2->color_ = -(v1->color_);
+            g_color.at(v2) = -(g_color.at(v1));
           });
     }
   }

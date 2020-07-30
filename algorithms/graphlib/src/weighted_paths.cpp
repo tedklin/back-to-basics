@@ -83,14 +83,14 @@ void dijkstra(Graph* graph, const Vertex* search_root,
 // track of which vertex to process next, we simply take vertices in topological
 // order. (Sedgewick)
 //
-// By processing vertices in topological-sort order, we ensure that each edge is
-// only relaxed once. When a vertex v is considered, all edges going into v will
-// have already been relaxed (by the nature of topological sort). This means
+// By processing vertices in topological order, we ensure that each edge is only
+// relaxed once. When a vertex v is considered, all edges going into v will have
+// already been relaxed (by the nature of topological sort). This means
 // dist_to_root[v] can't change after v is processed. Therefore, all edges
 // coming out of v will only be relaxed when v is being processed (and never
 // after).
 void dag_paths(Graph* graph, const Vertex* search_root,
-               const Vertex* destination = nullptr) {
+               const Vertex* destination) {
   g_dist_to_root.clear();
   for (const auto& v : graph->GetVertexSet()) {
     if (graph->GetInternalVertexPtr(v.first) == search_root) {

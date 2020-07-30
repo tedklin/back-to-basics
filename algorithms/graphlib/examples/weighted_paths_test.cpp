@@ -23,12 +23,9 @@ void tiny_ewd_dijkstras() {
                                {v7, {{v5, 0.28}, {v3, 0.39}}}};
   Graph tiny_ewd(al, true);
 
-  // Updates parent members of each Vertex in graph to represent complete
-  // shortest paths tree.
-  graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0));
-
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
+  graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0));
   for (const auto& v : tiny_ewd.GetVertexSet()) {
     if (v.first != v0) {
       std::cout << v.first.name_ << " parent: " << v.first.parent_->name_

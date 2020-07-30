@@ -160,27 +160,36 @@ std::stack<const Vertex*>& topological_sort(Graph* graph) {
 }
 
 std::set<const Vertex*> g_artic_vertices;
+std::map<const Vertex*, const Vertex*> g_reachable_ancestors;
+std::map<const Vertex*, int> g_tree_out_degree;
 
 // UNTESTED!
 std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
+  g_reachable_ancestors.clear();
+  g_tree_out_degree.clear();
+  for (const auto& p : graph->GetVertexSet()) {
+    g_reachable_ancestors[graph->GetInternalVertexPtr(p.first)] =
+        graph->GetInternalVertexPtr(p.first);
+    g_tree_out_degree[graph->GetInternalVertexPtr(p.first)] = 0;
+  }
 
   dfs_graph(
       graph, nullptr,
       [](const Vertex* v1, const Vertex* v2, double weight) {
         if (classify_edge(v1, v2) == EdgeType::TREE) {
-          ++(v1->tree_out_degree_);
+          ++(g_tree_out_degree.at(v1));
         } else if (classify_edge(v1, v2) == EdgeType::BACK &&
                    v1->parent_ != v2) {
-          if (v2->entry_time_ < v1->reachable_ancestor_->entry_time_) {
-            v1->reachable_ancestor_ = v2;
+          if (v2->entry_time_ < g_reachable_ancestors.at(v1)->entry_time_) {
+            g_reachable_ancestors.at(v1) = v2;
           }
         }
       },
       [](const Vertex* v) {
         // Edge case for search tree root vertex
         if (!(v->parent_)) {
-          if (v->tree_out_degree_ > 1) {
+          if (g_tree_out_degree.at(v) > 1) {
             std::cout << "Root articulation vertex found: " << v->name_ << '\n';
             g_artic_vertices.insert(v);
           }
@@ -189,18 +198,18 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
 
         // If v's search tree parent is not the root vertex
         if (!(v->parent_->parent_)) {
-          if (*(v->reachable_ancestor_) == *(v->parent_)) {
+          if (g_reachable_ancestors.at(v) == v->parent_) {
             std::cout << "Parent articulation vertex found: " << v->name_
                       << '\n';
             g_artic_vertices.insert(v);
           }
-          if (*(v->reachable_ancestor_) == *v) {
+          if (g_reachable_ancestors.at(v) == v) {
             std::cout << "Bridge articulation vertex found: "
                       << v->parent_->name_ << '\n';
             g_artic_vertices.insert(v->parent_);
 
             // If v is not a leaf
-            if (v->tree_out_degree_ > 0) {
+            if (g_tree_out_degree.at(v) > 0) {
               std::cout << "Bridge articulation vertex found: " << v->name_
                         << '\n';
               g_artic_vertices.insert(v);
@@ -210,9 +219,9 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
 
         // A Vertex's earliest reachable ancestor is also its search tree
         // parent's earliest reachable ancestor.
-        if (v->reachable_ancestor_->entry_time_ <
-            v->parent_->reachable_ancestor_->entry_time_) {
-          v->parent_->reachable_ancestor_ = v->reachable_ancestor_;
+        if (g_reachable_ancestors.at(v)->entry_time_ <
+            g_reachable_ancestors.at(v->parent_)->entry_time_) {
+          g_reachable_ancestors.at(v->parent_) = g_reachable_ancestors.at(v);
         }
       });
 

@@ -18,9 +18,8 @@ The corresponding adjacency list would be:
 
 ===============================================================================
 
-The "Vertex" class represents a vertex with a string name and an optional
-floating point weight. Note that "vertex weights" are a separate concept from
-"edge weights", which we will see below.
+The "Vertex" struct represents a vertex with a string name. It also encodes
+commonly used values associated with graph algorithms, such as search state.
 
 The "Graph" class defines two typenames, "VertexSet" and "AdjacentSet", for
 internal use as the underlying data structure.
@@ -36,7 +35,7 @@ AdjacentSet type maps each neighboring vertex with a floating point "edge
 weight". Altogether, an VertexSet key, AdjacentSet key, and floating point
 edge weight represent the concept of one edge in a graph.
 
-There exists an auxiliary "Edge" class, which also represents the concept of an
+There exists an auxiliary "Edge" struct, which also represents the concept of an
 edge in a graph, but this is only used for specific algorithms (like finding
 MSTs) and not for defining Graphs themselves.
 
@@ -106,23 +105,17 @@ struct Vertex {
   // Graph needs to be of mutable type. This shouldn't create undefined behavior
   // because the overloaded comparison operators and hash functions we define
   // only use the name of the Vertex as the value.
-  mutable State state_ = State::UNDISCOVERED;        // search state
-  mutable const Vertex* parent_ = nullptr;           // search tree parent
-  mutable int color_ = 0;                            // two-coloring (bipartite)
-  mutable int entry_time_ = 0, exit_time_ = 0;       // dfs time intervals
-  mutable const Vertex* reachable_ancestor_ = this;  // dfs earliest ancestor
-  mutable int tree_out_degree_ = 0;  // dfs search tree out degree
+  mutable State state_ = State::UNDISCOVERED;   // search state
+  mutable const Vertex* parent_ = nullptr;      // search tree parent
+  mutable int entry_time_ = 0, exit_time_ = 0;  // dfs time intervals
 
   // Note: removing the const qualifier here makes it so that any const Vertex
   // object can't call Reset (see AddVertex in Graph.cpp).
   void Reset() const {
     state_ = State::UNDISCOVERED;
     parent_ = nullptr;
-    color_ = 0;
     entry_time_ = 0;
     exit_time_ = 0;
-    reachable_ancestor_ = this;
-    tree_out_degree_ = 0;
   }
 };
 
@@ -144,7 +137,9 @@ std::string to_string(const Vertex::State& state);
 }  // namespace graphlib
 
 // To use std::unordered_map with our self-defined Vertex type, we must overload
-// std::hash.
+// std::hash. Note that the current Graph implementation does not use this; this
+// is just here in case we need to switch to an unordered map for better
+// performance.
 // https://en.cppreference.com/w/cpp/container/unordered_map/unordered_map
 namespace std {
 template <>

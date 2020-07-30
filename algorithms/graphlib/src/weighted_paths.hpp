@@ -15,7 +15,8 @@ void dijkstra(Graph* graph, const Vertex* search_root,
 
 // UNTESTED!
 // A faster method for computing single-source shortest paths for edge-weighted
-// DAGs using a topological sort.
+// DAGs, using a topological sort. If given a destination, terminates execution
+// once destination is processed.
 void dag_paths(Graph* graph, const Vertex* search_root,
                const Vertex* destination = nullptr);
 
