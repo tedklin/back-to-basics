@@ -93,12 +93,10 @@ namespace graphlib {
 struct Vertex {
   enum class State { UNDISCOVERED, DISCOVERED, PROCESSED };
 
-  Vertex(const std::string& name, double weight = 1)
-      : name_(name), weight_(weight) {}
+  Vertex(const std::string& name) : name_(name) {}
 
-  // TODO: make these const? might have to introduce explicit copy control.
+  // TODO: make this const? might have to introduce explicit copy control.
   std::string name_;
-  double weight_;
 
   // Since the underlying implementation of Graph relies on pointers to const
   // Vertex, any Vertex data member we want to be able to modify through the
@@ -179,12 +177,17 @@ class Graph {
   // Constructs a fully specified weighted graph.
   Graph(InputWeightedAL adjacency_list, bool is_directed);
 
+  // Add a freshly-reset copy of the given Vertex to this graph. Duplicates are
+  // ignored.
   void AddVertex(const Vertex& v);
 
   // Given a Vertex, obtain a pointer to the singular instance of that Vertex
   // within this Graph object (i.e. in the keyset of vertex_set_).
   const Vertex* GetInternalVertexPtr(const Vertex& v) const;
 
+  // Add an internal pointer to "dest" to the adjacency set of "source", along
+  // with an associated edge weight. If the given vertices were not already
+  // present in this Graph, they are added.
   void AddEdge(const Vertex& source, const Vertex& dest,
                double edge_weight = 1);
 
@@ -193,8 +196,8 @@ class Graph {
   // the start of algorithmic functions present in this library.
   void ResetState();
 
-  // Return a new copy of this Graph, but with all edges reversed. Note that
-  // this naturally only makes sense for directed graphs.
+  // Return a (pointer to a) new copy of this Graph, but with all edges
+  // reversed. Note that this naturally only makes sense for directed graphs.
   std::shared_ptr<Graph> GetReverseGraph() const;
 
   std::string GetVertexSetStr() const;
