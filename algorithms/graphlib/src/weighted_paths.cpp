@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include <limits>
+#include <queue>
 #include <vector>
 
 #include "dfs.hpp"
@@ -20,6 +21,21 @@ namespace graphlib {
 // root.
 std::map<const Vertex*, double> g_dist_to_root;
 
+// All algorithms implemented here start by setting the known distance to the
+// search root to 0 and the known distance to all other (yet undiscovered)
+// vertices to infinity.
+void setup_dist_to_root(Graph* graph, const Vertex* search_root) {
+  g_dist_to_root.clear();
+  for (const auto& v : graph->GetVertexSet()) {
+    if (graph->GetInternalVertexPtr(v.first) == search_root) {
+      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
+    } else {
+      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] =
+          std::numeric_limits<double>::infinity();
+    }
+  }
+}
+
 // To emulate a min-heap in a vector, we need to define our own Compare type.
 struct GreaterDistToRoot {
   bool operator()(const Vertex* lhs, const Vertex* rhs) const {
@@ -29,18 +45,7 @@ struct GreaterDistToRoot {
 
 void dijkstra(Graph* graph, const Vertex* search_root,
               const Vertex* destination) {
-  g_dist_to_root.clear();
-  for (const auto& v : graph->GetVertexSet()) {
-    if (graph->GetInternalVertexPtr(v.first) == search_root) {
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
-    } else {
-      // An initial value of infinity for any non-source vertex doubles as
-      // State::UNDISCOVERED. This ensures every vertex goes on the min-heap
-      // before the algorithm terminates.
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] =
-          std::numeric_limits<double>::infinity();
-    }
-  }
+  setup_dist_to_root(graph, search_root);
 
   // Min-heap keeps track of the next non-tree vertex closest to the source.
   std::vector<const Vertex*> min_heap;
@@ -91,15 +96,7 @@ void dijkstra(Graph* graph, const Vertex* search_root,
 // after).
 void dag_paths(Graph* graph, const Vertex* search_root,
                const Vertex* destination) {
-  g_dist_to_root.clear();
-  for (const auto& v : graph->GetVertexSet()) {
-    if (graph->GetInternalVertexPtr(v.first) == search_root) {
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
-    } else {
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] =
-          std::numeric_limits<double>::infinity();
-    }
-  }
+  setup_dist_to_root(graph, search_root);
 
   std::stack<const Vertex*> s = topological_sort(graph);
   while (!s.empty()) {
@@ -120,11 +117,66 @@ void dag_paths(Graph* graph, const Vertex* search_root,
   }
 }
 
+void bellman_ford(Graph* graph, const Vertex* search_root) {
+  setup_dist_to_root(graph, search_root);
+  std::queue<const Vertex*> q;
+  std::map<const Vertex*, bool> on_q;  // quick lookup for if vertex is on queue
+  for (const auto& v : graph->GetVertexSet()) {
+    on_q[graph->GetInternalVertexPtr(v.first)] = false;
+  }
+
+  q.push(search_root);
+  on_q.at(search_root) = true;
+
+  while (!q.empty()) {
+    const Vertex* v1 = q.front();
+    q.pop();
+    on_q.at(v1) = false;
+
+    for (auto& adj : graph->GetAdjacentSet(*v1)) {
+      const Vertex* v2 = adj.first;
+      double weight = adj.second;
+
+      if (g_dist_to_root.at(v2) > g_dist_to_root.at(v1) + weight) {
+        g_dist_to_root.at(v2) = g_dist_to_root.at(v1) + weight;
+        v2->parent_ = v1;
+
+        if (!on_q.at(v2)) {
+          q.push(v2);
+          on_q.at(v2) = true;
+        }
+      }
+    }
+  }
+}
+
 // Analogous to shortest_unweighted_path in bfs.cpp
 std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
                                                    const Vertex* search_root,
                                                    const Vertex* destination) {
   dijkstra(graph, search_root, destination);
+  const Vertex* v = destination;
+  std::stack<const Vertex*> s;
+  s.push(v);
+
+  while (v != search_root) {
+    if (v) {
+      v = v->parent_;
+      s.push(v);
+    } else {
+      std::cerr << "No path between " << search_root->name_ << " and "
+                << destination->name_ << "\n\n";
+      return std::stack<const Vertex*>();
+    }
+  }
+  return s;
+}
+
+// TODO: combine with above?
+std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
+                                                 const Vertex* search_root,
+                                                 const Vertex* destination) {
+  bellman_ford(graph, search_root);
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
   s.push(v);

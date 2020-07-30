@@ -35,6 +35,10 @@ AdjacentSet type maps each neighboring vertex with a floating point "edge
 weight". Altogether, an VertexSet key, AdjacentSet key, and floating point
 edge weight represent the concept of one edge in a graph.
 
+Note that the keyset of the Graph class member of type VertexSet is intended to
+be the only copy of Vertex instances in a Graph. When processing a graph, one
+should generally use pointers to the keys of the VertexSet.
+
 There exists an auxiliary "Edge" struct, which also represents the concept of an
 edge in a graph, but this is only used for specific algorithms (like finding
 MSTs) and not for defining Graphs themselves.

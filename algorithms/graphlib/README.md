@@ -11,5 +11,6 @@ As noted in the top-level README of this repo, this is mostly meant to be a plac
 
 - The project setup for this library loosely follows my [CMake template](https://github.com/tedklin/cmake_sandbox).
 - I needed several global helper variables to circumvent inability to pass capturing lambdas as function pointers. These global variables are prefixed with "g_".
+    - Note that these are cleared automatically by the functions that use them, but **information encoded in Vertices are not reset automatically**. This is to support the possibility of performing multiple algorithms in succession.
 - A few of my implementations are untested; these are marked with "UNTESTED!" comments in both header and source files.
 - *Skiena* has a list of [acknowledged errors](http://www3.cs.stonybrook.edu/~skiena/algorist/book/errata). While many errors seem to be regarding word choice, others are bugs that result in implementation incorrectness. There is a chance I didn't catch all of them.
