@@ -85,6 +85,18 @@ void example_initializer() {
   std::cout << "rep3\n" << graphlib::to_string(graph3);
 }
 
+void edge_present() {
+  // The example as seen in the comment at the top of graph.hpp.
+  Vertex A("A"), B("B"), C("C"), D("D"), E("E");
+  Graph::InputUnweightedAL al = {
+      {A, {D, E}}, {B, {}}, {C, {E}}, {D, {A, E}}, {E, {A, C, D}}};
+  Graph graph(al, false);
+
+  std::cout << "expecting edge present: " << graph.EdgePresent(A, D) << '\n';
+  std::cout << "expecting edge not present: " << graph.EdgePresent(A, B)
+            << '\n';
+}
+
 int main() {
   std::cout << "\n=============\n";
   std::cout << "EQUALITY_OP_OVERLOAD\n\n";
@@ -105,4 +117,8 @@ int main() {
   std::cout << "\n=============\n";
   std::cout << "EXAMPLE_INITIALIZER\n\n";
   example_initializer();
+
+  std::cout << "\n=============\n";
+  std::cout << "EDGE_PRESENT\n\n";
+  edge_present();
 }

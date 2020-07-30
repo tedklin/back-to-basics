@@ -26,7 +26,7 @@ void tiny_ewd_dijkstras() {
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
   graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0));
-  for (const auto& v : tiny_ewd.GetVertexSet()) {
+  for (const auto& v : tiny_ewd.GetVertexMap()) {
     if (v.first != v0) {
       std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
                 << '\n';
@@ -91,7 +91,7 @@ void tiny_ewdn_bellman() {
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
   graphlib::bellman_ford(&tiny_ewdn, tiny_ewdn.GetInternalVertexPtr(v0));
-  for (const auto& v : tiny_ewdn.GetVertexSet()) {
+  for (const auto& v : tiny_ewdn.GetVertexMap()) {
     if (v.first != v0) {
       std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
                 << '\n';

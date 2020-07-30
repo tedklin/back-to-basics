@@ -52,12 +52,12 @@ Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
 
 void Graph::AddVertex(const Vertex& v) {
   v.Reset();
-  vertex_set_[v];
+  vertex_map_[v];
 }
 
 const Vertex* Graph::GetInternalVertexPtr(const Vertex& v) const {
-  auto vertex_iter = vertex_set_.find(v);
-  if (vertex_iter == vertex_set_.end()) {
+  auto vertex_iter = vertex_map_.find(v);
+  if (vertex_iter == vertex_map_.end()) {
     throw std::runtime_error(
         "Graph::GetInternalVertexPtr error! Tried to obtain pointer to "
         "nonexistent vertex (" +
@@ -73,22 +73,35 @@ void Graph::AddEdge(const Vertex& source, const Vertex& dest,
 
   // There should only be one instance of each Vertex in a Graph, so we store
   // adjacent vertices as pointers to the main set of Vertices (i.e. the keyset
-  // of vertex_set_).
-  vertex_set_[source][GetInternalVertexPtr(dest)] = edge_weight;
+  // of vertex_map_).
+  vertex_map_[source][GetInternalVertexPtr(dest)] = edge_weight;
   if (!is_directed_) {
-    vertex_set_[dest][GetInternalVertexPtr(source)] = edge_weight;
+    vertex_map_[dest][GetInternalVertexPtr(source)] = edge_weight;
   }
 }
 
+bool Graph::EdgePresent(const Vertex& source, const Vertex& dest) const {
+  auto source_iter = vertex_map_.find(source);
+  auto dest_iter = vertex_map_.find(dest);
+  if (source_iter == vertex_map_.end() || dest_iter == vertex_map_.end()) {
+    throw std::runtime_error(
+        "Graph::EdgePresent error! Given nonexistent vertices.\n");
+  }
+
+  // logarithmic time!
+  return this->GetAdjacentSet(source).find(this->GetInternalVertexPtr(dest)) !=
+         this->GetAdjacentSet(source).end();
+}
+
 void Graph::ResetState() {
-  for (auto& v : vertex_set_) {
+  for (auto& v : vertex_map_) {
     v.first.Reset();
   }
 }
 
 std::string Graph::GetVertexSetStr() const {
   std::string s("Vertex set:\n");
-  for (const auto& v : vertex_set_) {
+  for (const auto& v : vertex_map_) {
     s += v.first.name_ + "(state=" + graphlib::to_string(v.first.state_) + ")" +
          " | ";
   }
@@ -98,7 +111,7 @@ std::string Graph::GetVertexSetStr() const {
 
 std::string to_string(const Graph& graph) {
   std::string s("Adjacency lists:\n");
-  for (const auto& v : graph.GetVertexSet()) {
+  for (const auto& v : graph.GetVertexMap()) {
     s += v.first.name_ + " -> ";
     for (const auto& adj : v.second) {
       s += adj.first->name_ + "(wgt=" + std::to_string(adj.second) + ") | ";
@@ -111,7 +124,7 @@ std::string to_string(const Graph& graph) {
 
 std::shared_ptr<Graph> Graph::GetReverseGraph() const {
   std::shared_ptr<Graph> reverse = std::make_shared<Graph>(true);
-  for (const auto& v : this->GetVertexSet()) {
+  for (const auto& v : this->GetVertexMap()) {
     Vertex source = v.first;
     reverse->AddVertex(source);
     for (const auto& adj : v.second) {

@@ -47,7 +47,7 @@ std::vector<Edge> prim_mst(Graph* graph) {
 
   // Assuming the given graph is connected, this successfully adds at least one
   // crossing edge to the priority queue to kick off the algorithm.
-  prim_visit(graph, &(graph->GetVertexSet().cbegin()->first));
+  prim_visit(graph, &(graph->GetVertexMap().cbegin()->first));
 
   while (!g_crossing_edges.empty()) {
     Edge e = g_crossing_edges.top();
@@ -82,7 +82,7 @@ class VertexUnionFind {
  public:
   VertexUnionFind(Graph* graph) {
     // Initially, each vertex is its own subset / connected component.
-    for (const auto& v : graph->GetVertexSet()) {
+    for (const auto& v : graph->GetVertexMap()) {
       parents_[graph->GetInternalVertexPtr(v.first)] = nullptr;
       sizes_[graph->GetInternalVertexPtr(v.first)] = 1;
     }
@@ -135,7 +135,7 @@ std::vector<Edge> kruskal_mst(Graph* graph) {
   }
 
   // Add all edges in given graph to priority queue.
-  for (const auto& v : graph->GetVertexSet()) {
+  for (const auto& v : graph->GetVertexMap()) {
     const Vertex* v1 = graph->GetInternalVertexPtr(v.first);
     for (const auto& adj : v.second) {
       const Vertex* v2 = adj.first;
@@ -146,7 +146,7 @@ std::vector<Edge> kruskal_mst(Graph* graph) {
 
   VertexUnionFind uf(graph);
   while (!g_crossing_edges.empty() &&
-         mst.size() < graph->GetVertexSet().size()) {
+         mst.size() < graph->GetVertexMap().size()) {
     Edge e = g_crossing_edges.top();
     g_crossing_edges.pop();
 

@@ -4,7 +4,7 @@ Graph theory is known as one of the most foundational topics in computer science
 
 This is a library for fundamental graph algorithms taught in *Skiena* and *Sedgewick*. The implementations here aim to be as flexible and intuitive as possible by taking full advantage of the C++ language and STL.
 
-As noted in the top-level README of this repo, this is mostly meant to be a place for me to familiarize myself with / get my hands dirty with graph theory concepts. There are likely other graph libraries out there with more rigorous performance optimization, testing, and documentation.
+As noted in the top-level README of this repo, this is mostly meant to be a place for me to build intuition for various graph theory concepts. There are most likely other graph libraries out there with better performance, testing, and documentation.
 
 
 ## Notes

@@ -8,7 +8,7 @@ Let the following be an undirected, unweighted graph with vertices
       |  \
       D---E---C
 
-The corresponding adjacency list would be:
+The corresponding adjacency sets would be:
 
       A -> {D, E}
       B -> {}
@@ -21,23 +21,23 @@ The corresponding adjacency list would be:
 The "Vertex" struct represents a vertex with a string name. It also encodes
 commonly used values associated with graph algorithms, such as search state.
 
-The "Graph" class defines two typenames, "VertexSet" and "AdjacentSet", for
+The "Graph" class defines two typenames, "VertexMap" and "AdjacentSet", for
 internal use as the underlying data structure.
 
-The "VertexSet" typename (map<Vertex, AdjacentSet>), represents the set of all
+The "VertexMap" typename (map<Vertex, AdjacentSet>), represents the set of all
 Vertex instances contained in a Graph. It also maps each Vertex of a graph to a
 corresponding "AdjacentSet" type.
 
 The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
 neighboring vertices to an arbitrary "source" vertex (the "source" vertex is
-defined by the VertexSet key to which an AdjacentSet is bound). The
+defined by the VertexMap key to which an AdjacentSet is bound). The
 AdjacentSet type maps each neighboring vertex with a floating point "edge
-weight". Altogether, an VertexSet key, AdjacentSet key, and floating point
+weight". Altogether, an VertexMap key, AdjacentSet key, and floating point
 edge weight represent the concept of one edge in a graph.
 
-Note that the keyset of the Graph class member of type VertexSet is intended to
+Note that the keyset of the Graph class member of type VertexMap is intended to
 be the only copy of Vertex instances in a Graph. When processing a graph, one
-should generally use pointers to the keys of the VertexSet.
+should generally use pointers to the keys of the VertexMap.
 
 There exists an auxiliary "Edge" struct, which also represents the concept of an
 edge in a graph, but this is only used for specific algorithms (like finding
@@ -161,7 +161,7 @@ class Graph {
   // AdjacentSet has no significance (it depends on the pointer itself, not the
   // pointed-to Vertex).
   using AdjacentSet = std::map<const Vertex*, double>;
-  using VertexSet = std::map<Vertex, AdjacentSet>;
+  using VertexMap = std::map<Vertex, AdjacentSet>;
 
  public:
   // Convenience typenames used for user input; not actual underlying types.
@@ -186,7 +186,7 @@ class Graph {
   void AddVertex(const Vertex& v);
 
   // Given a Vertex, obtain a pointer to the singular instance of that Vertex
-  // within this Graph object (i.e. in the keyset of vertex_set_).
+  // within this Graph object (i.e. in the keyset of vertex_map_).
   const Vertex* GetInternalVertexPtr(const Vertex& v) const;
 
   // Add an internal pointer to "dest" to the adjacency set of "source", along
@@ -194,6 +194,9 @@ class Graph {
   // present in this Graph, they are added.
   void AddEdge(const Vertex& source, const Vertex& dest,
                double edge_weight = 1);
+
+  // Check if an edge is present in this Graph.
+  bool EdgePresent(const Vertex& source, const Vertex& dest) const;
 
   // Reset the state, color, etc, of all Vertices in this Graph object.
   // This is intended for direct user usage and is *not* automatically called at
@@ -204,24 +207,25 @@ class Graph {
   // reversed. Note that this naturally only makes sense for directed graphs.
   std::shared_ptr<Graph> GetReverseGraph() const;
 
+  // Return a string displaying all vertices (without adjacency sets).
   std::string GetVertexSetStr() const;
 
-  const VertexSet& GetVertexSet() const { return vertex_set_; }
+  const VertexMap& GetVertexMap() const { return vertex_map_; }
 
   const AdjacentSet& GetAdjacentSet(const Vertex& source) const {
-    return vertex_set_.at(source);
+    return vertex_map_.at(source);
   }
 
   AdjacentSet& GetMutableAdjacentSet(const Vertex& source) {
-    return vertex_set_.at(source);
+    return vertex_map_.at(source);
   }
 
   bool IsDirected() { return is_directed_; }
 
  private:
-  // The keyset of vertex_set_ represents the only copy of Vertices this Graph
+  // The keyset of vertex_map_ represents the only copy of Vertices this Graph
   // stores.
-  VertexSet vertex_set_;
+  VertexMap vertex_map_;
 
   bool is_directed_;
 };

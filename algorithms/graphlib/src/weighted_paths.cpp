@@ -26,7 +26,7 @@ std::map<const Vertex*, double> g_dist_to_root;
 // vertices to infinity.
 void setup_dist_to_root(Graph* graph, const Vertex* search_root) {
   g_dist_to_root.clear();
-  for (const auto& v : graph->GetVertexSet()) {
+  for (const auto& v : graph->GetVertexMap()) {
     if (graph->GetInternalVertexPtr(v.first) == search_root) {
       g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
     } else {
@@ -121,7 +121,7 @@ void bellman_ford(Graph* graph, const Vertex* search_root) {
   setup_dist_to_root(graph, search_root);
   std::queue<const Vertex*> q;
   std::map<const Vertex*, bool> on_q;  // quick lookup for if vertex is on queue
-  for (const auto& v : graph->GetVertexSet()) {
+  for (const auto& v : graph->GetVertexMap()) {
     on_q[graph->GetInternalVertexPtr(v.first)] = false;
   }
 
@@ -152,8 +152,9 @@ void bellman_ford(Graph* graph, const Vertex* search_root) {
 
 // Returns a stack for the path currently encoded in the parent members of each
 // Vertex. Analogous to shortest_unweighted_path generation in bfs.cpp
-std::stack<const Vertex*> get_path(Graph* graph, const Vertex* search_root,
-                                   const Vertex* destination) {
+std::stack<const Vertex*> get_path_helper(Graph* graph,
+                                          const Vertex* search_root,
+                                          const Vertex* destination) {
   const Vertex* v = destination;
   std::stack<const Vertex*> s;
   s.push(v);
@@ -175,14 +176,14 @@ std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
                                                    const Vertex* search_root,
                                                    const Vertex* destination) {
   dijkstra(graph, search_root, destination);
-  return get_path(graph, search_root, destination);
+  return get_path_helper(graph, search_root, destination);
 }
 
 std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
                                                  const Vertex* search_root,
                                                  const Vertex* destination) {
   bellman_ford(graph, search_root);
-  return get_path(graph, search_root, destination);
+  return get_path_helper(graph, search_root, destination);
 }
 
 }  // namespace graphlib

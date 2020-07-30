@@ -81,7 +81,7 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
   g_time = 0;
   g_finished = false;
 
-  for (auto& p : graph->GetVertexSet()) {
+  for (auto& p : graph->GetVertexMap()) {
     const Vertex* v = graph->GetInternalVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs_helper(graph, v, process_vertex_early, process_edge,
@@ -118,7 +118,7 @@ bool g_cyclic = false;
 bool is_cyclic(Graph* graph) {
   g_cyclic = false;
 
-  for (auto& p : graph->GetVertexSet()) {
+  for (auto& p : graph->GetVertexMap()) {
     const Vertex* v = graph->GetInternalVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs(graph, v, nullptr,
@@ -168,7 +168,7 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_artic_vertices.clear();
   g_reachable_ancestors.clear();
   g_tree_out_degree.clear();
-  for (const auto& p : graph->GetVertexSet()) {
+  for (const auto& p : graph->GetVertexMap()) {
     g_reachable_ancestors[graph->GetInternalVertexPtr(p.first)] =
         graph->GetInternalVertexPtr(p.first);
     g_tree_out_degree[graph->GetInternalVertexPtr(p.first)] = 0;

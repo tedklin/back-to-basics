@@ -2,6 +2,7 @@
 
 #include "graph.hpp"
 
+#include <map>
 #include <stack>
 
 namespace graphlib {
@@ -33,5 +34,11 @@ std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
 std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
                                                  const Vertex* search_root,
                                                  const Vertex* destination);
+
+// UNTESTED!
+// Floyd-Warshall algorithm for all-pairs distance matrix. Doubles as
+// representation for transitive closure.
+std::map<const Vertex*, std::map<const Vertex*, double>> floyd_warshall(
+    Graph* graph);
 
 }  // namespace graphlib
