@@ -35,10 +35,24 @@ std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
                                                  const Vertex* search_root,
                                                  const Vertex* destination);
 
-// UNTESTED!
+// The Floyd-Warshall algorithm naturally outputs a matrix encoding shortest
+// distances between all valid row-column Vertex pairs. We use a two dimensional
+// std::map of Vertex pointers to represent this. To improve the readability of
+// our output matrix type, we enforce an ordering based on the underlying
+// Vertices stored by the matrix rather than the pointer values themselves.
+struct UnderlyingVertexOrder {
+  bool operator()(const Vertex* lhs, const Vertex* rhs) const {
+    return *lhs < *rhs;
+  }
+};
+
+using DistanceMatrix =
+    std::map<const Vertex*,
+             std::map<const Vertex*, double, UnderlyingVertexOrder>,
+             UnderlyingVertexOrder>;
+
 // Floyd-Warshall algorithm for all-pairs distance matrix. Doubles as
 // representation for transitive closure.
-std::map<const Vertex*, std::map<const Vertex*, double>> floyd_warshall(
-    Graph* graph);
+DistanceMatrix floyd_warshall(Graph* graph);
 
 }  // namespace graphlib

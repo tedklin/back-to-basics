@@ -186,13 +186,14 @@ std::stack<const Vertex*> shortest_weighted_path(Graph* graph,
   return get_path_helper(graph, search_root, destination);
 }
 
-// UNTESTED!
-std::map<const Vertex*, std::map<const Vertex*, double>> floyd_warshall(
-    Graph* graph) {
-  std::map<const Vertex*, std::map<const Vertex*, double>> dist_matrix;
+DistanceMatrix floyd_warshall(Graph* graph) {
+  DistanceMatrix dist_matrix;
   for (const auto& v1 : graph->GetVertexMap()) {
     for (const auto& v2 : graph->GetVertexMap()) {
-      if (graph->EdgeExists(v1.first, v2.first)) {
+      if (v1 == v2) {
+        dist_matrix[graph->GetInternalVertexPtr(v1.first)]
+                   [graph->GetInternalVertexPtr(v2.first)] = 0;
+      } else if (graph->EdgeExists(v1.first, v2.first)) {
         dist_matrix[graph->GetInternalVertexPtr(v1.first)]
                    [graph->GetInternalVertexPtr(v2.first)] =
                        graph->EdgeWeight(v1.first, v2.first);
@@ -211,8 +212,9 @@ std::map<const Vertex*, std::map<const Vertex*, double>> floyd_warshall(
       for (auto& j : i.second) {
         const Vertex* v2 = j.first;
         double& known_dist = j.second;
+        double dist_through_k =
+            dist_matrix.at(v1).at(k) + dist_matrix.at(k).at(v2);
 
-        double dist_through_k = dist_matrix[v1][k] + dist_matrix[k][v2];
         if (dist_through_k < known_dist) {
           known_dist = dist_through_k;
         }

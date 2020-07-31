@@ -113,6 +113,30 @@ void tiny_ewdn_bellman() {
   std::cout << '\n';
 }
 
+void floyd_warshall_test() {
+  // Example provided here:
+  // http://web.eecs.utk.edu/~jplank/plank/classes/cs494/494/notes/Floyd/index.html
+  Vertex v1("1"), v2("2"), v3("3"), v4("4");
+  Graph::InputWeightedAL al = {{v1, {{v3, -2}}},
+                               {v2, {{v1, 4}, {v3, 3}}},
+                               {v3, {{v4, 2}}},
+                               {v4, {{v2, -1}}}};
+  Graph graph(al, true);
+  auto dist_matrix = graphlib::floyd_warshall(&graph);
+
+  std::cout << "  1  2  3  4\n";
+  std::cout << "  ==========\n";
+
+  for (const auto& i : dist_matrix) {
+    std::cout << i.first->name_ << "|";
+    for (const auto& j : i.second) {
+      std::cout << j.second << " ";
+    }
+    std::cout << '\n';
+  }
+  std::cout << '\n';
+}
+
 int main() {
   std::cout << "=============\n";
   std::cout << "TINY_EWD_DIJKSTRAS\n\n";
@@ -121,4 +145,8 @@ int main() {
   std::cout << "=============\n";
   std::cout << "TINY_EWDN_BELLMAN\n\n";
   tiny_ewdn_bellman();
+
+  std::cout << "=============\n";
+  std::cout << "FLOYD_WARSHALL_TEST\n\n";
+  floyd_warshall_test();
 }
