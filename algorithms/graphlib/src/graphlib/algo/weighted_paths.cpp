@@ -1,10 +1,3 @@
-// Dijkstra's algorithm uses a min-heap to keep track of the next non-tree
-// Vertex closest to the search root. std::priority_queue doesn't work here
-// because we need the ability to change the "value" (distance to search root)
-// of a Vertex already in the heap and reheapify on the go. To support this
-// functionality, we use std::make_heap, std::push_heap, and std::pop_heap on an
-// underlying std::vector.
-
 #include "graphlib/algo/weighted_paths.hpp"
 
 #include <algorithm>
@@ -21,8 +14,8 @@ namespace graphlib {
 // root.
 std::map<const Vertex*, double> g_dist_to_root;
 
-// All algorithms implemented here start by setting the known distance to the
-// search root to 0 and the known distance to all other (yet undiscovered)
+// Several algorithms implemented here start by setting the known distance to
+// the search root to 0 and the known distance to all other (yet undiscovered)
 // vertices to infinity.
 void setup_dist_to_root(Graph* graph, const Vertex* search_root) {
   g_dist_to_root.clear();
@@ -36,24 +29,29 @@ void setup_dist_to_root(Graph* graph, const Vertex* search_root) {
   }
 }
 
-// To emulate a min-heap in a vector, we need to define our own Compare type.
+// Comparator to emulate Dijkstra's min-heap with an underlying std::vector.
 struct GreaterDistToRoot {
   bool operator()(const Vertex* lhs, const Vertex* rhs) const {
     return g_dist_to_root.at(lhs) > g_dist_to_root.at(rhs);
   }
 };
 
+// Dijkstra's algorithm uses a min-heap to keep track of the next non-tree
+// Vertex closest to the search root. std::priority_queue doesn't work here
+// because we need the ability to change the "value" (distance to search root)
+// of a Vertex already in the heap and reheapify on the go. To support this
+// functionality, we use std::make_heap, std::push_heap, and std::pop_heap on an
+// underlying std::vector.
 void dijkstra(Graph* graph, const Vertex* search_root,
               const Vertex* destination) {
   setup_dist_to_root(graph, search_root);
 
-  // Min-heap keeps track of the next non-tree vertex closest to the source.
   std::vector<const Vertex*> min_heap;
   min_heap.push_back(search_root);
 
   while (!min_heap.empty()) {
     // Bubble the smallest element (top of min-heap) down to the end of the
-    // vector, store it in v1, then pop it.
+    // underlying vector, store it in v1, then pop it.
     std::pop_heap(min_heap.begin(), min_heap.end(), GreaterDistToRoot());
     const Vertex* v1 = min_heap.back();
     min_heap.pop_back();
@@ -69,12 +67,12 @@ void dijkstra(Graph* graph, const Vertex* search_root,
         v2->parent_ = v1;
 
         if (std::find(min_heap.begin(), min_heap.end(), v2) != min_heap.end()) {
-          // If v2 is already in the min-heap, do a complete reheapify with
-          // v2's updated "g_dist_to_root" value.
+          // If v2 is already in the min-heap, do a complete reheapify of the
+          // underlying vector with v2's updated "g_dist_to_root" value.
           std::make_heap(min_heap.begin(), min_heap.end(), GreaterDistToRoot());
         } else {
           // If v2 is not yet in the min-heap, push it to the back of the
-          // vector, then bubble it up to its proper heap placement.
+          // underlying vector, then bubble it up to its proper heap placement.
           min_heap.push_back(v2);
           std::push_heap(min_heap.begin(), min_heap.end(), GreaterDistToRoot());
         }
