@@ -26,8 +26,8 @@ void dag_paths(Graph* graph, const Vertex* search_root,
 // in a graph without negative cycles.
 void bellman_ford(Graph* graph, const Vertex* search_root);
 
-// Repeatedly pop the stack returned by this function to obtain the respective
-// path.
+// Repeatedly pop the stacks returned by these functions to obtain the
+// corresponding paths.
 std::stack<const Vertex*> shortest_pos_weight_path(Graph* graph,
                                                    const Vertex* search_root,
                                                    const Vertex* destination);

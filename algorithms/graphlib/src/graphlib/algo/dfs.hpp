@@ -31,7 +31,8 @@ void dfs_graph(Graph* graph,
 bool is_cyclic(Graph* graph);
 
 // Repeatedly pop the stack returned by this function to obtain topological
-// sort of a DAG. Useful for scheduling problems.
+// sort of a DAG. Useful for scheduling problems and optimizations of other
+// algorithms on DAGs.
 std::stack<const Vertex*>& topological_sort(Graph* graph);
 
 // For directed graphs, a strongly connected component is one where every Vertex

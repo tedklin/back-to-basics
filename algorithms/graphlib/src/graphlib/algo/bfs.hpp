@@ -24,7 +24,7 @@ std::stack<const Vertex*> shortest_unweighted_path(Graph* graph,
 
 std::vector<std::set<Vertex>> connected_components(Graph* graph);
 
-// Two-coloring.
+// Check if a graph is two-colorable.
 bool is_bipartite(Graph* graph);
 
 // Misc common vertex and edge processing functions
