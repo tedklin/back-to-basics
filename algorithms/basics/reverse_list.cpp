@@ -46,15 +46,10 @@ int main() {
     prev = curr;
   }
 
-  // verify the list
+  // reverse
   print_list(root);
-
-  // reverse the list
   root = reverse_list(root);
-
-  // verify the reversed list
   print_list(root);
-
   delete root;
   std::cout << "cleaned\n";
 }
