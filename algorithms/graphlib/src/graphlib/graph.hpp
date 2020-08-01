@@ -105,15 +105,11 @@ struct Vertex {
 
   // Since the underlying implementation of Graph relies on pointers to const
   // Vertex, any Vertex data member we want to be able to modify through the
-  // Graph needs to be of mutable type. This shouldn't create undefined behavior
-  // because the overloaded comparison operators and hash functions we define
-  // only use the name of the Vertex as the value.
+  // Graph needs to be of mutable type.
   mutable State state_ = State::UNDISCOVERED;   // search state
   mutable const Vertex* parent_ = nullptr;      // search tree parent
   mutable int entry_time_ = 0, exit_time_ = 0;  // dfs time intervals
 
-  // Note: removing the const qualifier here makes it so that any const Vertex
-  // object can't call Reset (see AddVertex in Graph.cpp).
   void Reset() const {
     state_ = State::UNDISCOVERED;
     parent_ = nullptr;
@@ -122,7 +118,6 @@ struct Vertex {
   }
 };
 
-// Provides ordering for storage in Graph.
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
   return (lhs.name_ < rhs.name_);
 }
@@ -157,9 +152,7 @@ namespace graphlib {
 class Graph {
  private:
   // Underlying data structure types. Well-tuned unordered maps should also work
-  // here if we need a performance boost. Keep in mind the ordering of the
-  // AdjacentSet has no significance (it depends on the pointer itself, not the
-  // pointed-to Vertex).
+  // here if we need a performance boost.
   using AdjacentSet = std::map<const Vertex*, double>;
   using VertexMap = std::map<Vertex, AdjacentSet>;
 
