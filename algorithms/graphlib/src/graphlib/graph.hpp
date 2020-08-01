@@ -101,8 +101,7 @@ struct Vertex {
 
   Vertex(const std::string& name) : name_(name) {}
 
-  // TODO: make this const? might have to introduce explicit copy control.
-  std::string name_;
+  const std::string name_;
 
   // Since the underlying implementation of Graph relies on pointers to const
   // Vertex, any Vertex data member we want to be able to modify through the

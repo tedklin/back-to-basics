@@ -87,7 +87,7 @@ void example_initializer() {
 
 void edge_tests() {
   // The example as seen in the comment at the top of graph.hpp, but directed
-  // and with randomly inserted edge weights.
+  // and with some randomly inserted edge weights.
   Vertex A("A"), B("B"), C("C"), D("D"), E("E");
   Graph::InputWeightedAL al = {{A, {{D, 100.1}, {E, 1}}},
                                {B, {}},
