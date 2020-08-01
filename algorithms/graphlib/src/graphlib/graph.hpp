@@ -33,7 +33,7 @@ The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
 neighboring vertices to an arbitrary "source" vertex (the "source" vertex is
 defined by the VertexMap key to which an AdjacentSet is bound). The AdjacentSet
 type maps each neighboring vertex with a floating point "edge weight".
-Altogether, an VertexMap key, AdjacentSet key, and floating point edge weight
+Altogether, a VertexMap key, AdjacentSet key, and floating point edge weight
 represent the concept of one edge in a graph.
 
 Note that the keyset of the Graph class member of type VertexMap is intended to
@@ -144,7 +144,6 @@ std::string to_string(const Vertex::State& state);
 // std::hash. Note that the current Graph implementation does not use this; this
 // is just here in case we need to switch to an unordered map for better
 // performance.
-// https://en.cppreference.com/w/cpp/container/unordered_map/unordered_map
 namespace std {
 template <>
 struct hash<graphlib::Vertex> {

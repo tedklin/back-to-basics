@@ -22,6 +22,7 @@ std::stack<const Vertex*> shortest_unweighted_path(Graph* graph,
                                                    const Vertex* search_root,
                                                    const Vertex* destination);
 
+// Connected components (not strong).
 std::vector<std::set<Vertex>> connected_components(Graph* graph);
 
 // Check if a graph is two-colorable.

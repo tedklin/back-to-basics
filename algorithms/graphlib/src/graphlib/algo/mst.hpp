@@ -1,6 +1,5 @@
 // A minimum spanning tree can be thought of as the subgraph with the minimum
-// amount of "pipe" needed to connect a given connected graph. Useful for
-// minimizing the cost to connect a set of points.
+// amount of "pipe" needed to connect the set of Vertices of a given graph.
 //
 // All input graphs are assumed to be undirected.
 
