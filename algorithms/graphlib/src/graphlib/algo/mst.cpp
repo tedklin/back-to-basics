@@ -109,12 +109,12 @@ class VertexUnionFind {
 
     // Merge the smaller tree into the larger tree to maintain balance.
     const Vertex *set1 = Find(v1), *set2 = Find(v2);
-    if (sizes_[set1] < sizes_[set2]) {
-      parents_[set1] = set2;
-      sizes_[set2] += sizes_[set1];
+    if (sizes_.at(set1) < sizes_.at(set2)) {
+      parents_.at(set1) = set2;
+      sizes_.at(set2) += sizes_.at(set1);
     } else {
-      parents_[set2] = set1;
-      sizes_[set1] += sizes_[set2];
+      parents_.at(set2) = set1;
+      sizes_.at(set1) += sizes_.at(set2);
     }
   }
 
