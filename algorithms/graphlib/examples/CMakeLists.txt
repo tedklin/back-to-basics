@@ -9,6 +9,9 @@ macro(package_add_example EXAMPLENAME)
 endmacro()
 
 package_add_example(core_test core_test.cpp)
+
+package_add_example(graph_2d_test geometry/graph_2d_test.cpp)
+
 package_add_example(bfs_test algo/bfs_test.cpp)
 package_add_example(dfs_test algo/dfs_test.cpp)
 package_add_example(mst_test algo/mst_test.cpp)

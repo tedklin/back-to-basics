@@ -216,7 +216,7 @@ class Graph {
 
   bool IsDirected() { return is_directed_; }
 
- private:
+ protected:
   // The keyset of vertex_map_ represents the only copy of Vertices this Graph
   // stores.
   VertexMap vertex_map_;
@@ -228,7 +228,7 @@ class Graph {
 // adjacency sets.
 std::string to_string(const Graph& graph);
 
-// An auxiliary Edge class.
+// An auxiliary Edge type.
 struct Edge {
   Edge(const Vertex* v1, const Vertex* v2, double weight)
       : v1_(v1), v2_(v2), weight_(weight) {}
