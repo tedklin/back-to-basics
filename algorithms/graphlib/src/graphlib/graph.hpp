@@ -139,13 +139,18 @@ struct UnderlyingVertexOrder {
                   const std::shared_ptr<Vertex>& rhs) const {
     return *lhs < *rhs;
   }
+  bool operator()(const std::shared_ptr<const Vertex>& lhs,
+                  const std::shared_ptr<const Vertex>& rhs) const {
+    return *lhs < *rhs;
+  }
 };
 
 class Graph {
  protected:
   // Underlying data structure types. Well-tuned unordered maps should also work
   // here if we need a performance boost.
-  using AdjacentSet = std::map<std::shared_ptr<const Vertex>, double>;
+  using AdjacentSet =
+      std::map<std::shared_ptr<const Vertex>, double, UnderlyingVertexOrder>;
   using VertexMap =
       std::map<std::shared_ptr<Vertex>, AdjacentSet, UnderlyingVertexOrder>;
 
