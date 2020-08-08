@@ -71,9 +71,8 @@ std::vector<std::set<std::shared_ptr<const Vertex>>> connected_components(
 
   std::vector<std::set<std::shared_ptr<const Vertex>>> components;
   for (auto& p : graph->GetVertexMap()) {
-    std::shared_ptr<const Vertex> v = p.first;
-    if (v->state_ == Vertex::State::UNDISCOVERED) {
-      bfs(graph, v,
+    if (p.first->state_ == Vertex::State::UNDISCOVERED) {
+      bfs(graph, p.first,
           [](std::shared_ptr<const Vertex> v) { g_component.insert(v); });
       components.push_back(g_component);
       g_component.clear();
@@ -96,10 +95,9 @@ bool is_bipartite(Graph* graph) {
   }
 
   for (auto& p : graph->GetVertexMap()) {
-    std::shared_ptr<const Vertex> v = p.first;
-    if (v->state_ == Vertex::State::UNDISCOVERED) {
-      g_color.at(v) = 1;
-      bfs(graph, v, nullptr,
+    if (p.first->state_ == Vertex::State::UNDISCOVERED) {
+      g_color.at(p.first) = 1;
+      bfs(graph, p.first, nullptr,
           [](std::shared_ptr<const Vertex> v1, std::shared_ptr<const Vertex> v2,
              double weight) {
             // Check for any nondiscovery edges that violate two-coloring.

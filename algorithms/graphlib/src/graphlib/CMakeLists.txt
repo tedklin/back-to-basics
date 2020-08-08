@@ -3,7 +3,7 @@ list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/graph.cpp")
 # list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/geometry/graph_2d.cpp")
 
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/bfs.cpp")
-# list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/dfs.cpp")
+list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/dfs.cpp")
 # list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/mst.cpp")
 # list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/weighted_paths.cpp")
 # ^^^ APPEND NEW SOURCE FILES TO THE SOURCE_LIST
