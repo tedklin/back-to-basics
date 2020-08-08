@@ -1,6 +1,6 @@
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/graph.cpp")
 
-# list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/geometry/graph_2d.cpp")
+list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/geometry/graph_2d.cpp")
 
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/bfs.cpp")
 list(APPEND SOURCE_LIST "${PROJECT_SOURCE_DIR}/src/graphlib/algo/dfs.cpp")

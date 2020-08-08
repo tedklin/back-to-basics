@@ -76,16 +76,17 @@ void dijkstras_check() {
   std::cout << "search root: " << v0.name_ << '\n';
   graphlib::dijkstra(&graph, graph.GetVertexPtr(v0));
   for (const auto& v : graph.GetVertexMap()) {
-    if (v.first != v0) {
-      std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
+    if (v.first != graph.GetVertexPtr(v0)) {
+      std::cout << v.first->name_ << " parent: " << v.first->parent_->name_
                 << '\n';
     }
   }
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_pos_weight_path(
-      &graph, graph.GetVertexPtr(v0), graph.GetVertexPtr(v1));
+  std::stack<std::shared_ptr<const Vertex>> path =
+      graphlib::shortest_pos_weight_path(&graph, graph.GetVertexPtr(v0),
+                                         graph.GetVertexPtr(v1));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
