@@ -70,7 +70,7 @@ std::vector<std::set<Vertex>> connected_components(Graph* graph) {
 
   std::vector<std::set<Vertex>> components;
   for (auto& p : graph->GetVertexMap()) {
-    const Vertex* v = graph->GetInternalVertexPtr(p.first);
+    const Vertex* v = graph->GetVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       bfs(graph, v, [](const Vertex* v) { g_component.insert(*v); });
       components.push_back(g_component);
@@ -89,11 +89,11 @@ bool is_bipartite(Graph* graph) {
   for (const auto& p : graph->GetVertexMap()) {
     // We need to use a non-1 initial value to differentiate between tree edges
     // and nondiscovery edges.
-    g_color[graph->GetInternalVertexPtr(p.first)] = 0;
+    g_color[graph->GetVertexPtr(p.first)] = 0;
   }
 
   for (auto& p : graph->GetVertexMap()) {
-    const Vertex* v = graph->GetInternalVertexPtr(p.first);
+    const Vertex* v = graph->GetVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       g_color.at(v) = 1;
       bfs(graph, v, nullptr,

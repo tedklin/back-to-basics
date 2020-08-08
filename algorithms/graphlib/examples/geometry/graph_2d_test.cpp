@@ -74,7 +74,7 @@ void dijkstras_check() {
 
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
-  graphlib::dijkstra(&graph, graph.GetInternalVertexPtr(v0));
+  graphlib::dijkstra(&graph, graph.GetVertexPtr(v0));
   for (const auto& v : graph.GetVertexMap()) {
     if (v.first != v0) {
       std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
@@ -85,7 +85,7 @@ void dijkstras_check() {
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
   std::stack<const Vertex*> path = graphlib::shortest_pos_weight_path(
-      &graph, graph.GetInternalVertexPtr(v0), graph.GetInternalVertexPtr(v1));
+      &graph, graph.GetVertexPtr(v0), graph.GetVertexPtr(v1));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -96,8 +96,8 @@ void dijkstras_check() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 3:\n";
-  path = graphlib::shortest_pos_weight_path(
-      &graph, graph.GetInternalVertexPtr(v0), graph.GetInternalVertexPtr(v3));
+  path = graphlib::shortest_pos_weight_path(&graph, graph.GetVertexPtr(v0),
+                                            graph.GetVertexPtr(v3));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -108,8 +108,8 @@ void dijkstras_check() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 6:\n";
-  path = graphlib::shortest_pos_weight_path(
-      &graph, graph.GetInternalVertexPtr(v0), graph.GetInternalVertexPtr(v6));
+  path = graphlib::shortest_pos_weight_path(&graph, graph.GetVertexPtr(v0),
+                                            graph.GetVertexPtr(v6));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

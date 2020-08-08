@@ -82,7 +82,7 @@ void dfs_graph(Graph* graph, void (*process_vertex_early)(const Vertex* v),
   g_finished = false;
 
   for (auto& p : graph->GetVertexMap()) {
-    const Vertex* v = graph->GetInternalVertexPtr(p.first);
+    const Vertex* v = graph->GetVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs_helper(graph, v, process_vertex_early, process_edge,
                  process_vertex_late);
@@ -119,7 +119,7 @@ bool is_cyclic(Graph* graph) {
   g_cyclic = false;
 
   for (auto& p : graph->GetVertexMap()) {
-    const Vertex* v = graph->GetInternalVertexPtr(p.first);
+    const Vertex* v = graph->GetVertexPtr(p.first);
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs(graph, v, nullptr,
           [](const Vertex* v1, const Vertex* v2, double weight) {
@@ -171,7 +171,7 @@ std::vector<std::set<const Vertex*>> strong_components(Graph* graph) {
             [](const Vertex* v) { g_kosaraju_stack.push(*v); });
 
   while (!g_kosaraju_stack.empty()) {
-    const Vertex* v = graph->GetInternalVertexPtr(g_kosaraju_stack.top());
+    const Vertex* v = graph->GetVertexPtr(g_kosaraju_stack.top());
     g_kosaraju_stack.pop();
     if (v->state_ == Vertex::State::UNDISCOVERED) {
       dfs_helper(graph, v,
@@ -197,9 +197,9 @@ std::set<const Vertex*>& articulation_vertices(Graph* graph) {
   g_reachable_ancestors.clear();
   g_tree_out_degree.clear();
   for (const auto& p : graph->GetVertexMap()) {
-    g_reachable_ancestors[graph->GetInternalVertexPtr(p.first)] =
-        graph->GetInternalVertexPtr(p.first);
-    g_tree_out_degree[graph->GetInternalVertexPtr(p.first)] = 0;
+    g_reachable_ancestors[graph->GetVertexPtr(p.first)] =
+        graph->GetVertexPtr(p.first);
+    g_tree_out_degree[graph->GetVertexPtr(p.first)] = 0;
   }
 
   dfs_graph(

@@ -20,10 +20,10 @@ std::map<const Vertex*, double> g_dist_to_root;
 void setup_dist_to_root(Graph* graph, const Vertex* search_root) {
   g_dist_to_root.clear();
   for (const auto& v : graph->GetVertexMap()) {
-    if (graph->GetInternalVertexPtr(v.first) == search_root) {
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] = 0;
+    if (graph->GetVertexPtr(v.first) == search_root) {
+      g_dist_to_root[graph->GetVertexPtr(v.first)] = 0;
     } else {
-      g_dist_to_root[graph->GetInternalVertexPtr(v.first)] =
+      g_dist_to_root[graph->GetVertexPtr(v.first)] =
           std::numeric_limits<double>::infinity();
     }
   }
@@ -120,7 +120,7 @@ void bellman_ford(Graph* graph, const Vertex* search_root) {
   std::queue<const Vertex*> q;
   std::map<const Vertex*, bool> on_q;  // quick lookup for if vertex is on queue
   for (const auto& v : graph->GetVertexMap()) {
-    on_q[graph->GetInternalVertexPtr(v.first)] = false;
+    on_q[graph->GetVertexPtr(v.first)] = false;
   }
 
   q.push(search_root);
@@ -189,15 +189,15 @@ DistanceMatrix floyd_warshall(Graph* graph) {
   for (const auto& v1 : graph->GetVertexMap()) {
     for (const auto& v2 : graph->GetVertexMap()) {
       if (v1 == v2) {
-        dist_matrix[graph->GetInternalVertexPtr(v1.first)]
-                   [graph->GetInternalVertexPtr(v2.first)] = 0;
+        dist_matrix[graph->GetVertexPtr(v1.first)]
+                   [graph->GetVertexPtr(v2.first)] = 0;
       } else if (graph->EdgeExists(v1.first, v2.first)) {
-        dist_matrix[graph->GetInternalVertexPtr(v1.first)]
-                   [graph->GetInternalVertexPtr(v2.first)] =
+        dist_matrix[graph->GetVertexPtr(v1.first)]
+                   [graph->GetVertexPtr(v2.first)] =
                        graph->EdgeWeight(v1.first, v2.first);
       } else {
-        dist_matrix[graph->GetInternalVertexPtr(v1.first)]
-                   [graph->GetInternalVertexPtr(v2.first)] =
+        dist_matrix[graph->GetVertexPtr(v1.first)]
+                   [graph->GetVertexPtr(v2.first)] =
                        std::numeric_limits<double>::infinity();
       }
     }

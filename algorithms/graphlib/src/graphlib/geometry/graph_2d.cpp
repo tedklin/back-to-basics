@@ -22,9 +22,9 @@ void Graph2d::AddEdge(const Vertex2d& source, const Vertex2d& dest) {
   AddVertex(dest);
 
   double edge_weight = distance_2d(source, dest);
-  vertex_map_[source][GetInternalVertexPtr(dest)] = edge_weight;
+  vertex_map_[source][GetVertexPtr(dest)] = edge_weight;
   if (!is_directed_) {
-    vertex_map_[dest][GetInternalVertexPtr(source)] = edge_weight;
+    vertex_map_[dest][GetVertexPtr(source)] = edge_weight;
   }
 }
 

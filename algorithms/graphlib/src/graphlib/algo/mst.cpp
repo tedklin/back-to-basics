@@ -83,8 +83,8 @@ class VertexUnionFind {
   VertexUnionFind(Graph* graph) {
     // Initially, each vertex is its own subset / connected component.
     for (const auto& v : graph->GetVertexMap()) {
-      parents_[graph->GetInternalVertexPtr(v.first)] = nullptr;
-      sizes_[graph->GetInternalVertexPtr(v.first)] = 1;
+      parents_[graph->GetVertexPtr(v.first)] = nullptr;
+      sizes_[graph->GetVertexPtr(v.first)] = 1;
     }
   }
 
@@ -136,7 +136,7 @@ std::vector<Edge> kruskal_mst(Graph* graph) {
 
   // Add all edges in given graph to priority queue.
   for (const auto& v : graph->GetVertexMap()) {
-    const Vertex* v1 = graph->GetInternalVertexPtr(v.first);
+    const Vertex* v1 = graph->GetVertexPtr(v.first);
     for (const auto& adj : v.second) {
       const Vertex* v2 = adj.first;
       double weight = adj.second;

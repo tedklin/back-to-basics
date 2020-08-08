@@ -105,7 +105,9 @@ struct Vertex {
 
   // Since the underlying implementation of Graph relies on pointers to const
   // Vertex, any Vertex data member we want to be able to modify through the
-  // Graph needs to be of mutable type.
+  // Graph needs to be of mutable type. This gives us the flexibility to add
+  // nonconst data members to Vertex types and still maintain const-correctness
+  // when performing graph algorithms.
   mutable State state_ = State::UNDISCOVERED;   // search state
   mutable const Vertex* parent_ = nullptr;      // search tree parent
   mutable int entry_time_ = 0, exit_time_ = 0;  // dfs time intervals
@@ -149,12 +151,20 @@ struct hash<graphlib::Vertex> {
 
 namespace graphlib {
 
+struct UnderlyingVertexOrder {
+  bool operator()(const std::shared_ptr<Vertex>& lhs,
+                  const std::shared_ptr<Vertex>& rhs) const {
+    return *lhs < *rhs;
+  }
+};
+
 class Graph {
- private:
+ protected:
   // Underlying data structure types. Well-tuned unordered maps should also work
   // here if we need a performance boost.
-  using AdjacentSet = std::map<const Vertex*, double>;
-  using VertexMap = std::map<Vertex, AdjacentSet>;
+  using AdjacentSet = std::map<std::shared_ptr<const Vertex>, double>;
+  using VertexMap =
+      std::map<std::shared_ptr<Vertex>, AdjacentSet, UnderlyingVertexOrder>;
 
  public:
   // Convenience typenames used for user input; not actual underlying types.
@@ -174,13 +184,14 @@ class Graph {
   // Constructs a fully specified weighted graph.
   Graph(InputWeightedAL adjacency_list, bool is_directed);
 
+  // Given a Vertex, obtain a pointer to the singular instance of that Vertex
+  // within this Graph object (i.e. in the keyset of vertex_map_). Note that
+  // this does not affect the lifetime of the shared_ptr.
+  const std::shared_ptr<const Vertex>& GetVertexPtr(const Vertex& v) const;
+
   // Add a freshly-reset copy of the given Vertex to this graph. Duplicates are
   // ignored.
   void AddVertex(const Vertex& v);
-
-  // Given a Vertex, obtain a pointer to the singular instance of that Vertex
-  // within this Graph object (i.e. in the keyset of vertex_map_).
-  const Vertex* GetInternalVertexPtr(const Vertex& v) const;
 
   // Add an internal pointer to "dest" to the adjacency set of "source", along
   // with an associated edge weight. If the given vertices were not already
@@ -204,15 +215,10 @@ class Graph {
   // Return a string displaying all vertices (without adjacency sets).
   std::string GetVertexSetStr() const;
 
+  const AdjacentSet& GetAdjacentSet(const Vertex& source) const;
+  AdjacentSet& GetMutableAdjacentSet(const Vertex& source);
+
   const VertexMap& GetVertexMap() const { return vertex_map_; }
-
-  const AdjacentSet& GetAdjacentSet(const Vertex& source) const {
-    return vertex_map_.at(source);
-  }
-
-  AdjacentSet& GetMutableAdjacentSet(const Vertex& source) {
-    return vertex_map_.at(source);
-  }
 
   bool IsDirected() { return is_directed_; }
 
@@ -222,6 +228,11 @@ class Graph {
   VertexMap vertex_map_;
 
   bool is_directed_;
+
+  const std::shared_ptr<Vertex>& GetMutableVertexPtr(const Vertex& v) const;
+  VertexMap::const_iterator FindInVertexMap(const Vertex& v) const;
+  VertexMap::const_iterator FindInAdjacentSet(const Vertex& v,
+                                              const AdjacentSet& set) const;
 };
 
 // For a given graph, return a string displaying all vertices and corresponding
@@ -229,23 +240,23 @@ class Graph {
 std::string to_string(const Graph& graph);
 
 // An auxiliary Edge type.
-struct Edge {
-  Edge(const Vertex* v1, const Vertex* v2, double weight)
-      : v1_(v1), v2_(v2), weight_(weight) {}
+// struct Edge {
+//   Edge(const Vertex* v1, const Vertex* v2, double weight)
+//       : v1_(v1), v2_(v2), weight_(weight) {}
 
-  const Vertex* v1_ = nullptr;
-  const Vertex* v2_ = nullptr;
-  double weight_ = 0;
-};
+//   const Vertex* v1_ = nullptr;
+//   const Vertex* v2_ = nullptr;
+//   double weight_ = 0;
+// };
 
-// Provides ordering for Edge min-heaps.
-inline bool operator>(const Edge& lhs, const Edge& rhs) {
-  return (lhs.weight_ > rhs.weight_);
-}
+// // Provides ordering for Edge min-heaps.
+// inline bool operator>(const Edge& lhs, const Edge& rhs) {
+//   return (lhs.weight_ > rhs.weight_);
+// }
 
-inline std::string to_string(const Edge& edge) {
-  return edge.v1_->name_ + " -> " + edge.v2_->name_ + " (" +
-         std::to_string(edge.weight_) + ")\n";
-}
+// inline std::string to_string(const Edge& edge) {
+//   return edge.v1_->name_ + " -> " + edge.v2_->name_ + " (" +
+//          std::to_string(edge.weight_) + ")\n";
+// }
 
 }  // namespace graphlib
