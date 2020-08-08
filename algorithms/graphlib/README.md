@@ -1,4 +1,4 @@
-**IMPORTANT NOTE: The implementation here (on the master branch) cannot support polymorphism with the Vertex type, as was originally intended. A completely restructured version of *graphlib* which does support polymorphism can be found on the [*graphlib-dev* branch](https://github.com/tedklin/back-to-basics/tree/graphlib-dev).**
+**IMPORTANT NOTE: The implementation of *graphlib* here (on the master branch of this repo) cannot support polymorphism with the Vertex type, as was originally intended. A completely restructured version of *graphlib* which does support polymorphism can be found on the [*graphlib-dev* branch](https://github.com/tedklin/back-to-basics/tree/graphlib-dev). Please refer to that version.**
 
 # graphlib
 
