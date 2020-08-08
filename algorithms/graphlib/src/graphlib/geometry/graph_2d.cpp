@@ -17,6 +17,13 @@ Graph2d::Graph2d(const Input2dAL& al, bool is_directed) : Graph(is_directed) {
   }
 }
 
+void Graph2d::AddVertex(const Vertex2d& v) {
+  v.Reset();
+  if (FindInVertexMap(v) == vertex_map_.end()) {
+    vertex_map_[std::make_shared<Vertex2d>(v)];
+  }
+}
+
 void Graph2d::AddEdge(const Vertex2d& source, const Vertex2d& dest) {
   AddVertex(source);
   AddVertex(dest);
