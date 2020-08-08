@@ -76,7 +76,7 @@ std::shared_ptr<Vertex> Graph::GetMutableVertexPtr(const Vertex& v) const {
 }
 
 std::shared_ptr<const Vertex> Graph::GetVertexPtr(const Vertex& v) const {
-  return GetMutableVertexPtr(v);
+  return GetMutableVertexPtr(v);  // adds a low-level const
 }
 
 void Graph::AddEdge(const Vertex& source, const Vertex& dest,

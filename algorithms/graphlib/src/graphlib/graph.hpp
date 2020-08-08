@@ -134,23 +134,6 @@ inline bool operator!=(const Vertex& lhs, const Vertex& rhs) {
 
 std::string to_string(const Vertex::State& state);
 
-}  // namespace graphlib
-
-// To use std::unordered_map with our self-defined Vertex type, we must overload
-// std::hash. Note that the current Graph implementation does not use this; this
-// is just here in case we need to switch to an unordered map for better
-// performance.
-namespace std {
-template <>
-struct hash<graphlib::Vertex> {
-  std::size_t operator()(const graphlib::Vertex& f) const {
-    return std::hash<std::string>{}(f.name_);
-  }
-};
-}  // namespace std
-
-namespace graphlib {
-
 struct UnderlyingVertexOrder {
   bool operator()(const std::shared_ptr<Vertex>& lhs,
                   const std::shared_ptr<Vertex>& rhs) const {
@@ -232,7 +215,10 @@ class Graph {
 
   bool is_directed_;
 
+  // Necessary internal helper for interfacing directly with the map.
   std::shared_ptr<Vertex> GetMutableVertexPtr(const Vertex& v) const;
+
+  // Extensions of std::find
   VertexMap::const_iterator FindInVertexMap(const Vertex& v) const;
   VertexMap::const_iterator FindInAdjacentSet(const Vertex& v,
                                               const AdjacentSet& set) const;

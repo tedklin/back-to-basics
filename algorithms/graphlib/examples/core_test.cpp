@@ -15,14 +15,6 @@ void equality_op_overload() {
   std::cout << (v1 == v1_again) << '\n';
 }
 
-void hash_overload() {
-  Vertex v1("A"), v2("B"), v1_again("A");
-
-  std::cout << std::hash<Vertex>{}(v1) << '\n';
-  std::cout << std::hash<Vertex>{}(v2) << '\n';
-  std::cout << std::hash<Vertex>{}(v1_again) << '\n';
-}
-
 void vertex_set_initializer() {
   Vertex v1("A"), v2("B"), v3("C"), v1_again("A"), v2_again("B");
 
@@ -107,10 +99,6 @@ int main() {
   std::cout << "\n=============\n";
   std::cout << "EQUALITY_OP_OVERLOAD\n\n";
   equality_op_overload();
-
-  std::cout << "\n=============\n";
-  std::cout << "HASH_OVERLOAD\n\n";
-  hash_overload();
 
   std::cout << "\n=============\n";
   std::cout << "VERTEX_SET_INITIALIZER\n\n";
