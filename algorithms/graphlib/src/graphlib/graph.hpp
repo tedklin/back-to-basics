@@ -108,13 +108,13 @@ struct Vertex {
   // Graph needs to be of mutable type. This gives us the flexibility to add
   // nonconst data members to Vertex types and still maintain const-correctness
   // when performing graph algorithms.
-  mutable State state_ = State::UNDISCOVERED;   // search state
-  mutable const Vertex* parent_ = nullptr;      // search tree parent
-  mutable int entry_time_ = 0, exit_time_ = 0;  // dfs time intervals
+  mutable State state_ = State::UNDISCOVERED;     // search state
+  mutable std::shared_ptr<const Vertex> parent_;  // search tree parent
+  mutable int entry_time_ = 0, exit_time_ = 0;    // dfs time intervals
 
   void Reset() const {
     state_ = State::UNDISCOVERED;
-    parent_ = nullptr;
+    parent_.reset();
     entry_time_ = 0;
     exit_time_ = 0;
   }
@@ -185,9 +185,8 @@ class Graph {
   Graph(InputWeightedAL adjacency_list, bool is_directed);
 
   // Given a Vertex, obtain a pointer to the singular instance of that Vertex
-  // within this Graph object (i.e. in the keyset of vertex_map_). Note that
-  // this does not affect the lifetime of the shared_ptr.
-  const std::shared_ptr<const Vertex>& GetVertexPtr(const Vertex& v) const;
+  // within this Graph object (i.e. in the keyset of vertex_map_).
+  std::shared_ptr<const Vertex> GetVertexPtr(const Vertex& v) const;
 
   // Add a freshly-reset copy of the given Vertex to this graph. Duplicates are
   // ignored.
@@ -215,8 +214,12 @@ class Graph {
   // Return a string displaying all vertices (without adjacency sets).
   std::string GetVertexSetStr() const;
 
-  const AdjacentSet& GetAdjacentSet(const Vertex& source) const;
+  AdjacentSet& GetMutableAdjacentSet(const std::shared_ptr<Vertex>& source);
   AdjacentSet& GetMutableAdjacentSet(const Vertex& source);
+
+  const AdjacentSet& GetAdjacentSet(
+      const std::shared_ptr<Vertex>& source) const;
+  const AdjacentSet& GetAdjacentSet(const Vertex& source) const;
 
   const VertexMap& GetVertexMap() const { return vertex_map_; }
 
@@ -229,7 +232,7 @@ class Graph {
 
   bool is_directed_;
 
-  const std::shared_ptr<Vertex>& GetMutableVertexPtr(const Vertex& v) const;
+  std::shared_ptr<Vertex> GetMutableVertexPtr(const Vertex& v) const;
   VertexMap::const_iterator FindInVertexMap(const Vertex& v) const;
   VertexMap::const_iterator FindInAdjacentSet(const Vertex& v,
                                               const AdjacentSet& set) const;

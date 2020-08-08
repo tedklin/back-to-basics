@@ -54,7 +54,7 @@ Graph::Graph(InputWeightedAL weighted_al, bool is_directed)
 Graph::VertexMap::const_iterator Graph::FindInVertexMap(const Vertex& v) const {
   return std::find_if(
       vertex_map_.cbegin(), vertex_map_.cend(),
-      [&](const std::shared_ptr<Vertex>& p) -> bool { return *p == v; });
+      [&](const VertexMap::value_type& p) -> bool { return *(p.first) == v; });
 }
 
 void Graph::AddVertex(const Vertex& v) {
@@ -64,8 +64,7 @@ void Graph::AddVertex(const Vertex& v) {
   }
 }
 
-const std::shared_ptr<Vertex>& Graph::GetMutableVertexPtr(
-    const Vertex& v) const {
+std::shared_ptr<Vertex> Graph::GetMutableVertexPtr(const Vertex& v) const {
   auto vertex_iter = FindInVertexMap(v);
   if (vertex_iter == vertex_map_.end()) {
     throw std::runtime_error(
@@ -76,8 +75,7 @@ const std::shared_ptr<Vertex>& Graph::GetMutableVertexPtr(
   return vertex_iter->first;
 }
 
-const std::shared_ptr<const Vertex>& Graph::GetVertexPtr(
-    const Vertex& v) const {
+std::shared_ptr<const Vertex> Graph::GetVertexPtr(const Vertex& v) const {
   return GetMutableVertexPtr(v);
 }
 
@@ -104,9 +102,11 @@ bool Graph::EdgeExists(const Vertex& source, const Vertex& dest) const {
         "Graph::EdgeExists error! Given nonexistent vertices.\n");
   }
 
-  auto adj_iter = std::find_if(
-      source_iter->second.cbegin(), source_iter->second.cend(),
-      [&](const std::shared_ptr<Vertex>& p) -> bool { return *p == dest; });
+  auto adj_iter =
+      std::find_if(source_iter->second.cbegin(), source_iter->second.cend(),
+                   [&](const AdjacentSet::value_type& p) -> bool {
+                     return *(p.first) == dest;
+                   });
   return adj_iter != source_iter->second.end();
 }
 
@@ -146,12 +146,22 @@ std::shared_ptr<Graph> Graph::GetReverseGraph() const {
   return reverse;
 }
 
-const Graph::AdjacentSet& Graph::GetAdjacentSet(const Vertex& source) const {
-  return vertex_map_.at(GetMutableVertexPtr(source));
+Graph::AdjacentSet& Graph::GetMutableAdjacentSet(
+    const std::shared_ptr<Vertex>& source) {
+  return vertex_map_.at(source);
 }
 
 Graph::AdjacentSet& Graph::GetMutableAdjacentSet(const Vertex& source) {
-  return vertex_map_.at(GetMutableVertexPtr(source));
+  return GetMutableAdjacentSet(GetMutableVertexPtr(source));
+}
+
+const Graph::AdjacentSet& Graph::GetAdjacentSet(
+    const std::shared_ptr<Vertex>& source) const {
+  return vertex_map_.at(source);
+}
+
+const Graph::AdjacentSet& Graph::GetAdjacentSet(const Vertex& source) const {
+  return GetAdjacentSet(GetMutableVertexPtr(source));
 }
 
 std::string to_string(const Graph& graph) {
