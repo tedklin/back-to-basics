@@ -25,20 +25,21 @@ can be leveraged to create Vertex types that store more information.
 The "Graph" class defines two typenames, "VertexMap" and "AdjacentSet", for
 internal use as the underlying data structure.
 
-The "VertexMap" typename (map<Vertex, AdjacentSet>), represents the set of all
-Vertex instances contained in a Graph. It maps each Vertex instance of a graph
-to a corresponding "AdjacentSet" type.
+The "VertexMap" typename (map<shared_ptr<Vertex>, AdjacentSet>), represents the
+set of all Vertex instances contained in a Graph. It maps each Vertex instance
+of a graph to a corresponding "AdjacentSet" type.
 
-The "AdjacentSet" typename (map<const Vertex*, double>) represents the set of
-neighboring vertices to an arbitrary "source" vertex (the "source" vertex is
-defined by the VertexMap key to which an AdjacentSet is bound). The AdjacentSet
-type maps each neighboring vertex with a floating point "edge weight".
-Altogether, a VertexMap key, AdjacentSet key, and floating point edge weight
-represent the concept of one edge in a graph.
+The "AdjacentSet" typename (map<shared_ptr<const Vertex>, double>) represents
+the set of neighboring vertices to an arbitrary "source" vertex (the "source"
+vertex is defined by the VertexMap key to which an AdjacentSet is bound). The
+AdjacentSet type maps each neighboring vertex with a floating point "edge
+weight". Altogether, a VertexMap key, AdjacentSet key, and floating point edge
+weight represent the concept of one edge in a graph.
 
-Note that the keyset of the Graph class member of type VertexMap is intended to
-be the only copy of Vertex instances stored in a Graph. When processing a Graph,
-one should generally use pointers to the keys of the VertexMap.
+Note that the keyset of the Graph class member of type VertexMap is the only
+copy of Vertex instances stored in a Graph. When processing a Graph, one should
+generally use pointers to the keys of the VertexMap (see Graph::GetVertexPtr
+member).
 
 There exists an auxiliary "Edge" struct, which also represents the concept of an
 edge in a graph, but this is only used for specific algorithms (like finding
