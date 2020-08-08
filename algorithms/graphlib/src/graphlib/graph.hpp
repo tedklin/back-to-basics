@@ -229,23 +229,23 @@ class Graph {
 std::string to_string(const Graph& graph);
 
 // An auxiliary Edge type.
-// struct Edge {
-//   Edge(const Vertex* v1, const Vertex* v2, double weight)
-//       : v1_(v1), v2_(v2), weight_(weight) {}
+struct Edge {
+  Edge(std::shared_ptr<const Vertex> v1, std::shared_ptr<const Vertex> v2,
+       double weight)
+      : v1_(v1), v2_(v2), weight_(weight) {}
 
-//   const Vertex* v1_ = nullptr;
-//   const Vertex* v2_ = nullptr;
-//   double weight_ = 0;
-// };
+  std::shared_ptr<const Vertex> v1_, v2_;
+  double weight_ = 0;
+};
 
-// // Provides ordering for Edge min-heaps.
-// inline bool operator>(const Edge& lhs, const Edge& rhs) {
-//   return (lhs.weight_ > rhs.weight_);
-// }
+// Provides ordering for Edge min-heaps.
+inline bool operator>(const Edge& lhs, const Edge& rhs) {
+  return (lhs.weight_ > rhs.weight_);
+}
 
-// inline std::string to_string(const Edge& edge) {
-//   return edge.v1_->name_ + " -> " + edge.v2_->name_ + " (" +
-//          std::to_string(edge.weight_) + ")\n";
-// }
+inline std::string to_string(const Edge& edge) {
+  return edge.v1_->name_ + " -> " + edge.v2_->name_ + " (" +
+         std::to_string(edge.weight_) + ")\n";
+}
 
 }  // namespace graphlib

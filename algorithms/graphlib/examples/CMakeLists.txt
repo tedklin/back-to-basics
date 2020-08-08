@@ -14,6 +14,6 @@ package_add_example(core_test core_test.cpp)
 
 package_add_example(bfs_test algo/bfs_test.cpp)
 package_add_example(dfs_test algo/dfs_test.cpp)
-# package_add_example(mst_test algo/mst_test.cpp)
+package_add_example(mst_test algo/mst_test.cpp)
 # package_add_example(weighted_paths_test algo/weighted_paths_test.cpp)
 # ^^^ ADD MORE EXAMPLE EXECUTABLES HERE ^^^
