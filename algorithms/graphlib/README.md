@@ -1,3 +1,5 @@
+**IMPORTANT NOTE: The implementation here (on the master branch) cannot support polymorphism with the Vertex type, as was originally intended. A completely restructured version of *graphlib* which does support polymorphism can be found on the [*graphlib-dev* branch](https://github.com/tedklin/back-to-basics/tree/graphlib-dev).**
+
 # graphlib
 
 Graph theory is known as one of the most foundational topics in computer science. I can't count how many times I've been pleasantly surprised to find connections between graph theory and everyday tools / technologies. Indeed, everything from makefiles to git, from social networks to robot path planning, all can be modeled as graph problems.
