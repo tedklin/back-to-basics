@@ -119,6 +119,8 @@ struct Vertex {
     entry_time_ = 0;
     exit_time_ = 0;
   }
+
+  virtual ~Vertex() = default;
 };
 
 inline bool operator<(const Vertex& lhs, const Vertex& rhs) {
