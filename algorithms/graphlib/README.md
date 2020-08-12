@@ -1,4 +1,4 @@
-**IMPORTANT NOTE: The implementation of *graphlib* here (on the master branch of this repo) cannot support polymorphism with the Vertex type, as was originally intended. A completely restructured version of *graphlib* which does support polymorphism can be found on the [*graphlib-dev* branch](https://github.com/tedklin/back-to-basics/tree/graphlib-dev/algorithms/graphlib). Please refer to that version.**
+**IMPORTANT NOTE: The implementation of *graphlib* here (on the graphlib-old branch of this repo) cannot support polymorphism with the Vertex type, as was originally intended. A completely restructured version of *graphlib* which does support polymorphism can be found on the master branch. Please refer to that version.**
 
 # graphlib
 
@@ -6,7 +6,7 @@ Graph theory is known as one of the most foundational topics in computer science
 
 This is a library for fundamental graph algorithms taught in *Skiena* and *Sedgewick*. The implementations here aim to be as flexible and intuitive as possible by taking full advantage of the C++ language and STL.
 
-As noted in the [top-level README](https://github.com/tedklin/back-to-basics) of this repo, this was mostly meant to be a place for me to build intuition for various concepts from the ground up. There are likely other formal graph libraries out there with more functionality, better performance, and complete testing.
+As noted in the top-level README of this repo, this was mostly meant to be a place for me to build intuition for various concepts from the ground up. There are likely other formal graph libraries out there with more functionality, better performance, and complete testing.
 
 
 ## Notes
