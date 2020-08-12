@@ -25,19 +25,19 @@ void tiny_ewd_dijkstras() {
 
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
-  graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0));
+  graphlib::dijkstra(&tiny_ewd, tiny_ewd.GetVertexPtr(v0));
   for (const auto& v : tiny_ewd.GetVertexMap()) {
-    if (v.first != v0) {
-      std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
+    if (v.first != tiny_ewd.GetVertexPtr(v0)) {
+      std::cout << v.first->name_ << " parent: " << v.first->parent_->name_
                 << '\n';
     }
   }
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_pos_weight_path(
-      &tiny_ewd, tiny_ewd.GetInternalVertexPtr(v0),
-      tiny_ewd.GetInternalVertexPtr(v1));
+  std::stack<std::shared_ptr<const Vertex>> path =
+      graphlib::shortest_pos_weight_path(&tiny_ewd, tiny_ewd.GetVertexPtr(v0),
+                                         tiny_ewd.GetVertexPtr(v1));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -48,9 +48,8 @@ void tiny_ewd_dijkstras() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 3:\n";
-  path = graphlib::shortest_pos_weight_path(&tiny_ewd,
-                                            tiny_ewd.GetInternalVertexPtr(v0),
-                                            tiny_ewd.GetInternalVertexPtr(v3));
+  path = graphlib::shortest_pos_weight_path(
+      &tiny_ewd, tiny_ewd.GetVertexPtr(v0), tiny_ewd.GetVertexPtr(v3));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -61,9 +60,8 @@ void tiny_ewd_dijkstras() {
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 6:\n";
-  path = graphlib::shortest_pos_weight_path(&tiny_ewd,
-                                            tiny_ewd.GetInternalVertexPtr(v0),
-                                            tiny_ewd.GetInternalVertexPtr(v6));
+  path = graphlib::shortest_pos_weight_path(
+      &tiny_ewd, tiny_ewd.GetVertexPtr(v0), tiny_ewd.GetVertexPtr(v6));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -90,19 +88,19 @@ void tiny_ewdn_bellman() {
 
   std::cout << "Shortest paths parent tree:\n";
   std::cout << "search root: " << v0.name_ << '\n';
-  graphlib::bellman_ford(&tiny_ewdn, tiny_ewdn.GetInternalVertexPtr(v0));
+  graphlib::bellman_ford(&tiny_ewdn, tiny_ewdn.GetVertexPtr(v0));
   for (const auto& v : tiny_ewdn.GetVertexMap()) {
-    if (v.first != v0) {
-      std::cout << v.first.name_ << " parent: " << v.first.parent_->name_
+    if (v.first != tiny_ewdn.GetVertexPtr(v0)) {
+      std::cout << v.first->name_ << " parent: " << v.first->parent_->name_
                 << '\n';
     }
   }
   std::cout << '\n';
 
   std::cout << "Shortest weighted path from 0 to 1:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_weighted_path(
-      &tiny_ewdn, tiny_ewdn.GetInternalVertexPtr(v0),
-      tiny_ewdn.GetInternalVertexPtr(v1));
+  std::stack<std::shared_ptr<const Vertex>> path =
+      graphlib::shortest_weighted_path(&tiny_ewdn, tiny_ewdn.GetVertexPtr(v0),
+                                       tiny_ewdn.GetVertexPtr(v1));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

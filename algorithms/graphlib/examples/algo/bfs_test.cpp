@@ -16,14 +16,14 @@ void start_error_check() {
   Graph graph({v1, v2, v3}, false);
 
   std::cout << "Not expecting error...\n\n";
-  graphlib::bfs(&graph, graph.GetInternalVertexPtr(v1));
+  graphlib::bfs(&graph, graph.GetVertexPtr(v1));
 
   std::cout << "Not expecting error...\n\n";
-  graphlib::bfs(&graph, graph.GetInternalVertexPtr(Vertex("A")));
+  graphlib::bfs(&graph, graph.GetVertexPtr(Vertex("A")));
 
   std::cout << "Expecting error...\n";
   try {
-    graphlib::bfs(&graph, graph.GetInternalVertexPtr(Vertex("D")));
+    graphlib::bfs(&graph, graph.GetVertexPtr(Vertex("D")));
   } catch (std::runtime_error e) {
     std::cout << "Caught runtime exception:\n" << e.what();
   }
@@ -37,8 +37,8 @@ void bfs_traverse_check() {
   Graph graph(input_al, false);
 
   std::cout << "Untraversed graph\n" << graph.GetVertexSetStr() << '\n';
-  graphlib::bfs(&graph, graph.GetInternalVertexPtr(A), graphlib::print_vertex,
-                nullptr, nullptr);
+  graphlib::bfs(&graph, graph.GetVertexPtr(A), graphlib::print_vertex, nullptr,
+                nullptr);
   // Here we're expecting all vertices connected to Vertex A to be in state
   // PROCESSED (2).
   std::cout << "\nTraversed graph\n" << graph.GetVertexSetStr();
@@ -52,8 +52,9 @@ void print_shortest_unweighted_path() {
   Graph graph(input_al, false);
 
   std::cout << "Shortest unweighted path from A to C:\n";
-  std::stack<const Vertex*> path = graphlib::shortest_unweighted_path(
-      &graph, graph.GetInternalVertexPtr(A), graph.GetInternalVertexPtr(C));
+  std::stack<std::shared_ptr<const Vertex>> path =
+      graphlib::shortest_unweighted_path(&graph, graph.GetVertexPtr(A),
+                                         graph.GetVertexPtr(C));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -63,8 +64,8 @@ void print_shortest_unweighted_path() {
   }
 
   std::cout << "\nShortest unweighted path from A to B:\n";
-  path = graphlib::shortest_unweighted_path(
-      &graph, graph.GetInternalVertexPtr(A), graph.GetInternalVertexPtr(B));
+  path = graphlib::shortest_unweighted_path(&graph, graph.GetVertexPtr(A),
+                                            graph.GetVertexPtr(B));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";
@@ -86,8 +87,8 @@ void print_connected_components() {
   int i = 1;
   for (const auto& component : components) {
     std::cout << "Component " << i << ":\n";
-    for (Vertex v : component) {
-      std::cout << v.name_ << " | ";
+    for (auto v : component) {
+      std::cout << v->name_ << " | ";
     }
     std::cout << '\n';
     ++i;
