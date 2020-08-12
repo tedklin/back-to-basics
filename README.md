@@ -27,4 +27,4 @@ External sources are also sprinkled throughout my notes. They are credited / lin
 
 Any code is my own work (with sole reference to my primary study material) unless otherwise specified.
 
-The mini-projects in this repo (such as [*graphlib*](https://github.com/tedklin/back-to-basics/tree/graphlib-dev/algorithms/graphlib)) are mostly intended to be playgrounds for me to solidify the various concepts I'm learning. As such, I forgoed some standard DevOps practices, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
+The mini-projects in this repo are mostly intended to be playgrounds for me to solidify the various concepts I'm learning. As such, I forgoed some standard DevOps practices, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
