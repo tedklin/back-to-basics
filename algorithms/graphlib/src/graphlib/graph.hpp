@@ -88,18 +88,6 @@ See the "example_initializer" function in examples/core_test.cpp for
 verification that this works.
 */
 
-/****************************** IMPORTANT NOTE ********************************
-This version of graphlib does not support polymorphism with the Vertex type.
-This is because the Graph implementation here stores and uses direct copies of
-its Vertices. For example, in geometry/graph_2d, Vertex2d inputs to Graph2d are
-converted down to plain Vertex types to store in the VertexMap. This forces the
-undesired behavior of cutting away the custom data members (x,y) stored in
-Vertex2d.
-
-The README contains a link to an restructured version of graphlib which supports
-polymorphism.
-******************************************************************************/
-
 #pragma once
 
 #include <map>
