@@ -3,6 +3,8 @@ macro(package_add_example EXAMPLENAME)
   # create an exectuable in which the tests will be stored
   add_executable(${EXAMPLENAME} ${ARGN})
   target_compile_features(${EXAMPLENAME} PRIVATE cxx_std_14)
+  set_target_properties(${EXAMPLENAME} PROPERTIES CXX_EXTENSIONS OFF)
+  target_compile_options(${EXAMPLENAME} PRIVATE "-Wall")
 
   # link graphs_lib
   target_link_libraries(${EXAMPLENAME} PRIVATE graphlib)
