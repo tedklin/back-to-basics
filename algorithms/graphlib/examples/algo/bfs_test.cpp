@@ -52,9 +52,8 @@ void print_shortest_unweighted_path() {
   Graph graph(input_al, false);
 
   std::cout << "Shortest unweighted path from A to C:\n";
-  std::stack<std::shared_ptr<const Vertex>> path =
-      graphlib::shortest_unweighted_path(&graph, graph.GetVertexPtr(A),
-                                         graph.GetVertexPtr(C));
+  std::stack<const Vertex*> path = graphlib::shortest_unweighted_path(
+      &graph, graph.GetVertexPtr(A), graph.GetVertexPtr(C));
   if (!path.empty()) {
     while (path.size() > 1) {
       std::cout << path.top()->name_ << " -> ";

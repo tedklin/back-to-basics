@@ -35,8 +35,7 @@ void print_top_sort() {
                                      {G, {A, F}}};
   Graph dag(dag_al, true);
   std::cout << "Finding topological sort...\n";
-  std::stack<std::shared_ptr<const Vertex>> s =
-      graphlib::topological_sort(&dag);
+  std::stack<const Vertex*> s = graphlib::topological_sort(&dag);
   while (!s.empty()) {
     std::cout << s.top()->name_ << " | ";
     s.pop();
@@ -64,12 +63,11 @@ void print_strong_components() {
   Graph directed_graph(directed_al, true);
 
   std::cout << "Finding strongly connected components...\n";
-  std::vector<std::set<std::shared_ptr<const Vertex>>> components =
-      graphlib::strong_components(&directed_graph);
+  auto components = graphlib::strong_components(&directed_graph);
   int counter = 1;
   for (const auto& component : components) {
     std::cout << "Component " << counter++ << ": ";
-    for (std::shared_ptr<const Vertex> v : component) {
+    for (const Vertex* v : component) {
       std::cout << v->name_ << " | ";
     }
     std::cout << '\n';
