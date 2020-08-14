@@ -1,4 +1,4 @@
-**IMPORTANT NOTE: The implementation of graphlib here (on the graphlib-old-2 branch of this repo) is outdated. An updated version of graphlib with better ownership semantics can be found on the master branch of this repo). Please refer to that version.
+**IMPORTANT NOTE: The implementation of graphlib here (on the graphlib-old-2 branch of this repo) is outdated. An updated version of graphlib with better ownership semantics can be found on the master branch of this repo). Please refer to that version.**
 
 # graphlib
 
