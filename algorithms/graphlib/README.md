@@ -1,3 +1,5 @@
+**IMPORTANT NOTE: The implementation of graphlib here (on the graphlib-old-2 branch of this repo) is outdated. An updated version of graphlib with better ownership semantics can be found on the master branch of this repo). Please refer to that version.
+
 # graphlib
 
 Graph theory is known as one of the most foundational topics in computer science. I can't count how many times I've been pleasantly surprised to find connections between graph theory and everyday tools / technologies. Indeed, everything from makefiles to git, from social networks to robot path planning, all can be modeled as graph problems.
