@@ -1,17 +1,29 @@
 # Back to basics
 
-This is an informal compilation of notes, exercises, and mini-projects for fundamental topics and skills I'm self-studying / reviewing.
+This is an informal compilation of notes, exercises, and mini-projects for fundamental topics and languages I'm self-studying / reviewing.
 
 ## Primary study material
 
 - Algorithms
     - *Skiena - The Algorithm Design Manual, 2nd Ed.*
     - *Sedgewick, Wayne - Algorithms, 4th Ed.*
+- C
+    - *K&R, 2nd Ed.*
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
-- ROS (Robot Operating System)
-    - ETH Zurich - Programming for Robotics, ROS
 
+## Directory layout
+
+- cpp/
+    - basics/
+        - Small exercises in data structure manipulation / usage.
+    - graphlib/
+        - A custom self-contained graph library using STL data structures.
+    - primer/
+        - Notes taken while going through *C++ Primer*.
+- c/
+    - k&r/
+        - Exercises done while going through *K&R*.
 
 ## Disclaimers
 
