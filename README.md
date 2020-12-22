@@ -7,10 +7,10 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 - Algorithms
     - *Skiena - The Algorithm Design Manual, 2nd Ed.*
     - *Sedgewick, Wayne - Algorithms, 4th Ed.*
-- C
-    - *K&R, 2nd Ed.*
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
+- C
+    - *King - C Programming: A Modern Approach, 2nd Ed.*
 
 ## Directory layout
 
@@ -23,8 +23,8 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
     - primer/
         - Notes taken while going through *C++ Primer*.
 - c/
-    - knr/
-        - Exercises done while going through *K&R*.
+    - king/
+        - Exercises done while going through *King*.
 ```
 
 ## Disclaimers
