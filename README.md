@@ -14,6 +14,7 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 
 ## Directory layout
 
+```
 - cpp/
     - basics/
         - Small exercises in data structure manipulation / usage.
@@ -22,8 +23,9 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
     - primer/
         - Notes taken while going through *C++ Primer*.
 - c/
-    - k&r/
+    - knr/
         - Exercises done while going through *K&R*.
+```
 
 ## Disclaimers
 
