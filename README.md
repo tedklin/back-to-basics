@@ -1,6 +1,6 @@
 # Back to basics
 
-This is an informal compilation of notes, exercises, and mini-projects for fundamental topics and languages I'm self-studying / reviewing.
+This is an informal compilation of notes, exercises, and mini-projects for fundamental topics and languages I'm self-studying / refreshing.
 
 ## Primary study material
 
@@ -16,10 +16,10 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 
 ```
 - cpp/
-    - basics/
-        - Small exercises in data structure manipulation / usage.
     - graphlib/
-        - A custom self-contained graph library using STL data structures.
+        - A custom self-contained graph library built using STL data structures.
+    - basics/
+        - Random exercises in data structure manipulation / usage.
     - primer/
         - Notes taken while going through *C++ Primer*.
 - c/
@@ -41,4 +41,4 @@ External sources are also sprinkled throughout my notes. They are credited / lin
 
 Any code is my own work (with sole reference to my primary study material) unless otherwise specified.
 
-The mini-projects in this repo are mostly intended to be playgrounds for me to solidify the various concepts I'm learning. As such, I forgoed some standard DevOps practices, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
+The exercises and mini-projects in this repo are mostly intended to be playgrounds for me to solidify the various concepts I'm learning / refreshing. As such, I forgoed some standard DevOps practices, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
