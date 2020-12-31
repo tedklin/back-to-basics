@@ -1,6 +1,6 @@
 # Back to basics
 
-This is an informal compilation of notes, exercises, and mini-projects for fundamental topics and languages I'm self-studying / refreshing.
+This repository is an informal collection of my self-study/review efforts for fundamental topics and languages. It includes a scattered array of notes and exercises from various books / resources. It also contains mini-projects, which are nontrivial pieces of code, but not large or novel enough to be standalone projects.
 
 ## Primary study material
 
@@ -16,10 +16,10 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 
 ```
 - cpp/
-    - graphlib/
-        - A custom self-contained graph library built using STL data structures.
     - basics/
         - Random exercises in data structure manipulation / usage.
+    - graphlib/
+        - My attempt at defining a useful/extensible C++ implementation of general graphs in code.
     - primer/
         - Notes taken while going through *C++ Primer*.
 - c/
@@ -31,7 +31,7 @@ This is an informal compilation of notes, exercises, and mini-projects for funda
 
 **1. I take no credit nor responsibility whatsoever for any information that appears in my notes.**
 
-There are several places in my notes where I directly copy and paste important content from my primary study material (I promise this is not because I'm lazy or have plagiaristic tendencies). Proper wording is often important, and I want to minimize information getting lost in translation. 
+There are several places in my notes where I directly copy and paste important information from my primary study material (I promise this is not because I'm lazy or have plagiaristic tendencies). Proper wording is often important, and I want to minimize information getting lost in translation. 
 
 That being said, there is a chance that things do end up getting lost in translation through improper paraphrasing, omission, etc. I defer to the primary material or reputable sources like official documentation for any points of confusion.
 
@@ -41,4 +41,4 @@ External sources are also sprinkled throughout my notes. They are credited / lin
 
 Any code is my own work (with sole reference to my primary study material) unless otherwise specified.
 
-The exercises and mini-projects in this repo are mostly intended to be playgrounds for me to solidify the various concepts I'm learning / refreshing. As such, I forgoed some standard DevOps practices, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
+The exercises and mini-projects in this repo are mostly intended to be playgrounds for me to solidify the various concepts I'm learning / refreshing. As such, I forgoed some standard practices for healthy software, such as unit testing (I just wrote quick ad-hoc tests) and continuous integration. Regardless, I still strived to maintain correctness, modularity, and transparency in my code.
