@@ -9,8 +9,8 @@ This repository is an informal collection of my self-study/review efforts for fu
     - *Sedgewick, Wayne - Algorithms, 4th Ed.*
 - C++
     - *Lippman, Lajoie, Moo - C++ Primer, 5th Ed.*
-- C
-    - *King - C Programming: A Modern Approach, 2nd Ed.*
+- Python
+    - *Sweigart - Automate the Boring Stuff with Python*
 
 ## Directory layout
 
@@ -22,9 +22,9 @@ This repository is an informal collection of my self-study/review efforts for fu
         - My attempt at defining a useful/extensible C++ implementation of general graphs in code.
     - primer/
         - Notes taken while going through *C++ Primer*.
-- c/
-    - king/
-        - Exercises done while going through *King*.
+- python/
+    - automate/
+        - Exercises done while going through *Automate the Boring Stuff*.
 ```
 
 ## Disclaimers
