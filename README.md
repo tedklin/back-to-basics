@@ -9,10 +9,10 @@ Suggestions, corrections, and critiques are welcome!
 
 ```
 - algorithms/
-	- exercises/
-		- Exercises from various sources.
-	- notes/
-		- Notes from various sources.
+    - exercises/
+        - Exercises from various sources.
+    - notes/
+        - Notes from various sources.
 - cpp/
     - basics/
         - Random exercises in data structure manipulation / usage.
