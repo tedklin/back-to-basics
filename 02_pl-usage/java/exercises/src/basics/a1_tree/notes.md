@@ -21,7 +21,12 @@ See code.
 
 ### Takeaways
 
-....
+- Obvious but important reminders:
+  - **Check for nulls!!**
+    - In recursive base cases.
+    - On **every** insertion (`add`/`push`/`insert`) of an object (reference) into a data structure.
+  - Pay attention to what you pass into / return from each function.
+  - Pay attention to the type arguments you pass into generic declarations.
 
 
 ---
