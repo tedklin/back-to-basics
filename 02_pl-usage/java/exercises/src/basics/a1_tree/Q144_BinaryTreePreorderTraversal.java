@@ -43,7 +43,7 @@ class Q144_BinaryTreePreorderTraversal {
             // visit node
             result.add(node.val);
 
-            // note that we push the right child before the left
+            // note that we push the right child before the left, so the left gets popped/visited next
             if (node.right != null) {
                 stack.push(node.right);
             }

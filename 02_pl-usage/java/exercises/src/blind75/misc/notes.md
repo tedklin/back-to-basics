@@ -15,7 +15,15 @@
 
 ### Naive solution
 
-The naive solution would be to check every combination of two integers in the input *nums* array. This is *(N choose 2) = N * (N-1) / 2*, which means the running time of this solution would be O(N^2), where N is the size of *nums*. Memory usage doesn't depend on the size of *nums* (no data structures were added), so space complexity is O(1).
+The naive solution would be to check every combination of two integers in the input *nums* array. 
+
+**Runtime:**
+
+This is *(N choose 2) = N * (N-1) / 2*, which means the running time of this solution would be O(N^2), where N is the size of *nums*.
+
+**Memory:**
+
+Memory usage doesn't depend on the size of *nums* (no data structures were added), so space complexity is O(1).
 
 Be mindful of whether repeated indices are allowed (note initialization of inner loop index).
 
@@ -30,17 +38,23 @@ for (int i = 0; i < nums.length; i++) {
 return null;
 ```
 
+
 ### Caching map solution
 
 Note that a particular index *i* is part of the solution iff the rest of *nums* contains *i*'s "complement" value *target - nums[i]*.
 
 As we loop through *nums*, we can build a set of elements we've seen so far. We can use this set of seen elements to check for the current element's complement. In the case that the current element's complement actually exists but we haven't seen it yet (i.e. it's located further along *nums*), the set of seen elements will contain the current element when we eventually reach the complement later on in the loop.
 
+**Runtime:**
+
 A hash set gives us amortized O(1) "contains" and "put" operations. Doing one "contains" and one "add" per element in *nums* gives us a O(N) running time.
 
 Once we find a valid pair, we would need the complement's index to return the answer. So we can make the hash set into a hash map, mapping seen values to their respective indices.
 
+**Memory:**
+
 The hash map takes O(N) space.
+
 
 ### Followup: ...
 
@@ -76,7 +90,14 @@ for (int i = 0; i < prices.length; i++) {
 return maxProfit;
 ```
 
-This is *(N-1) + (N-2)... + 2 + 1 = (N-1) * (N-2) / 2*, which means the running time of this solution would be O(N^2), where N is the size of the input *prices* array. Memory usage doesn't depend on the size of *prices* (no data structures were added), so space complexity is O(1).
+**Runtime:**
+
+This is *(N-1) + (N-2)... + 2 + 1 = (N-1) * (N-2) / 2*, which means the running time of this solution would be O(N^2), where N is the size of the input *prices* array.
+
+**Memory:**
+
+Memory usage doesn't depend on the size of *prices* (no data structures were added), so space complexity is O(1).
+
 
 ### Single pass solution.
 
@@ -84,9 +105,18 @@ Note that for any day *i*, we only need the min price seen before day *i* to cal
 
 We can iterate from day 0 to day N-1 in a single pass, updating the global max profit seen so far while simultaneously updating the min price seen so far.
 
-This solution has runtime complexity Theta(N) and space complexity O(1).
+**Runtime:**
+
+Theta(N).
+
+**Memory:**
+
+O(1).
+
+**Notes:**
 
 This approach is related to Kadane's algorithm for the [Maximum Subarray (Q053)](#maximum-subarray-(q053)) problem. The uniting idea is that during a single pass through the input array, we can calculate a local max with the current index as the "stopping" point, while updating some information about what we've seen so far that will help the next index calculate its local max. The global max (the final answer) is then just the max of all the local max's.
+
 
 ### Followup: ...
 
@@ -124,7 +154,14 @@ for (int i = 0; i < nums.length; i++) {
 return maxSum;
 ```
 
-This is *(N) + (N-1)... + 2 + 1 = (N) * (N-1) / 2*, which means the running time of this solution would be O(N^2), where N is the size of the input *nums* array. Memory usage doesn't depend on the size of *nums* (no data structures were added), so space complexity is O(1).
+**Runtime:**
+
+This is *(N) + (N-1)... + 2 + 1 = (N) * (N-1) / 2*, which means the running time of this solution would be O(N^2), where N is the size of the input *nums* array.
+
+**Memory:**
+
+Memory usage doesn't depend on the size of *nums* (no data structures were added), so space complexity is O(1).
+
 
 ### Kadane's algorithm solution
 
@@ -137,7 +174,15 @@ We can iterate *i* from 0 to N-1 in a single pass, updating the maximum subarray
 
 Along the way, we can update the global maximum subarray as the maximum of the local maximums we've seen.
 
-This solution has runtime complexity Theta(N) and space complexity O(1).
+**Runtime:**
+
+Theta(N)
+
+**Memory:**
+
+O(1).
+
+**Notes:**
 
 Note the connection between Kadane's algorithm and the solution to the [Best Time to Buy and Sell Stock (Q121)](#best-time-to-buy-and-sell-stock-(q121)) problem. The uniting idea is that during a single pass through the input array, we can calculate a local max with the current index as the "stopping" point, while updating some information about what we've seen so far that will help the next index calculate its local max. The global max (the final answer) is then just the max of all the local max's.
 
@@ -165,9 +210,19 @@ Note the connection between Kadane's algorithm and the solution to the [Best Tim
 
 The naive solution would be to check every subarray possible for the one with the maximum product.
 
+**Runtime:**
+
+**Memory:**
+
+
 ### ... solution
 
 ....
+
+**Runtime:**
+
+**Memory:**
+
 
 ### Followup: ...
 

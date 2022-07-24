@@ -15,9 +15,25 @@
 
 See code.
 
+**Runtime**
+
+We visit each node exactly once, so Theta(N) where N = number of nodes in tree.
+
+**Space**
+
+For a given tree, the amount of space needed at any given step is O(height) to store the entire recursive call stack to the lowest leaf. So best case is fully bushy tree with O(height = log N) and worst case is linked list with O(height = N).
+
 ### Followup: iteration instead of recursion
 
 See code.
+
+**Runtime**
+
+We push, pop, and add to res each node exactly once, so Theta(N) where N = number of nodes in tree.
+
+**Space**
+
+For a given tree, the amount of space needed at any given step is O(height) to store the entire stack to the lowest leaf. So best case is fully bushy tree with O(height = log N) and worst case is linked list with O(height = N).
 
 ### Takeaways
 
