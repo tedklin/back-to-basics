@@ -16,9 +16,19 @@
 
 ....
 
+**Runtime:**
+
+**Memory:**
+
+
 ### ... solution
 
 ....
+
+**Runtime:**
+
+**Memory:**
+
 
 ### Followup: ...
 
@@ -45,9 +55,19 @@
 
 ....
 
+**Runtime:**
+
+**Memory:**
+
+
 ### ... solution
 
 ....
+
+**Runtime:**
+
+**Memory:**
+
 
 ### Followup: ...
 

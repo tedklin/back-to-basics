@@ -18,6 +18,11 @@ Use an underlying array to hold the data, and keep track of the "head" and "tail
 
 Details in code.
 
+**Runtime:**
+
+**Memory:**
+
+
 ### Followup: ...
 
 ....
@@ -45,9 +50,19 @@ Details in code.
 
 ....
 
+**Runtime:**
+
+**Memory:**
+
+
 ### ... solution
 
 ....
+
+**Runtime:**
+
+**Memory:**
+
 
 ### Followup: ...
 
