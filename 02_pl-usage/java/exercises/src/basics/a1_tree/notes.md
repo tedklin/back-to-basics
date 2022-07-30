@@ -1,3 +1,17 @@
+## Summary of takeaways
+
+- Obvious but important reminders:
+  - **Check for nulls!!**
+    - In recursive base cases.
+    - On **every** insertion (`add`/`push`/`insert`) of an object (reference) into a data structure.
+  - Pay attention to the inputs and outputs of each function.
+  - Pay attention to the type arguments you pass into generic declarations.
+
+- When converting tree recursion to iteration, pay attention to the order in which you add nodes to the stack.
+
+- Arms-length recursion:
+    - Usually not desired because it can lead to messy code (e.g. the naive solution in the code for Q104 Max Depth Binary Tree).
+    - Sometimes needed, e.g. when the base case is a leaf (e.g. Q112 Path Sum).
 
 
 ---
@@ -40,16 +54,6 @@ The max amount of space needed at any given step is *~height* to store the entir
 
 Theta(height = N) in the worst case where the tree is a linked list. Theta(height = log N) in the best case where the tree is fully balanced.
 
-### Takeaways
-
-- Obvious but important reminders:
-  - **Check for nulls!!**
-    - In recursive base cases.
-    - On **every** insertion (`add`/`push`/`insert`) of an object (reference) into a data structure.
-  - Pay attention to what you pass into / return from each function.
-  - Pay attention to the type arguments you pass into generic declarations.
-- When converting tree recursion to iteration, pay attention to the order in which you add nodes to the stack.
-
 
 ---
 
@@ -82,10 +86,6 @@ Theta(height = N) in the worst case where the tree is a linked list. Theta(heigh
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 
@@ -136,11 +136,6 @@ After the pre-order traversal is complete, the other stack can pop the nodes in 
 [Reference.](https://www.geeksforgeeks.org/iterative-postorder-traversal-using-stack/)
 
 
-### Takeaways
-
-....
-
-
 ---
 
 
@@ -178,10 +173,6 @@ Theta(N) in the worst case where the tree is fully balanced and the leaf level i
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 
@@ -223,11 +214,6 @@ Same as BFS: Theta(N), where N is number of nodes in the tree.
 **Memory:**
 
 Same as BFS: The max amount of space needed at any given step is *~maxWidth* to store the entire queue at the widest level of nodes. Theta(N) in the worst case where the tree is fully balanced and the leaf level is ~N/2 nodes wide. Theta(1) in the best case where the tree is a linked list.
-
-
-### Takeaways
-
-See comments in code for initial naive solution.
 
 
 ---
@@ -275,11 +261,6 @@ For the BFS version, the max amount of space needed at any given step is *~maxWi
 Theta(N) in the worst case where the tree is fully balanced and the leaf level is ~N/2 nodes wide. Theta(1) in the best case where the tree is a linked list.
 
 
-### Takeaways
-
-....
-
-
 ---
 
 
@@ -309,10 +290,6 @@ Note that in the case where the tree is fully balanced and we don't find any pat
 ### Followup: From recursion to iteration
 
 One stack for TreeNodes (like in regular iterative DFS) is not enough. I.e. you can't just have one targetSum variable, you need a separate targetSum variable associated with each TreeNode to properly mirror the recursive call stack. So have two stacks - one for TreeNodes and one for targetSums - and use them in sync. Or have one stack for {TreeNode, targetSum} pairs.
-
-### Takeaways
-
-....
 
 
 ---
@@ -367,10 +344,6 @@ Theta(log N) in the best-case where
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 

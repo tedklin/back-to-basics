@@ -1,3 +1,10 @@
+## Summary of takeaways
+
+- Draw diagrams to reason about behavior!
+
+- For designing data structures (e.g. [Q622 Design Circular Queue](#design-circular-queue-q622)):
+    - Explicitly noting what each member variable represents helps with reasoning about the implementation.
+    - Preconditions and postconditions help with reasoning about the coherence of a data structure.
 
 
 ---
@@ -26,12 +33,6 @@ Details in code.
 ### Followup: ...
 
 ....
-
-### Takeaways
-
-- Draw diagrams!
-- Explicitly noting what each member variable represents helps with reasoning about the implementation.
-- Preconditions and postconditions help with reasoning about the coherence of a data structure.
 
 
 ---
@@ -65,10 +66,6 @@ Details in code.
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 

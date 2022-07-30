@@ -1,3 +1,6 @@
+## Summary of takeaways
+
+- 
 
 
 ---
@@ -34,10 +37,6 @@
 
 ....
 
-### Takeaways
-
-....
-
 
 ---
 
@@ -70,10 +69,6 @@
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 
@@ -123,10 +118,6 @@ Then, we can run a recursive divide-and-conquer algorithm (NOTE: indices here ma
 
 Running time of this solution is O(log N). This approach is reflective of the classic "search" operation on BSTs.
 
-### Takeaways
-
-....
-
 
 ---
 
@@ -159,10 +150,6 @@ Running time of this solution is O(log N). This approach is reflective of the cl
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 

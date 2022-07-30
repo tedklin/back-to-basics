@@ -1,3 +1,6 @@
+## Summary of takeaways
+
+- 
 
 
 ---
@@ -60,10 +63,6 @@ The hash map takes O(N) space.
 
 ....
 
-### Takeaways
-
-....
-
 
 ---
 
@@ -119,10 +118,6 @@ This approach is related to Kadane's algorithm for the [Maximum Subarray (Q053)]
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 
@@ -190,10 +185,6 @@ Note the connection between Kadane's algorithm and the solution to the [Best Tim
 
 ....
 
-### Takeaways
-
-....
-
 
 ---
 
@@ -225,10 +216,6 @@ The naive solution would be to check every subarray possible for the one with th
 
 
 ### Followup: ...
-
-....
-
-### Takeaways
 
 ....
 

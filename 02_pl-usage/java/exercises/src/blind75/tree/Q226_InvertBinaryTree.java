@@ -5,9 +5,10 @@ public class Q226_InvertBinaryTree {
         if (root == null) {
             return null;
         }
-        TreeNode tmpLeft = root.left;
-        root.left = invertTree(root.right);
-        root.right = invertTree(tmpLeft);
+        TreeNode invertedLeft = invertTree(root.left);
+        TreeNode invertedRight = invertTree(root.right);
+        root.left = invertedRight;
+        root.right = invertedLeft;
         return root;
     }
 }
