@@ -1,4 +1,4 @@
-package blind75.misc;
+package array;
 
 public class Q121_BuyAndSellStock {
 

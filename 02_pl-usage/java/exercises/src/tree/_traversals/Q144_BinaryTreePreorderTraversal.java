@@ -1,4 +1,6 @@
-package basics.a1_tree;
+package tree._traversals;
+
+import tree.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

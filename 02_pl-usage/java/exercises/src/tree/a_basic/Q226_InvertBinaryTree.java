@@ -1,4 +1,6 @@
-package blind75.tree;
+package tree.a_basic;
+
+import tree.TreeNode;
 
 public class Q226_InvertBinaryTree {
     public TreeNode invertTree(TreeNode root) {

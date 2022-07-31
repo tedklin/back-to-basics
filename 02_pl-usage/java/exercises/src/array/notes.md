@@ -1,8 +1,3 @@
-## Summary of takeaways
-
-- 
-
-
 ---
 
 
@@ -209,6 +204,34 @@ The naive solution would be to check every subarray possible for the one with th
 ### ... solution
 
 ....
+
+**Runtime:**
+
+**Memory:**
+
+
+### Followup: ...
+
+....
+
+
+---
+
+
+## Design Circular Queue (Q622)
+
+### Clarifying questions to ask
+
+| Question | Reason |
+| --- | --- |
+| Do we need to handle resizing? | Correctness. |
+| What makes an operation not "successful"? Is it just enqueue on a full queue and dequeue on an empty queue?  | Correctness. |
+
+### Solution
+
+Use an underlying array to hold the data, and keep track of the "head" and "tail" indices.
+
+Details in code.
 
 **Runtime:**
 

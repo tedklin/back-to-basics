@@ -1,4 +1,4 @@
-package basics.a2_queue_and_stack;
+package design;
 
 /**
  * Your MyCircularQueue object will be instantiated and called as such:

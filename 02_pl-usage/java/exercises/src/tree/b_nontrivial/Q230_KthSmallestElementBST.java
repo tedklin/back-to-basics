@@ -1,4 +1,6 @@
-package blind75.tree;
+package tree.b_nontrivial;
+
+import tree.TreeNode;
 
 import java.util.Stack;
 

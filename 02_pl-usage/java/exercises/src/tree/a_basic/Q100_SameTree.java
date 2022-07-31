@@ -1,4 +1,6 @@
-package blind75.tree;
+package tree.a_basic;
+
+import tree.TreeNode;
 
 public class Q100_SameTree {
     public boolean isSameTree(TreeNode p, TreeNode q) {

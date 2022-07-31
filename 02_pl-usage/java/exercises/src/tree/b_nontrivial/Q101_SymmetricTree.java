@@ -1,4 +1,6 @@
-package basics.a1_tree;
+package tree.b_nontrivial;
+
+import tree.TreeNode;
 
 public class Q101_SymmetricTree {
 

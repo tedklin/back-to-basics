@@ -1,4 +1,6 @@
-package basics.a1_tree;
+package tree.a_basic;
+
+import tree.TreeNode;
 
 public class Q112_PathSum {
 
