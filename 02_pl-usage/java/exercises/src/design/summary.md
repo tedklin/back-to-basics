@@ -1,5 +1,8 @@
 # Design problems
 
+[//]: # (reference-style links)
+[Q104]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q104_MaxDepthBinaryTree
+
 ## Takeaways
 
 ### Draw diagrams to reason about behavior!

@@ -1,26 +1,31 @@
 # Tree problems
 
+[//]: # (reference-style links)
+[Q104]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q104_MaxDepthBinaryTree
+[Q112]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q112_PathSum
+[Q250]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/b_nontrivial/Q250_CountUnivalueSubtrees
+
 ## Takeaways
 
 ### General process for designing a recursive solution
 1. Figuring out the recursive step
    - Assume you can already get the solution for smaller subsets of the input. How can you combine those solutions to solve the problem for the input node itself?
      - For trees, the "smaller subsets of input" are usually the subtrees rooted at the input node's direct children.
-   - e.g. for Q104 Max Depth Binary Tree: Given the max depth of its left subtree and the max depth of its right subtree, how can you solve for the max depth of the input node itself?
+   - e.g. for [Q104 Max Depth Binary Tree][Q104]: Given the max depth of its left subtree and the max depth of its right subtree, how can you solve for the max depth of the input node itself?
 2. Designing the recursive function signature
    - Inputs:
      - Usually need (at least one) `TreeNode node` since we're recursing on a tree.
      - What other auxiliary information did we need to recombine/solve the problem at the input node?
-       - This includes potential non-local data like the set in Q250 Count Univalue Subtrees.
+       - This includes potential non-local data like the set in [Q250 Count Univalue Subtrees][Q250].
    - Outputs:
      - What information did we need to obtain from recursing on the children?
+   - If the recursive function signature is different than the provided one, that indicates that you need a helper! You may need multiple helpers if you divide the original problem into discrete, each of which can be solved recursively.
 3. Figuring out the base cases
    - Common base cases to try:
      - If the input node is null.
      - If the input node is a leaf.
-       - Usually not desired because it can lead to messy "arms-length recursion" code (e.g. the naive solution in the 
-         code for Q104 Max Depth Binary Tree).
-       - Sometimes needed, e.g. when possible solutions must stop at a leaf (e.g. Q112 Path Sum).
+       - Usually not desired because it can lead to messy "arms-length recursion" code (e.g. the naive solution in the code for [Q104 Max Depth Binary Tree][Q104]).
+       - Sometimes needed, e.g. when all possible solutions **must** stop at a leaf (e.g. [Q112 Path Sum][Q112]).
 
 ### Obvious but important reminders
 - **Check for nulls!!**
@@ -33,9 +38,9 @@
 - Shape of input tree
     - Fully balanced.
     - Linked list ("stringy").
-    - Lopsided, i.e. left subtree has one node and right subtree has many (e.g. Q112 Path Sum).
+    - Lopsided, i.e. left subtree has one node and right subtree has many (e.g. [Q112 Path Sum][Q112]).
 - Behavior of function
-    - When the condition that we're checking for is satisfied or violated ASAP (e.g. Q112 Path Sum).
+    - When the condition that we're checking for is satisfied or violated ASAP (e.g. [Q112 Path Sum][Q112]).
     - When we need to traverse the entire tree to verify that the condition that we're checking for is satisfied or violated.
 
 ### Converting tree recursion to iteration
