@@ -1,11 +1,11 @@
-## Question Name (Q001)
+## Binary Tree Inorder Traversal (Q094)
 
 ### Clarifying questions to ask
 
 | Question | Reason |
 | --- | --- |
 | ... | ... |
-| ... | ... |
+
 
 ### Naive solution
 

@@ -10,3 +10,7 @@
 
 
 ## TODO
+
+### Blind 75
+
+### Other
