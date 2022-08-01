@@ -1,5 +1,7 @@
 ## Kth Smallest Element of a BST (Q230)
 
+Problem statement: https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+
 ### Clarifying questions to ask
 
 | Question | Reason |

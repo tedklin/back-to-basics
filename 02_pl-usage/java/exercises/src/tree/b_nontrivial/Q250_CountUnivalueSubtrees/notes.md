@@ -1,5 +1,7 @@
 ## Count Univalue Subtrees (Q250)
 
+Problem statement: https://leetcode.com/problems/count-univalue-subtrees/
+
 ### Clarifying questions to ask
 
 | Question | Reason |
@@ -28,13 +30,11 @@ Theta(N) since it's always a complete post-order traversal.
 
 **Memory:**
 
-Theta(N) in the worst-cases where
-- all subtrees are univalue and the set takes Theta(N) space.
-- OR the tree is a linked-list and the recursive call stack takes Theta(N) space.
+The set takes Theta(N) space in the worst case where all subtrees are univalue. The set takes Theta(1) space in the best case where subtrees are univalue.
 
-Theta(log N) in the best-case where
-- no subtrees are univalue and the set takes Theta(1) space.
-- AND the tree is fully balanced and the recursive call stack takes Theta(log N) space.
+The recursive call stack takes Theta(H) space. H itself is Theta(N) in the worst case where the input tree is a linked-list. H itself is Theta(log N) in the best case where the input tree is fully balanced.
+
+So overall Theta(N) in the worst-case and Theta(log N) in the best-case.
 
 
 ### ... solution

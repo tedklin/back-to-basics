@@ -1,5 +1,7 @@
 ## Symmetric Tree (Q101)
 
+Problem statement: https://leetcode.com/problems/symmetric-tree/
+
 ### Clarifying questions to ask
 
 | Question | Reason |
@@ -12,13 +14,13 @@ We want to do two traversals at the same time so we can compare for reflection. 
 
 **Runtime:**
 
-Theta(N) in the worst case where the tree is symmetric and we visit every node exactly once. Theta(1) in the best case where all of the nodes are on one side of the root (returns immediately).
+Theta(N) in the worst case where the tree is symmetric and we visit every node exactly once. Theta(1) in the best case where all of the nodes are on one side of the root.
 
 **Memory:**
 
-The max amount of space needed at any given step is *~height* to store the recursive call stack from the root to the lowest leaf.
+Theta(H) for the recursive call stack in the worst case mentioned above. (H is the height of the input tree.) Theta(1) for the recursive call stack in the best case mentioned above.
 
-Theta(height = N) in the worst case where the tree looks like a linked list mirrored about the root (creating a perfect upside down V). Theta(1) in the best case where all of the nodes are on one side of the root (returns immediately).
+H itself is bounded by Theta(N) in the worst case where the input tree looks like a linked list mirrored about the root (creating a perfect upside down V). H itself is bounded by Theta(log N) in the best case where the input tree is fully balanced.
 
 
 ### Followup: Iterative solution

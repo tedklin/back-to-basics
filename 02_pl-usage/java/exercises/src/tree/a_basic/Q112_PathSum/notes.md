@@ -1,5 +1,7 @@
 ## Path Sum (Q112)
 
+Problem statement: https://leetcode.com/problems/path-sum/
+
 ### Clarifying questions to ask
 
 | Question | Reason |
@@ -16,9 +18,9 @@ Theta(N) in the worst case where we traverse the entire tree and don't find any 
 
 **Memory:**
 
-Theta(N) for the recursive call stack in the worst case where the tree is a linked-list. Theta(1) for the recursive call stack in the best case mentioned above.
+Theta(H) for the recursive call stack in the worst case mentioned above. (H is the height of the input tree.) Theta(1) for the recursive call stack in the best case mentioned above.
 
-Note that in the case where the tree is fully balanced and we don't find any paths, memory usage will be Theta(log N) for the recursive call stack.
+H itself is bounded by Theta(N) in the worst case where the input tree is a linked-list. H itself is bounded by Theta(log N) in the best case where the input tree is fully balanced.
 
 
 ### Followup: From recursion to iteration

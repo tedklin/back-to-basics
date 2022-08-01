@@ -1,31 +1,33 @@
 # Tree problems
 
 [//]: # (reference-style links)
+[Q100]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q100_SameTree
 [Q104]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q104_MaxDepthBinaryTree
 [Q112]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q112_PathSum
+[Q144]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/_traversals/Q144_BinaryTreePreorderTraversal
 [Q250]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/b_nontrivial/Q250_CountUnivalueSubtrees
 
 ## Takeaways
 
 ### General process for designing a recursive solution
 1. Figuring out the recursive step
-   - Assume you can already get the solution for smaller subsets of the input. How can you combine those solutions to solve the problem for the input node itself?
-     - For trees, the "smaller subsets of input" are usually the subtrees rooted at the input node's direct children.
-   - e.g. for [Q104 Max Depth Binary Tree][Q104]: Given the max depth of its left subtree and the max depth of its right subtree, how can you solve for the max depth of the input node itself?
+    - Assume you can already get the solution for smaller subsets of the input. How can you combine those solutions to solve the problem for the input node itself?
+        - For trees, the "smaller subsets of input" are usually the subtrees rooted at the input node's direct children.
+    - e.g. for [Q104 Max Depth Binary Tree][Q104]: Given the max depth of its left subtree and the max depth of its right subtree, how can you solve for the max depth of the input node itself?
 2. Designing the recursive function signature
-   - Inputs:
-     - Usually need (at least one) `TreeNode node` since we're recursing on a tree.
-     - What other auxiliary information did we need to recombine/solve the problem at the input node?
-       - This includes potential non-local data like the set in [Q250 Count Univalue Subtrees][Q250].
-   - Outputs:
-     - What information did we need to obtain from recursing on the children?
-   - If the recursive function signature is different than the provided one, that indicates that you need a helper! You may need multiple helpers if you divide the original problem into discrete, each of which can be solved recursively.
+    - Inputs:
+        - Usually need (at least one) `TreeNode node` since we're recursing on a tree.
+        - What other auxiliary information did we need to recombine/solve the problem at the input node?
+            - This includes potential non-local data like the set in [Q250 Count Univalue Subtrees][Q250].
+    - Outputs:
+        - What information did we need to obtain from recursing on the children?
+    - If the recursive function signature is different than the provided one, that indicates that you need a helper! You may need multiple helpers if you divide the original problem into discrete, each of which can be solved recursively.
 3. Figuring out the base cases
-   - Common base cases to try:
-     - If the input node is null.
-     - If the input node is a leaf.
-       - Usually not desired because it can lead to messy "arms-length recursion" code (e.g. the naive solution in the code for [Q104 Max Depth Binary Tree][Q104]).
-       - Sometimes needed, e.g. when all possible solutions **must** stop at a leaf (e.g. [Q112 Path Sum][Q112]).
+    - Common base cases to try:
+        - If the input node is null.
+        - If the input node is a leaf.
+            - Usually not desired because it can lead to messy "arms-length recursion" code (e.g. the naive solution in the code for [Q104 Max Depth Binary Tree][Q104]).
+            - Sometimes needed, e.g. when all possible solutions **must** stop at a leaf (e.g. [Q112 Path Sum][Q112]).
 
 ### Obvious but important reminders
 - **Check for nulls!!**
@@ -34,17 +36,23 @@
 - Pay attention to the inputs and outputs of each function.
 - Pay attention to the type arguments you pass into generic declarations.
 
-### Common candidates for best/worst cases for runtime and memory
-- Shape of input tree
-    - Fully balanced.
-    - Linked list ("stringy").
-    - Lopsided, i.e. left subtree has one node and right subtree has many (e.g. [Q112 Path Sum][Q112]).
-- Behavior of function
-    - When the condition that we're checking for is satisfied or violated ASAP (e.g. [Q112 Path Sum][Q112]).
-    - When we need to traverse the entire tree to verify that the condition that we're checking for is satisfied or violated.
+### Runtime and memory analysis
+- Common candidates for worst/best cases:
+    - Shape of input tree
+        - Fully balanced.
+        - Linked list ("stringy").
+        - Lopsided, i.e. left subtree has one node and right subtree has many (e.g. [Q112 Path Sum][Q112]).
+    - Behavior of function
+        - When the condition that we're checking for is satisfied or violated ASAP (e.g. [Q112 Path Sum][Q112]).
+        - When we need to traverse the entire tree to verify that the condition that we're checking for is satisfied or violated.
+- Memory usage analysis will often depend on the input tree's height.
+    - See analysis in [Q104 Max Depth Binary Tree][Q104] for reasoning.
+- To make the worst/best-case analysis clearer (especially when they depend on factors other than height) we can include variables to represent height.
+    - e.g. for memory usage analysis of [Q100 Same Tree][Q100].
 
 ### Converting tree recursion to iteration
 - Pay attention to the order in which you add nodes to the stack.
+    - e.g. for [Q144 Binary Tree Preorder Traversal][Q144].
 
 
 ## TODO

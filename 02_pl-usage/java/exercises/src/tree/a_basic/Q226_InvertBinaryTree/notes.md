@@ -1,5 +1,7 @@
 ## Invert Binary Tree (Q226)
 
+Problem statement: https://leetcode.com/problems/invert-binary-tree/
+
 ### Clarifying questions to ask
 
 | Question | Reason |
@@ -18,7 +20,9 @@ Theta(N) since we recurse on every node exactly once.
 
 **Memory:**
 
-Theta(N) for the recursive call stack in the worst case where the tree is a linked-list. Theta(log N) for the recursive call stack in the best case where the tree is fully balanced.
+Theta(H) for the recursive call stack.
+
+H itself is bounded by Theta(N) in the worst case where the input tree is a linked-list. H itself is bounded by Theta(log N) in the best case where the input tree is fully balanced.
 
 
 ### Followup: From recursion to iteration

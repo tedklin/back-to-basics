@@ -1,5 +1,7 @@
 ## Two Sum (Q001)
 
+Problem statement: https://leetcode.com/problems/two-sum/
+
 ### Clarifying questions to ask
 
 | Question | Reason |

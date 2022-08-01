@@ -1,5 +1,7 @@
 ## Design Circular Queue (Q622)
 
+Problem statement: https://leetcode.com/problems/design-circular-queue/
+
 ### Clarifying questions to ask
 
 | Question | Reason |
