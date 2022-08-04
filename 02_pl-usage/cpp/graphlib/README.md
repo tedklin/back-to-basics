@@ -6,13 +6,21 @@ There are a multitude of graph representations in code found in educational text
 
 This is my attempt at defining a more useful/extensible code representation of general graphs. Using this representation, I also implemented some of the graph algorithms taught in *Skiena* and *Sedgewick*. My primary goal is to be as flexible, expressive, and safe as I could by taking full advantage of the C++ language and STL. Keeping memory and performance overhead low is secondary.
 
-As noted in the [top-level README](https://github.com/tedklin/back-to-basics) of this repo, this was mostly meant to be a place for me to build intuition for various concepts from the ground up. There are likely other formal graph libraries out there with more functionality, better performance, and complete testing.
+Disclaimer: this is mostly meant to be a place for me to practice / build intuition for various concepts from the ground up.
 
 
 ## Notes
 
-- The project setup for graphlib loosely follows my [CMake template](https://github.com/tedklin/cmake_sandbox).
-- The [examples](https://github.com/tedklin/back-to-basics/tree/master/cpp/graphlib/examples) double as ad-hoc tests. A few of the algorithms implemented are untested; these are marked with "UNTESTED!" comments in both header and source files.
+- The project setup for graphlib loosely follows my primitive [CMake template](https://github.com/tedklin/cmake_sandbox).
+- The [examples](https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/cpp/graphlib/examples) double as ad-hoc tests. A few of the algorithms implemented are untested; these are marked with "UNTESTED!" comments in both header and source files.
 - I followed Skiena's method of passing function pointers to build algorithms off of common traversal patterns. However, I needed several global helper variables to circumvent inability to pass capturing lambdas as function pointers. These global variables are prefixed with "g_".
     - Note that these are cleared automatically by the functions that use them, but **information encoded in Vertices are not reset automatically**. This is to support the possibility of performing multiple algorithms in succession.
-- Defining an extensible graph representation took more iteration than I expected. For example, an [early version](https://github.com/tedklin/back-to-basics/tree/graphlib-old/algorithms/graphlib) could not support polymorphism due to a basic oversight on my part (I was used to Java, for which polymorphism is natural because all object variables are already pointers).
+- I didn't look much into C++ mechanisms for dependency management. As a result, the way I brought this library into [another one of my projects](https://github.com/tedklin/pathviz) is [inelegant](https://github.com/tedklin/pathviz/tree/master/thirdparty/graphlib) to say the least.
+
+
+## Reflections
+
+- Designing an extensible graph representation took a bit more work than I initially expected. For example, an [early version](https://github.com/tedklin/back-to-basics/tree/graphlib-old/algorithms/graphlib) could not support polymorphism due to a basic oversight on my part (I was used to Java, for which polymorphism is natural because all object variables are already pointers). TODO: is there anything I could've done in the early version that would've made the fix less hairy?
+- Some things I would do differently looking back:
+    - Don't include [algorithm-specific helper data in the Vertex struct](https://github.com/tedklin/back-to-basics/blob/master/02_pl-usage/cpp/graphlib/src/graphlib/graph.hpp#L109). Reasons: memory bloat, inability to concurrently run multiple algorithm instances over the same graph instance. Alternatives: use algorithm-specific dynamically-allocated maps from vertices to algorithm-specific helper data.
+    - .

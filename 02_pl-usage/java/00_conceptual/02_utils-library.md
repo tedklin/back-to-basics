@@ -1,3 +1,9 @@
+# The Java `utils` library
+
+1. [Generic data structures](#generic-data-structures)
+2. [`Arrays` (static utility methods)](#arrays-static-utility-methods)
+3. [`String` and text manipulation](#string)
+
 ## Generic data structures
 
 ### Collection
@@ -124,6 +130,16 @@ Basic interface: `Map<K, V>`
 - `Collections.` [static utility methods](https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html), e.g. reverse/sort/rotate/swap, unmodifiable, max/min/binarySearch.
 
 
+## Arrays (static utility methods)
+
+- [Java docs for `Arrays` static class](https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html).
+    - `Arrays.equals` does element-wise comparison.
+        - as opposed to `arr.equals(arr2)` which compares whether `arr` and `arr2` point to the same array instance.
+    - `Arrays.deepEquals` does element-wise comparison for multidimensional arrays.
+
+- [System.arrayCopy](https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#arraycopy-java.lang.Object-int-java.lang.Object-int-int-) (this is technically not in `utils` but it is relevant and useful).
+
+
 ## String
 
 - [Java docs for `String`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html)
@@ -136,10 +152,6 @@ Basic interface: `Map<K, V>`
 
 - Options for printing to output include `System.out.println` (normal) and `System.out.format` (C-style printing with format specifiers).
 
-
 ### Regex
 
-
 ### Scanner
-
-
