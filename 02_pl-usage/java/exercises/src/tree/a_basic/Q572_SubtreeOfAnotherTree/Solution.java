@@ -1,4 +1,4 @@
-package tree.Q572_SubtreeOfAnotherTree;
+package tree.a_basic.Q572_SubtreeOfAnotherTree;
 
 import tree.TreeNode;
 

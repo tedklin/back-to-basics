@@ -27,3 +27,5 @@
 - Jump Game - https://leetcode.com/problems/jump-game/
 
 ### Other
+
+- https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm

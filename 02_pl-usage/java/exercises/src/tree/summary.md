@@ -5,6 +5,7 @@
 [Q104]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q104_MaxDepthBinaryTree
 [Q112]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q112_PathSum
 [Q144]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/_traversals/Q144_BinaryTreePreorderTraversal
+[Q226]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/a_basic/Q226_InvertBinaryTree
 [Q250]: https://github.com/tedklin/back-to-basics/tree/master/02_pl-usage/java/exercises/src/tree/b_nontrivial/Q250_CountUnivalueSubtrees
 
 ## Takeaways
@@ -16,12 +17,15 @@
     - e.g. for [Q104 Max Depth Binary Tree][Q104]: Given the max depth of its left subtree and the max depth of its right subtree, how can you solve for the max depth of the input node itself?
 2. Designing the recursive function signature
     - Inputs:
-        - Usually need (at least one) `TreeNode node` since we're recursing on a tree.
+        - Usually need at least one `TreeNode node` to recurse over the input tree.
         - What other auxiliary information did we need to recombine/solve the problem at the input node?
-            - This includes potential non-local data like the set in [Q250 Count Univalue Subtrees][Q250].
+            - This potentially includes non-local data.
+                - Personally, if I need data to be accessible/shared by multiple recursive helper calls, I would instantiate the shared objects in the function that spawns the first call to the recursive helper, and add extra parameters in the recursive helper signature to pass along pointers to the shared objects. The objects themselves may result in higher memory usage, but practically speaking, if you doing recursion in Java you probably value modularity/readability more than memory usage anyways. E.g. see [Q250 Count Univalue Subtrees][Q250].
     - Outputs:
         - What information did we need to obtain from recursing on the children?
-    - If the recursive function signature is different than the provided one, that indicates that you need a helper! You may need multiple helpers if you divide the original problem into discrete, each of which can be solved recursively.
+    - If the resulting recursive function signature is different than the provided one, that indicates that you need a helper!
+        - You may need multiple helpers if you break the original problem down into a sequence of discrete steps, each of which can be solved recursively. E.g. for tries, `public List collectAllKeysWithPrefix()` can be broken down into `private Node searchForKey(String s)` then `private void collectAllKeysRootedAt(Node n, List result)`.
+    - The question "What *side effects* should we observe from recursing on the children?" is important to keep in mind for the overall solution, but is usually irrelevant to designing the recursive function *signature*. E.g. see [Q226 Invert Binary Tree][Q226].
 3. Figuring out the base cases
     - Common base cases to try:
         - If the input node is null.
@@ -54,6 +58,10 @@
 - Pay attention to the order in which you add nodes to the stack.
     - e.g. for [Q144 Binary Tree Preorder Traversal][Q144].
 
+### Useful traversal properties
+- [A preorder or postorder traversal that explicitly includes null elements can uniquely identify a tree. A preorder or postorder traversal that does not explicitly include null elements cannot uniquely identify a tree.](https://stackoverflow.com/questions/45871284/uniqueness-of-inorder-preorder-and-postorder-traversal-with-null-elements)
+- [A postorder traversal is equivalent to the reverse of the preorder traversal of the reversed (mirrored) tree.](https://github.com/tedklin/back-to-basics/blob/master/02_pl-usage/java/exercises/src/tree/_traversals/Q145_BinaryTreePostorderTraversal/notes.md#followup-from-recursion-to-iteration-two-stacks)
+
 
 ## TODO
 
@@ -61,7 +69,6 @@
 
 - Binary Tree Maximum Path Sum - https://leetcode.com/problems/binary-tree-maximum-path-sum/
 - Serialize and Deserialize Binary Tree - https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
-- Subtree of Another Tree - https://leetcode.com/problems/subtree-of-another-tree/
 - Construct Binary Tree from Preorder and Inorder Traversal - https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 - Validate Binary Search Tree - https://leetcode.com/problems/validate-binary-search-tree/
 - Kth Smallest Element in a BST - https://leetcode.com/problems/kth-smallest-element-in-a-bst/

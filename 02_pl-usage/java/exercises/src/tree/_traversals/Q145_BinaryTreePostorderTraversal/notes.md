@@ -27,7 +27,7 @@
 
 ### Followup: From recursion to iteration (two stacks)
 
-The key observation is: for a binary tree (not sure if this works for general trees), doing a pre-order traversal where the order in which you recurse on a node's children is flipped will yield the reverse post-order. You can draw out an example (bounding blob trace) to see this.
+The key observation is: for a binary tree (not sure if this works for general trees), a postorder traversal is equivalent to the reverse of the preorder traversal of the reversed (mirrored) tree. I.e. doing a pre-order traversal where the order in which you recurse on a node's children is flipped (a preorder traversal on the mirrored tree) will yield the reverse of the post-order. You can draw out an example (bounding blob trace) to see this.
 
 So augment the iterative pre-order code by
 - switching the order of pushing each node's children onto the stack.
