@@ -27,8 +27,11 @@ Suggestions, corrections, and critiques are welcome!
         - graphlib/
             - A naive attempt at creating an extensible C++ graph library.
     - java/
-        - conceptual/
+        - notes/
             - Condensed notes on the Java language and parts of the standard library.
+    - python/
+        - notes/
+            - Condensed notes on the Python(3.9) language and parts of the standard library.
     - rust/
         - rustlings/
             - https://github.com/rust-lang/rustlings
