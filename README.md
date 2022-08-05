@@ -1,6 +1,6 @@
 # Back to basics
 
-This repository is an informal collection of my self-study/review efforts on basic topics/tools.
+This repository is an informal collection of my self-study/review efforts on basic topics and tools.
 
 Suggestions, corrections, and critiques are welcome!
 
@@ -10,29 +10,26 @@ Suggestions, corrections, and critiques are welcome!
 ```
 - math/
     - thinking/
-        - Mathematical thinking, including problem-solving (Polya) and proof-writing (Velleman).
-    - discrete/
-    - algebra/
+        - Problem-solving (*Polya*) and proof-writing (*Velleman*).
 
 - algorithms/
     - notes/
-        - Notes for various sources.
+        - Notes on general fundamentals.
     - exercises/
-        - Exercises from various sources (psuedocode + runtime analysis + proof).
+        - Practice and notes on problem-solving using data structures and algorithms.
 
 - pl-usage/
     - cpp/
         - primer/
-            - Thorough notes for *C++ Primer (Lippman)*.
+            - Thorough notes on *C++ Primer (Lippman)*.
         - exercises/
-            - C++ exercises on basic data structure usage.
+            - Basic exercises in C++.
         - graphlib/
-            - Defining a useful/extensible C++ implementation of general graphs.
+            - A naive attempt at creating an extensible C++ graph library.
     - java/
         - conceptual/
             - Condensed notes on the Java language and parts of the standard library.
-        - dslib/
-            - Defining useful/extensible Java implementations of various data structures.
-        - exercises/
-            - Java exercises on data structures / algorithms usage (Leetcode lol).
+    - rust/
+        - rustlings/
+            - https://github.com/rust-lang/rustlings
 ```
