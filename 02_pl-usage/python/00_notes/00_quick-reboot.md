@@ -2,9 +2,11 @@ A quick list of basic reminders / things to review when coming from other progra
 
 For the rest of this document, "Python" implies "Python 3.9".
 
-Intended to be gone through in order.
+Main references: official Python documentation and *Python Distilled* by David Beazley.
 
-For a more-complete-yet-still-relatively-compact intro to Python, try e.g. *Python Distilled* by David Beazley. A list of notable sections to review is included at the end of this list.
+Intended for small-scale, non-production scripting purposes (skips otherwise-fundamental/interesting topics like generators, class properties, and exception handling details).
+
+Intended to be gone through in order.
 
 
 ### There are no "primitive/value types" - everything is an object, and everything is passed-by-object-reference.
@@ -94,24 +96,38 @@ See Beazley section 2.4 for a more illustrative example.
 ```is``` in Python roughly corresponds to ```==``` on objects in Java (think of as comparing whether two names refer to the same memory location).
 
 
-### Don't rely on the "implicit truthiness" of values - be precise about condition checking (e.g. use ```is None```).
+### Don't rely on the "implicit truthiness" of values - be precise about condition checking.
 
-See Beazley section 2.7 (pg 44).
+E.g. use ```if lst is None:``` instead of ```if not lst:```.
+
+See Beazley section 2.7 pg 44.
 
 
-### Be careful when manipulating bits with the goal of meaningfully modifying integer values.
+### Be careful when manipulating bits with the purposes of meaningfully modifying integer values.
 
 "Some care is required if you are working with raw bit patterns that are intended to map to native integers on the hardware. This is because Python does not truncate the bits or allow values to overflow — instead, the result will grow arbitrarily large in magnitude. It’s up to you to make sure the result is properly sized or truncated if needed." (Copied directly from Beazley section 1.4.)
 
 
-### "Static"/"class" variables/methods in Python are subtly different from other languages like Java - it's probably best to just avoid them for the purposes of scripting/leetcode.
+### Control statements/bodies (e.g. ```if```, ```for```, ```while```) do not have separate scope like in Java. Only function bodies, class definitions, and modules provide scope in Python.
+
+Refer to the first two answers of [this thread](https://stackoverflow.com/questions/2829528/whats-the-scope-of-a-variable-initialized-in-an-if-statement).
+
+For example: "In the statement ```for i in s```, the variable `i` is known as the iteration variable. On each iteration of the loop, it receives a new value from `s`. The scope of the iteration variable is not private to the `for` statement. If a previously defined variable has the same name, that value will be overwritten. Moreover, the iteration variable retains the last value after the loop has completed." (Copied directly from Beazley section 3.3.)
+
+
+### Avoid inheriting from built-in types (e.g. `dict`s).
+
+For reference (**not** recommended reading), see Beazley section 7.11.
+
+
+### "Static"/"class" variables/methods in Python are subtly different from other languages like Java - it's probably best to just avoid them for the purposes of this document.
 
 For reference (**not** recommended reading), see the various answers in this [thread](https://stackoverflow.com/questions/68645/class-static-variables-and-methods).
 
 
 ### *Python Distilled*, Distilled
 
-Must-review sections/pages, by chapter:
+Notable (subtle / different-from-other-languages) sections/pages, by chapter:
 - Ch1
 	- pg10 : intro to string manipulation
 	- 1.8-11 : standard collections
@@ -123,11 +139,31 @@ Must-review sections/pages, by chapter:
 	- 2.6 : ordered comparison operators (on sets and sequences including strings)
 	- 2.9-14 : operations on standard collections
 - Ch3
-	- 
+	- 3.3 : loops and iteration
+        - Stop at end of discussion of ```zip```.
+        - For a simpler/clearer explanation of ```break```/```continue```/```for-else```, see the [official Python docs](https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements-and-else-clauses-on-loops)
+    - 3.5 : context managers and the ```with``` statement
+- Ch4
+    - 4.4 :  references and (shallow and deep) copies
+    - pg94 first paragraph : defining comparison protocol for min / max / sorting / comparison-operators.
+        - For more on sorting, see the [official Python docs](https://docs.python.org/3/howto/sorting.html).
+- Ch5
+    - 5.2 : default arguments (values should be immutable to avoid subtle bugs)
+    - 5.12 : scoping rules
+    - 5.14 : lambdas (specifically the note on free variables)
+    - 5.15-16 : working with higher-order functions
+        - Stop at end of pg120.
+        - Then read beginning of 5.17, but stop at end of first paragraph on pg122 (skip specific ways to handle exceptions at different levels).
+- Ch7
+    - 7.3 : initialization of instances
+    - 7.4 : attribute access
+        - Skip ```getattr``` etc.
+    - 7.5 : scoping rules
+    - 7.9 : code flexibility can often be achieved by just functions instead of introducing classes/inheritance
 
 
-### [learnxinyminutes - Python](https://learnxinyminutes.com/docs/python/))
+### [learnxinyminutes - Python](https://learnxinyminutes.com/docs/python/)
 
 Speedrun of syntax / common operations by example.
 
-Skip everything section 6 (Classes) and on - these are covered better by *Python Distilled*.
+Skip everything section 6 (Classes) and on - these are covered better above / out of scope of this document.
