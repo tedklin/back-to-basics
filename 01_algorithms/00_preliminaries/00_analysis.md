@@ -36,14 +36,14 @@ However, in general, this procedure serves as a nice easy way to reason about an
 
 (from *Sedgewick*, p184)
 
-![procedure-example.png](assets/images/01_analysis/procedure-example.png)
+![procedure-example.png](assets/images/00_analysis/procedure-example.png)
 
 
 ## Visualizing orders of growth
 
 (from *Sedgewick*, p188)
 
-![visualizing-orders.png](assets/images/01_analysis/visualizing-orders.png)
+![visualizing-orders.png](assets/images/00_analysis/visualizing-orders.png)
 
 
 ## Formal notation for asymptotic analysis
@@ -57,7 +57,7 @@ However, in general, this procedure serves as a nice easy way to reason about an
 
 (from *Sedgewick*, p185)
 
-![relevant-math.png](assets/images/01_analysis/relevant-math.png)
+![relevant-math.png](assets/images/00_analysis/relevant-math.png)
 
 
 ## Amortized analysis
