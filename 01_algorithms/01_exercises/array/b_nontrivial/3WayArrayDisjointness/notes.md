@@ -2,7 +2,7 @@
 
 Problem statement: Goodrich & Tamassia 3.3.3.
 
-"The three-way set disjointness problem is to determine if the intersection of the three sequences is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C."
+"The three-way set disjointness problem is to determine if the intersection of three sequences is empty, namely, that there is no element x such that x ∈ A, x ∈ B, and x ∈ C."
 
 
 ## 1. Fully understand the problem statement, including asking clarifying questions and listing out possible inputs / expected outputs (basic functionality and a couple edge cases).
@@ -14,8 +14,8 @@ Problem statement: Goodrich & Tamassia 3.3.3.
 
 | Clarifying question | Answer | Reason for asking |
 | --- | --- | --- |
-| Are the sequences already sorted? | No. | Input structure - sorting at the start would incur additional cost. |
-| Are the elements *within* each sequence unique? | Yes. | Input structure. |
+| Are the input sequences already sorted? | No. | Input structure - sorting at the start would incur additional cost. |
+| Can there be duplicate elements within an individual input sequence? | No. | Input structure: Might open / close opportunities to use hashsets/maps or to actively prune search space. |
 | Given multiple collections, can we assume they are of same length? |  Yes. | Input structure: Affects efficiency analysis and possible solutions / implementation details. |
 | Is in-place modification of the input allowed? | No. | Problem semantics: Affects additional-memory analysis and possible solutions / implementation details. |
 | ... | ... | ... |
@@ -63,6 +63,8 @@ Let N = the length of each input list.
 Worst case: Theta(N^3) when there is no three-way common element.
 
 Best case: Theta(1) when the first element of each input list is the same.
+
+Overall: O(N^3)
 
 **Additional memory:**
 
@@ -151,7 +153,7 @@ Overall Theta(N). For counts map.
 
 ### Solution 4: solution from textbook (suboptimal runtime, but important example of runtime analysis / using problem assumptions)
 
-Rely on the assumption that elements *within* each input list are unique.
+Realize that instead of checking both conditions (two equalities) at once on all possible *triples*, we can check equality of one *pair* at a time and actively prune our search space (reminiscent of short-circuit evaluation). The efficiency improvement might not be immediately obvious, but after implementation we can see that efficiency improvement is guaranteed because of the assumption that there are no duplicate elements within an individual input sequence.
 
 ```
 def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:

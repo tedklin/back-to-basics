@@ -18,7 +18,7 @@ Problem statement: https://leetcode.com/problems/
 | *e.g. Given a collection, what is the range of possible lengths? Can we assume even/power-of-2 to simplify edge case handling? Can the length be 0?* |  ... | *Input structure / implementation details.* |
 | *e.g. Given a collection, what is the range of possible element values?* |  ... | *Input structure: Might open possibilities of algorithms on finite alphabets, e.g. tries, radix sorts.* |
 | *e.g. Given a graph, what is the range of possible edge weight values?* |  ... | *Input structure: Might open / close opportunities to use certain algorithms, e.g. Dijkstra's.* |
-| *e.g. Are elements in the input collection unique or can they be repeated?* |  ... | *Input structure: Might open / close opportunities to use hashsets/maps or actively prune search space.* |
+| *e.g. Can there be duplicate elements within (an individual if there are multiple) input collection? How about duplicate elements that are adjacent within an input sequence?* |  ... | *Input structure: Might open / close opportunities to use hashsets/maps or to actively prune search space.* |
 | *e.g. Given multiple collections, can we assume they are of same length?* |  ... | *Input structure: Affects efficiency analysis and possible solutions / implementation details.* |
 | *e.g. Is in-place modification of the input allowed?* | ... | *Problem semantics: Affects additional-memory analysis and possible solutions / implementation details.* |
 | *e.g. If there are multiple equally-optimal outputs, what should be returned?* |  ... | *Implementation details.* |
