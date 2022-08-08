@@ -16,8 +16,8 @@ Problem statement: Goodrich & Tamassia 3.3.3.
 | --- | --- | --- |
 | Are the sequences already sorted? | No. | Input structure - sorting at the start would incur additional cost. |
 | Are the elements *within* each sequence unique? | Yes. | Input structure. |
-| Are the sequences all of same of length? | Yes. | Input structure - affects runtime analysis. |
-| Is in-place modification of the input allowed? | No. | Problem semantics - affects additional memory analysis. |
+| Given multiple collections, can we assume they are of same length? |  Yes. | Input structure: Affects efficiency analysis and possible solutions / implementation details. |
+| Is in-place modification of the input allowed? | No. | Problem semantics: Affects additional-memory analysis and possible solutions / implementation details. |
 | ... | ... | ... |
 
 | Input | Expected output | Description |
@@ -47,7 +47,7 @@ Problem statement: Goodrich & Tamassia 3.3.3.
 ### Solution 1: naive/brute-force
 
 ```
-def is_disjoint(A: [int], B: [int], C: [int]) -> Bool:
+def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     for a in A:
         for b in B:
             for c in C:
@@ -72,7 +72,7 @@ None.
 ### Solution 2: sort then traverse together
 
 ```
-def is_disjoint(A: [int], B: [int], C: [int]) -> Bool:
+def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     # Takes NlogN time and N additional memory.
     sorted_A = sorted(A)
     sorted_B = sorted(B)
@@ -81,16 +81,16 @@ def is_disjoint(A: [int], B: [int], C: [int]) -> Bool:
     # TODO: check correctness and runtime analysis.
     # TODO: optimization - stop the search as soon as one of the lists is exhausted.
     idx_a, idx_b, idx_c = 0, 0, 0
-    while idx_a <= len(A) or idx_b <= len(B) or idx_c <= len(C):
-        while B[idx_b] < A[idx_a]:  # overall occurs between N and 2N times
-            idx_b += 1              # overall occurs N times
-        while C[idx_c] < B[idx_b]:  # overall occurs between N and 2N times
-            idx_c += 1              # overall occurs N times
-        assert(C[idx_C] >= B[idx_B] >= A[idx_a])
-        if A[idx_a] == B[idx_b] == C[idx_c]:    # overall occurs between N and 2N times (see notes below)
+    while idx_a <= len(sorted_A) or idx_b <= len(sorted_B) or idx_c <= len(sorted_C):
+        while sorted_B[idx_b] < sorted_A[idx_a]:  # overall occurs between N and 2N times
+            idx_b += 1                            # overall occurs N times
+        while sorted_C[idx_c] < sorted_B[idx_b]:  # overall occurs between N and 2N times
+            idx_c += 1                            # overall occurs N times
+        assert(sorted_C[idx_c] >= sorted_B[idx_b] >= sorted_A[idx_a])
+        if sorted_A[idx_a] == sorted_B[idx_b] == sorted_C[idx_c]:    # overall occurs between N and 2N times (see notes below)
             return False
         else:
-            idx_a += 1              # overall occurs N times
+            idx_a += 1                            # overall occurs N times
     return True
 ```
 
@@ -122,9 +122,9 @@ Overall Theta(N). For sorted lists.
 ### Solution 3: throw all elements in Counter-style map
 
 ```
-def is_disjoint(A: [int], B: [int], C: [int]) -> Bool:
+def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     counts = {}
-    def add_elems_to_counts(lst: [int]) -> None:
+    def add_elems_to_counts(lst: list[int]) -> None:
         nonlocal counts
         for elem in lst:
             if elem in counts:
@@ -154,7 +154,7 @@ Overall Theta(N). For counts map.
 Rely on the assumption that elements *within* each input list are unique.
 
 ```
-def is_disjoint(A: [int], B: [int], C: [int]) -> Bool:
+def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     for a in A:
         for b in B:
             if a == b:  # this check occurs O(N^2) times.
