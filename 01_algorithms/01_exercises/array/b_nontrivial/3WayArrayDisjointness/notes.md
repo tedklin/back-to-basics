@@ -73,6 +73,8 @@ None.
 
 ### Solution 2: sort then traverse together
 
+A similar problem: https://leetcode.com/problems/intersection-of-three-sorted-arrays/description/
+
 ```
 def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     # Takes NlogN time and N additional memory.
@@ -80,41 +82,32 @@ def is_disjoint(A: list[int], B: list[int], C: list[int]) -> bool:
     sorted_B = sorted(B)
     sorted_C = sorted(C)
 
-    # TODO: check correctness and runtime analysis.
-    # TODO: optimization - stop the search as soon as one of the lists is exhausted.
     idx_a, idx_b, idx_c = 0, 0, 0
-    while idx_a <= len(sorted_A) or idx_b <= len(sorted_B) or idx_c <= len(sorted_C):
-        while sorted_B[idx_b] < sorted_A[idx_a]:  # overall occurs between N and 2N times
-            idx_b += 1                            # overall occurs N times
-        while sorted_C[idx_c] < sorted_B[idx_b]:  # overall occurs between N and 2N times
-            idx_c += 1                            # overall occurs N times
-        assert(sorted_C[idx_c] >= sorted_B[idx_b] >= sorted_A[idx_a])
-        if sorted_A[idx_a] == sorted_B[idx_b] == sorted_C[idx_c]:    # overall occurs between N and 2N times (see notes below)
+    while idx_a < len(sorted_A) and idx_b < len(sorted_B) and idx_c < len(sorted_C):
+        val_a = sorted_A[idx_a]
+        val_b = sorted_B[idx_b]
+        val_c = sorted_C[idx_c]
+
+        if val_a == val_b == val_c:
             return False
-        else:
-            idx_a += 1                            # overall occurs N times
+
+        min_val = min(val_a, val_b, val_c)
+        if val_a == min_val:
+            idx_a += 1
+        if val_b == min_val:
+            idx_b += 1
+        if val_c == min_val:
+            idx_c += 1
+
     return True
 ```
 
 **Runtime:**
 
-TODO: think through this more thoroughly.
-
-How many times does the check `A[idx_a] == B[idx_b] == C[idx_c]` occur overall?
-- Case 1: all a∈A < all b∈B < all c∈C
-    - First, idx_a gets incremented until its end while idx_b and idx_c don't change. The check occurs N times.
-    - Second, idx_b gets incremented until its end while idx_c doesn't change. The check occurs N times.
-    - So overall 2N times.
-- Case 2: all a∈A < all c∈C < all b∈B
-    - On the first iteration of the outer loop, idx_c gets incremented until its end. The check occurs once.
-    - idx_a gets incremented until its end while idx_b doesn't change. The check occurs N times.
-    - So overall N times.
-- Case 3: A=[1, 4, 7, ...], B=[2, 5, 8, ...], C=[3, 6, 9, ...]
-    - The three indexes will essentially increment in lock step, and the check will occur on (idx_a, idx_b, idx_c) = (0,0,0), (1,1,1), (2,2,2), etc.
-    - So overall N times.
-- Case 4: everything else is a mix of the above extreme cases.
-
 Overall Theta(NlogN). Dominated by initial sorting.
+- Note that the while loop runs in Theta(N) time.
+    - On every iteration of the while loop, at least one index gets incremented, which means the while loop iterates no more than 3N times, with each iteration taking constant time.
+    - OTOH in the best case, all three indices get incremented on every iteration, which means the while loop iterates N times, with each iteration taking constant time.
 
 **Additional memory:**
 
