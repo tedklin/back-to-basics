@@ -7,7 +7,7 @@
 
 ### Fundamental approach
 
-Dynamic programming / memoization is a very general **optimization** (e.g. finding max/min) technique for discrete problems. It boils down to **efficiently enumerating** a large potential solution space to find the optimal solution.
+Dynamic programming / memoization is a very general **optimization** (i.e. finding max/min) and **counting** (e.g. Nth fibonacci) technique for discrete problems. It boils down to **efficiently enumerating** a large potential solution space to find the optimal solution.
 
 - Memoization ("top-down"):
     - Main idea: Augment a recursive solution with a lookup-table / cache for already-solved subproblems, so we don't do any repeated work.
@@ -29,7 +29,7 @@ Dynamic programming / memoization is a very general **optimization** (e.g. findi
     - [DPV Ch6](https://people.eecs.berkeley.edu/~vazirani/algorithms/chap6.pdf)
 
 
-### Finding the correct recursive subproblem definition
+### Finding the correct recursive subproblem definition (TODO: remove this section - moved to 01_algorithms/00_preliminaries/01_recursion.md)
 
 Finding the correct recursive subproblem definition is often the most difficult step.
 
