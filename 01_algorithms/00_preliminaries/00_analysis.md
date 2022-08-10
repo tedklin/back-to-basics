@@ -7,7 +7,7 @@ The "efficiency" of an algorithm usually refers to
 Here we are focusing on the *basic asymptotic analysis* of algorithm efficiency. We make mathematical approximations where appropriate, and we intentionally ignore the details of underlying hardware, compilers, etc. This makes our analysis simpler and more general.
 
 
-## General procedure for analyzing an algorithm's running time
+## A general procedure for analyzing an algorithm's running time
 
 The overarching question we want to answer through our analysis is: *how does a given algorithm's running time vary w.r.t. properties of its inputs?*
 
