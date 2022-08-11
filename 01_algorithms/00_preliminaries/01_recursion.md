@@ -40,7 +40,7 @@ A recursive function is defined in terms of one or more "base cases" and one "re
         - We define "the decomposition" in this context as *what we literally see written in the function definition*, i.e. the subproblem queries made **directly** by one call, **not including the subproblem queries made at any deeper levels of recursive execution**.
 
 
-## Design of recursive algorithms
+## Design of recursive algorithms (TODO: add relative links to 01_exercises?)
 
 This is a crucial (and often the most difficult) piece of the puzzle when solving problems ranging from [manipulation of linked-lists/trees] to [general optimization/counting with dynamic programming].
 
@@ -91,6 +91,9 @@ This is a crucial (and often the most difficult) piece of the puzzle when solvin
             - adding additional input variables to keep track of which portion of the original input each subproblem is looking at.
                 - e.g. `low, high` in binary search, keeping track of which subrange each subproblem is looking at.
                 - e.g. `node` in algorithms on tree data, keeping track of (the root of) which subtree each subproblem is looking at.
+            - adding additional input variables for any auxiliary state that will be updated throughout the recursion execution.
+                - e.g. the counter in "Count Univalue Subtrees".
+                - e.g. (Trie definition) `result` in `collectAllKeysRootedAt(node: TrieNode, result: [str])`.
             - defining a new "helper problem" that can better take advantage of naturally-recursive substructure.
                 - A helper problem is good when:
                     - a) it is straightforward to recurse on, i.e. its instances can be solved by combining solution-values of its subproblems.
@@ -99,12 +102,14 @@ This is a crucial (and often the most difficult) piece of the puzzle when solvin
                     - This turns out to be a good helper problem since:
                         - a) it is straightforward to recurse on (see "naturally-recursive input structures").
                         - b) we can solve any instance of the *original problem* by querying the helper problem instance for every possible `endNode` then simply (non-recursively) taking the maximum over those solution-values.
+                - You may need multiple helper problems if you break the original problem down into a sequence of discrete steps, each of which can be solved recursively.
+                    - e.g. (Trie definition) `collectAllKeysWithPrefix() -> [str]` can be broken down into `searchForKey(s: str) -> TrieNode` then `collectAllKeysRootedAt(node: TrieNode, result: [str])`.
         - Examples of intuition:
             - e.g. In "Knapsack Unbounded", we know that our optimum is *only* bounded by our allowed weight. In "Knapsack 0-1", we know that our optimum is bounded by *both* our allowed weight and which items we can choose from.
                 - These hint us toward the inputs we should define each respective problem in terms of.
             - e.g. *Increasing subsequences* are reminiscent of paths in a graph.
     - 2) Consider an instance "I" of the (helper) problem with general (NOT base/edge) input values (e.g. `x: int, lst: [int], node: TreeNode`).
-    - 3) **Assume we *already know*** the **solution-values** for **all** subproblems of I {e.g. all combinations of (`(x-1)`..`0`, `lst[:-1]`..`lst[:1]`, `root.left`/`root.right`/`root.left.left`/etc)}. How can we use/combine some subset of that knowledge to obtain the solution-value for I? Is it even possible or do we need more knowledge?
+    - 3) **Assume we *already know*** the **solution-values** for **all** subproblems of I {e.g. all combinations of (`(x-1)`..`0`, `lst[:-1]`..`lst[:1]`, `root.left`/`root.right`/`root.left.left`/etc)}. How can we use/combine some subset of that knowledge to obtain the solution-value for I? Is it even possible or do we need to keep track of more state / use a different decomposition (see notes under step 1)?
         - The assumption is "the recursive leap of faith" from [CS 61A](https://cs61a.org/).
     - **Rinse and repeat until something works!**
     - Example: (Length of) Longest Increasing Subsequence
@@ -125,7 +130,10 @@ This is a crucial (and often the most difficult) piece of the puzzle when solvin
 
 3. Figure out the base cases.
     - **Be careful and thorough!** Although this is supposed to be the easiest part of the process, it's also the part where I've most frequently made (avoidable) errors!
-    - TODO: common base cases and "arms-length recursion".
+    - (Repeated from *A summary of recursion*) Base cases often correspond to *emptiness* – the empty string, the empty list, the empty set, the empty tree, zero, etc. **Always try these first!**
+        - "Arms-length recursion" is an **anti**pattern where choosing base cases that are "too big" results in unnecessarily complicated case-checking.
+            - e.g. [a naive solution for "Max Depth Binary Tree"](../01_exercises/tree/a_basic/Q104_MaxDepthBinaryTree/java-archive/Solution.java).
+            - However, there are exceptions to this rule, e.g. ["Path Sum"](../01_exercises/tree/a_basic/Q112_PathSum/).
 
 
 ## The shape of recursive execution (all levels, overall work done)
@@ -184,4 +192,9 @@ Note that the following process was written with unmemoized recursive algorithms
     - Note that we can apply asymptotic equivalences to simplify the final result of this step.
 
 ### TODO: example with visuals
+
+
+## Additional references
+
+[MIT 6.006 Sp20 Lecture 15](https://www.youtube.com/watch?v=r4-cftqTcdI)
 
